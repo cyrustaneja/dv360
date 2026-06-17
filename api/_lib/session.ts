@@ -77,7 +77,7 @@ export async function createSession(claims: HubClaims): Promise<string> {
     .setProtectedHeader({ alg: 'HS256' })
     .setSubject(claims.sub)
     .setIssuedAt()
-    .setExpirationTime('8h')
+    .setExpirationTime('24h')
     .sign(sessionSecret())
 }
 
@@ -116,7 +116,7 @@ export function sessionCookie(token: string): string {
     'HttpOnly',
     'Path=/',
     'SameSite=Lax',
-    'Max-Age=28800',
+    'Max-Age=86400',
     secure ? 'Secure' : '',
   ].filter(Boolean).join('; ')
 }
