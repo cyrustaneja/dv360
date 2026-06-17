@@ -61,7 +61,7 @@ export default async function handler(req: any, res: any) {
     db.from('dv360_events').insert({
       user_id: claims.sub,
       event_type: `${type}_created`,
-      payload: { advertiser_id, name: fields.name ?? null },
+      payload: { advertiser_id, name: fields.name ?? null, batch: claims.batch ?? null, course: claims.course ?? null },
     }).then(() => {}, () => {})
 
     res.status(200).json({ row: data })
