@@ -1,4 +1,4 @@
-import { clearCookie } from './_lib/session'
+import { clearCookie } from './_lib/session.js'
 
 /** POST /api/logout → clear the local session cookie. */
 export default async function handler(_req: any, res: any) {

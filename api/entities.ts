@@ -1,4 +1,4 @@
-import { requireSession, admin, isStaff, type HubClaims } from './_lib/session'
+import { requireSession, admin, isStaff, type HubClaims } from './_lib/session.js'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 /**

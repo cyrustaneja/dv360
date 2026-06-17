@@ -1,4 +1,4 @@
-import { requireSession, admin, isStaff } from './_lib/session'
+import { requireSession, admin, isStaff } from './_lib/session.js'
 
 /**
  * GET  /api/advertisers          → advertisers the user can see (own; staff see all)

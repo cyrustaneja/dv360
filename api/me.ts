@@ -1,4 +1,4 @@
-import { readSession } from './_lib/session'
+import { readSession } from './_lib/session.js'
 
 /** GET /api/me → the current user's identity from the session cookie, or 401. */
 export default async function handler(req: any, res: any) {

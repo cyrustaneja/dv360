@@ -1,4 +1,4 @@
-import { verifyHubToken, createSession, sessionCookie } from './_lib/session'
+import { verifyHubToken, createSession, sessionCookie } from './_lib/session.js'
 
 /**
  * GET /sso?token=<hub RS256 JWT>  (the hub's default SSO_PATH; routed here via vercel.json)

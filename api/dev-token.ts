@@ -1,4 +1,4 @@
-import { createSession, sessionCookie, admin, type HubClaims } from './_lib/session'
+import { createSession, sessionCookie, admin, type HubClaims } from './_lib/session.js'
 
 /**
  * TEST-ONLY login ("backstage pass"). Lets us sign in as a fake student WITHOUT
