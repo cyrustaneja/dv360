@@ -10,14 +10,21 @@ import { createSession, sessionCookie, admin, type HubClaims } from './_lib/sess
  * Usage:  /api/dev-token?key=YOUR_SECRET[&role=student|expert|admin][&email=...][&name=...]
  */
 export default async function handler(req: any, res: any) {
+  // Allowed when running locally (host = localhost), OR when DEV_LOGIN_SECRET is
+  // set and the matching ?key= is provided. On Vercel prod the host is never
+  // localhost and DEV_LOGIN_SECRET is unset, so this stays fully disabled (404).
+  const host = String(req.headers?.host || '')
+  const isLocal = host.startsWith('localhost') || host.startsWith('127.0.0.1')
   const secret = process.env.DEV_LOGIN_SECRET
-  if (!secret) {
-    res.status(404).json({ error: 'Disabled. Set DEV_LOGIN_SECRET to enable test login.' })
-    return
-  }
-  if ((req.query?.key as string) !== secret) {
-    res.status(401).json({ error: 'Bad key.' })
-    return
+  if (!isLocal) {
+    if (!secret) {
+      res.status(404).json({ error: 'Disabled. Set DEV_LOGIN_SECRET to enable test login.' })
+      return
+    }
+    if ((req.query?.key as string) !== secret) {
+      res.status(401).json({ error: 'Bad key.' })
+      return
+    }
   }
 
   const role = (['student', 'expert', 'admin'].includes(req.query?.role)
