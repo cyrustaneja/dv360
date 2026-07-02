@@ -1,4 +1,5 @@
 import { useBreadcrumb } from '../../components/layout/breadcrumb'
+import { UpcomingBanner } from '../Placeholders'
 import { PageHeader } from '../../components/ui/primitives'
 import { FormRow, TextField, RadioRow, FormActionBar } from '../../components/ui/parts'
 import { ADVERTISER } from '../../data/mock'
@@ -8,6 +9,7 @@ export default function AdvertiserSettings() {
   return (
     <div className="pb-20">
       <PageHeader title="Advertiser settings" />
+      <UpcomingBanner />
       <div className="px-6 pt-2">
         <FormRow label="Advertiser name">
           <TextField value={ADVERTISER.name} width="w-96" />

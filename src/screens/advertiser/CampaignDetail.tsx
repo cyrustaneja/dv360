@@ -6,6 +6,7 @@ import { MetricCard } from '../../components/ui/parts'
 import { DataTable, type Column } from '../../components/ui/DataTable'
 import { Icon } from '../../lib/icons'
 import { useStore, type IORecord, type LIRecord } from '../../store'
+import { EntityHistory } from '../../components/EntityHistory'
 
 const ioCols: Column<IORecord>[] = [
   { key: 'name', header: 'Insertion orders', render: (r) => <span className="text-gblue-700">{r.name}</span> },
@@ -35,6 +36,7 @@ export default function CampaignDetail() {
   const { state } = useStore()
 
   const campaign = state.campaigns.find((c) => c.id === id) ?? state.campaigns[0]
+  const row = state.raw.campaigns.find((c) => c.id === id)
   const ios = state.ios.filter((io) => io.campaignId === id)
   const lineItems = state.lineItems.filter((li) =>
     ios.some((io) => io.id === li.ioId)
@@ -57,11 +59,20 @@ export default function CampaignDetail() {
   return (
     <div className="pb-8">
       <div className="flex items-center px-6 pt-4">
-        <h1 className="font-gsans text-22 text-gtext-primary">Campaign</h1>
-        <span className="ml-3 rounded bg-gbg-page px-2 py-0.5 text-11 font-medium text-gtext-secondary">Limited Access</span>
+        <h1 className="font-gsans text-22 text-gtext-primary">{campaign?.name ?? 'Campaign'}</h1>
+        <span className="ml-3 rounded bg-gbg-page px-2 py-0.5 text-11 font-medium text-gtext-secondary capitalize">{campaign?.status ?? 'active'}</span>
+        <Button variant="outlined" size="sm" className="ml-auto" onClick={() => navigate(`/advertiser/campaigns/${id}/edit`)}>
+          Edit campaign
+        </Button>
       </div>
-      <Tabs tabs={['Combined', 'Insertion orders', 'Line items']} active={tab} onChange={setTab} />
+      <Tabs tabs={['Combined', 'Insertion orders', 'Line items', 'Settings', 'History']} active={tab} onChange={setTab} />
 
+      {tab === 'History' ? (
+        <EntityHistory type="campaign" id={id ?? ''} />
+      ) : tab === 'Settings' ? (
+        <SettingsPanel row={row} onEdit={() => navigate(`/advertiser/campaigns/${id}/edit`)} />
+      ) : (
+      <>
       <div className="grid grid-cols-2 gap-4 px-6 py-4 lg:grid-cols-5">
         <MetricCard title="Total cost" value="₹0.00" sub="0% of ₹0.00 allocated" />
         <MetricCard title="Avg. CPM" value="₹0.00" sub="vs ₹260.00 goal" />
@@ -117,6 +128,43 @@ export default function CampaignDetail() {
         )}
       </div>
       <Pagination total={tab === 'Line items' ? lineItems.length : ios.length} />
+      </>
+      )}
+    </div>
+  )
+}
+
+function SettingsPanel({ row, onEdit }: { row: any; onEdit: () => void }) {
+  if (!row) return <div className="px-6 py-8 text-13 text-gtext-secondary">No settings found.</div>
+  const s = row.settings ?? {}
+  const freq = s.freq_mode === 'limited'
+    ? `${s.freq_count ?? '?'} per ${s.freq_period ?? 'day'}`
+    : 'No cap'
+  const items: [string, string][] = [
+    ['Campaign name', row.name ?? '—'],
+    ['Status', row.status ?? 'active'],
+    ['Goal', row.goal ?? '—'],
+    ['KPI', row.kpi_goal ?? '—'],
+    ['Planned spend', row.budget ?? '—'],
+    ['Flight dates', `${row.start_date ?? '—'} → ${row.end_date ?? '—'}`],
+    ['Frequency cap', freq],
+  ]
+  return (
+    <div className="px-6 py-5">
+      <div className="max-w-2xl rounded-lg border border-gborder bg-white">
+        <div className="flex items-center justify-between border-b border-gborder px-5 py-3">
+          <span className="text-14 font-medium text-gtext-primary">Campaign settings</span>
+          <Button variant="outlined" size="sm" onClick={onEdit}>Edit</Button>
+        </div>
+        <dl className="divide-y divide-gborder-light">
+          {items.map(([k, v]) => (
+            <div key={k} className="flex px-5 py-3 text-13">
+              <dt className="w-44 shrink-0 text-gtext-secondary">{k}</dt>
+              <dd className="text-gtext-primary capitalize">{v}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
     </div>
   )
 }

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { DV360Logo } from '../lib/icons'
 
 /** Shown when there's no valid hub session. Never a login form. */
@@ -6,6 +7,12 @@ export default function LaunchFromHub() {
   const isLocal =
     typeof window !== 'undefined' &&
     (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+  const [email, setEmail] = useState('')
+  const [role, setRole] = useState('student')
+  const devLogin = (r: string, em: string) => {
+    const e = em.trim() || `${r}@kraftshala.dev`
+    window.location.href = `/api/dev-token?role=${r}&email=${encodeURIComponent(e)}&name=${encodeURIComponent(e.split('@')[0])}`
+  }
   return (
     <div className="flex min-h-screen items-center justify-center bg-gbg-page px-4">
       <div className="w-full max-w-md rounded-lg border border-gborder bg-white p-10 text-center shadow-sm">
@@ -26,17 +33,27 @@ export default function LaunchFromHub() {
         </a>
 
         {isLocal && (
-          <div className="mt-8 border-t border-gborder-light pt-5">
-            <div className="mb-2 text-11 uppercase tracking-wide text-gtext-disabled">
+          <div className="mt-8 border-t border-gborder-light pt-5 text-left">
+            <div className="mb-2 text-center text-11 uppercase tracking-wide text-gtext-disabled">
               Developer login (local machine only)
             </div>
-            <div className="flex justify-center gap-2">
-              <a href="/api/dev-token?role=student&email=test.student@kraftshala.dev&name=Test%20Student"
-                 className="rounded border border-gborder px-3 py-1.5 text-12 text-gtext-primary hover:bg-gbg-page">Student</a>
-              <a href="/api/dev-token?role=expert&email=test.expert@kraftshala.dev&name=Test%20Expert"
-                 className="rounded border border-gborder px-3 py-1.5 text-12 text-gtext-primary hover:bg-gbg-page">Expert</a>
-              <a href="/api/dev-token?role=admin&email=test.admin@kraftshala.dev&name=Test%20Admin"
-                 className="rounded border border-gborder px-3 py-1.5 text-12 text-gtext-primary hover:bg-gbg-page">Admin</a>
+            <div className="mb-3 flex justify-center gap-2">
+              <button onClick={() => devLogin('student', 'test.student@kraftshala.dev')} className="rounded border border-gborder px-3 py-1.5 text-12 text-gtext-primary hover:bg-gbg-page">Student</button>
+              <button onClick={() => devLogin('expert', 'test.expert@kraftshala.dev')} className="rounded border border-gborder px-3 py-1.5 text-12 text-gtext-primary hover:bg-gbg-page">Expert</button>
+              <button onClick={() => devLogin('admin', 'test.admin@kraftshala.dev')} className="rounded border border-gborder px-3 py-1.5 text-12 text-gtext-primary hover:bg-gbg-page">Admin</button>
+            </div>
+            <div className="rounded border border-gborder-light bg-gbg-page p-2.5">
+              <div className="mb-1.5 text-11 text-gtext-secondary">Or sign in as a specific person (test isolation):</div>
+              <div className="flex items-center gap-2">
+                <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="e.g. asha@batch1.dev"
+                  className="h-8 flex-1 rounded border border-gborder px-2 text-12 focus:border-gblue-600 focus:outline-none" />
+                <select value={role} onChange={(e) => setRole(e.target.value)} className="h-8 rounded border border-gborder px-1 text-12">
+                  <option value="student">Student</option>
+                  <option value="expert">Expert</option>
+                  <option value="admin">Admin</option>
+                </select>
+                <button onClick={() => devLogin(role, email)} className="h-8 rounded bg-gblue-600 px-3 text-12 font-medium text-white hover:bg-gblue-700">Go</button>
+              </div>
             </div>
           </div>
         )}

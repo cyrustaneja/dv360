@@ -5,6 +5,7 @@ import { Banners } from './Banners'
 import { Sidebar } from './Sidebar'
 import { partnerNav, advertiserNav } from './nav'
 import { BreadcrumbProvider } from './breadcrumb'
+import { GuidedTour } from '../GuidedTour'
 
 /** Partner-scope layout (Overview, Advertisers, …). */
 export function PartnerLayout() {
@@ -30,6 +31,7 @@ function Shell({ nav, showWarning, showHome }: { nav: typeof partnerNav; showWar
           </main>
         </div>
       </div>
+      <GuidedTour />
     </BreadcrumbProvider>
   )
 }

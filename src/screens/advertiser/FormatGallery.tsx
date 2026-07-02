@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useBreadcrumb } from '../../components/layout/breadcrumb'
+import { UpcomingBanner } from '../Placeholders'
 import { PageHeader, Tabs } from '../../components/ui/primitives'
 import { Icon } from '../../lib/icons'
 import { ADVERTISER } from '../../data/mock'
@@ -21,6 +22,7 @@ export default function FormatGallery() {
   return (
     <div className="pb-8">
       <PageHeader title="Format gallery" />
+      <UpcomingBanner />
       <Tabs tabs={['All Formats', 'Video', 'Display', 'Native', 'Optimized']} active={tab} onChange={setTab} />
 
       <div className="px-6 py-5">

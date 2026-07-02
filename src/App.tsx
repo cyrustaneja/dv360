@@ -27,6 +27,7 @@ import NewInsertionOrder from './screens/wizards/NewInsertionOrder'
 import NewLineItem from './screens/wizards/NewLineItem'
 import NewTargetingTemplate from './screens/wizards/NewTargetingTemplate'
 import NewCreative from './screens/wizards/NewCreative'
+import NewAudience from './screens/wizards/NewAudience'
 
 // Light / empty screens
 import {
@@ -53,15 +54,20 @@ export const router = createHashRouter([
     children: [
       { path: '/advertiser/campaigns', element: <Campaigns /> },
       { path: '/advertiser/campaigns/new', element: <NewCampaign /> },
+      { path: '/advertiser/campaigns/:id/edit', element: <NewCampaign /> },
       { path: '/advertiser/campaigns/:id', element: <CampaignDetail /> },
       { path: '/advertiser/insertion-orders/new', element: <NewInsertionOrder /> },
+      { path: '/advertiser/insertion-orders/:id/edit', element: <NewInsertionOrder /> },
       { path: '/advertiser/insertion-orders/:id', element: <InsertionOrderDetail /> },
       { path: '/advertiser/line-items/new', element: <NewLineItem /> },
       { path: '/advertiser/line-items/:id', element: <LineItemDetail /> },
       { path: '/advertiser/audiences', element: <Audiences /> },
+      { path: '/advertiser/audiences/new', element: <NewAudience /> },
+      { path: '/advertiser/audiences/:id/edit', element: <NewAudience /> },
       { path: '/advertiser/audiences/analysis', element: <Analysis /> },
       { path: '/advertiser/creatives', element: <Creatives /> },
       { path: '/advertiser/creatives/new', element: <NewCreative /> },
+      { path: '/advertiser/creatives/:id/edit', element: <NewCreative /> },
       { path: '/advertiser/format-gallery', element: <FormatGallery /> },
       { path: '/advertiser/appeal-history', element: <AppealHistory /> },
       { path: '/advertiser/inventory/plans', element: <Plans /> },
@@ -73,6 +79,7 @@ export const router = createHashRouter([
       { path: '/advertiser/experiments', element: <Experiments /> },
       { path: '/advertiser/targeting-templates', element: <TargetingTemplates /> },
       { path: '/advertiser/targeting-templates/new', element: <NewTargetingTemplate /> },
+      { path: '/advertiser/targeting-templates/:id/edit', element: <NewTargetingTemplate /> },
       { path: '/advertiser/resources/*', element: <AdvResources /> },
       { path: '/advertiser/settings', element: <AdvertiserSettings /> },
       { path: '/advertiser/history', element: <History /> },

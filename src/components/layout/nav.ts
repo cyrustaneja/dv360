@@ -36,7 +36,7 @@ export const advertiserNav: NavNode[] = [
     label: 'Audiences',
     children: [
       { label: 'All audiences', to: '/advertiser/audiences', end: true },
-      { label: 'Analysis', to: '/advertiser/audiences/analysis' },
+      { label: 'Analysis', to: '/advertiser/audiences/analysis', upcoming: true },
     ],
   },
   {
@@ -44,38 +44,41 @@ export const advertiserNav: NavNode[] = [
     label: 'Creative',
     children: [
       { label: 'Creatives', to: '/advertiser/creatives' },
-      { label: 'Format gallery', to: '/advertiser/format-gallery' },
-      { label: 'Appeal history', to: '/advertiser/appeal-history' },
+      { label: 'Format gallery', to: '/advertiser/format-gallery', upcoming: true },
+      { label: 'Appeal history', to: '/advertiser/appeal-history', upcoming: true },
     ],
   },
   {
     icon: 'inventory_2',
     label: 'Inventory',
+    upcoming: true,
     children: [
-      { label: 'Plans', to: '/advertiser/inventory/plans' },
-      { label: 'My inventory', to: '/advertiser/inventory/my-inventory' },
-      { label: 'Marketplace', to: '/advertiser/inventory/marketplace' },
-      { label: 'Negotiations', to: '/advertiser/inventory/negotiations' },
+      { label: 'Plans', to: '/advertiser/inventory/plans', upcoming: true },
+      { label: 'My inventory', to: '/advertiser/inventory/my-inventory', upcoming: true },
+      { label: 'Marketplace', to: '/advertiser/inventory/marketplace', upcoming: true },
+      { label: 'Negotiations', to: '/advertiser/inventory/negotiations', upcoming: true },
     ],
   },
   {
     icon: 'bar_chart',
     label: 'Reports',
+    upcoming: true,
     children: [
-      { label: 'Offline reporting', to: '/advertiser/reports' },
-      { label: 'Report builder', to: '/advertiser/reports/builder' },
+      { label: 'Offline reporting', to: '/advertiser/reports', upcoming: true },
+      { label: 'Report builder', to: '/advertiser/reports/builder', upcoming: true },
     ],
   },
-  { icon: 'science', label: 'Experiments', to: '/advertiser/experiments' },
+  { icon: 'science', label: 'Experiments', to: '/advertiser/experiments', upcoming: true },
   { icon: 'ads_click', label: 'Targeting templates', to: '/advertiser/targeting-templates' },
   {
     icon: 'folder',
     label: 'Resources',
+    upcoming: true,
     children: [
-      { label: 'Floodlight', to: '/advertiser/resources/floodlight' },
-      { label: 'Combined audiences', to: '/advertiser/resources/combined-audiences' },
+      { label: 'Floodlight', to: '/advertiser/resources/floodlight', upcoming: true },
+      { label: 'Combined audiences', to: '/advertiser/resources/combined-audiences', upcoming: true },
     ],
   },
-  { icon: 'settings', label: 'Advertiser settings', to: '/advertiser/settings' },
-  { icon: 'history', label: 'History', to: '/advertiser/history' },
+  { icon: 'settings', label: 'Advertiser settings', to: '/advertiser/settings', upcoming: true },
+  { icon: 'history', label: 'History', to: '/advertiser/history', upcoming: true },
 ]

@@ -7,7 +7,7 @@
  * the UI layer barely changes.
  */
 import React, { createContext, useContext, useEffect, useState, useCallback } from 'react'
-import { api, type AdvertiserRow } from './lib/api'
+import { api, type AdvertiserRow, type Student } from './lib/api'
 import { useAuth } from './auth/AuthContext'
 import type { Campaign, Creative, InsertionOrder, LineItem } from './data/mock'
 
@@ -15,7 +15,11 @@ export interface Advertiser {
   id: string
   name: string
   batch: string | null
+  owner_email?: string | null
+  owner_name?: string | null
 }
+
+export type EntityType = 'campaign' | 'io' | 'line_item' | 'creative' | 'targeting_template' | 'audience'
 
 export interface IORecord extends InsertionOrder {
   campaignId: string
@@ -82,6 +86,7 @@ function mapCreative(r: any): Creative {
     type: r.creative_type ?? 'Standard',
     accent: r.accent ?? '#1a73e8',
     label: r.name,
+    image_url: r.settings?.image_url ?? null,
   }
 }
 
@@ -94,7 +99,27 @@ interface StoreState {
   ios: IORecord[]
   lineItems: LIRecord[]
   creatives: Creative[]
+  /** Raw DB rows (full fields incl. settings) for prefilling edit forms. */
+  raw: { campaigns: any[]; ios: any[]; lineItems: any[]; creatives: any[]; templates: any[]; audiences: any[] }
+  /** Staff only: list of students for the Expert "view any student" feature. */
+  students: Student[]
+  /** Staff only: when set, advertiser list is scoped to this student. */
+  viewingStudentId: string | null
   loading: boolean
+}
+
+export interface TemplateInput {
+  name: string
+  li_type?: string
+  targeting?: Record<string, unknown>
+  settings?: Record<string, unknown>
+}
+
+export interface AudienceInput {
+  name: string
+  audience_type?: string
+  source?: string
+  settings?: Record<string, unknown>
 }
 
 interface StoreApi {
@@ -103,9 +128,21 @@ interface StoreApi {
   reloadAdvertisers: () => Promise<void>
   createAdvertiser: (name: string, batch?: string) => Promise<string | null>
   addCampaign: (input: CampaignInput) => Promise<string | null>
+  updateCampaign: (id: string, input: CampaignInput) => Promise<boolean>
   addIO: (input: IOInput) => Promise<string | null>
+  updateIO: (id: string, input: IOInput) => Promise<boolean>
   addLineItem: (input: LIInput) => Promise<string | null>
+  updateLineItem: (id: string, input: LIInput) => Promise<boolean>
   addCreative: (input: CreativeInput) => Promise<string | null>
+  updateCreative: (id: string, input: CreativeInput) => Promise<boolean>
+  addTemplate: (input: TemplateInput) => Promise<string | null>
+  updateTemplate: (id: string, input: TemplateInput) => Promise<boolean>
+  addAudience: (input: AudienceInput) => Promise<string | null>
+  updateAudience: (id: string, input: AudienceInput) => Promise<boolean>
+  loadStudents: () => Promise<void>
+  setViewingStudent: (id: string | null) => void
+  deleteEntity: (type: EntityType, id: string) => Promise<boolean>
+  deleteAdvertiser: (id: string) => Promise<boolean>
 }
 
 export interface CampaignInput {
@@ -116,6 +153,8 @@ export interface CampaignInput {
   planned_spend?: string
   start_date?: string
   end_date?: string
+  status?: string
+  settings?: Record<string, unknown>
 }
 export interface IOInput {
   campaign_id: string
@@ -128,6 +167,8 @@ export interface IOInput {
   kpi_value?: string
   start_date?: string
   end_date?: string
+  status?: string
+  settings?: Record<string, unknown>
 }
 export interface LIInput {
   io_id: string
@@ -140,6 +181,8 @@ export interface LIInput {
   bid_amount?: string
   freq_cap?: string
   targeting?: Record<string, unknown>
+  status?: string
+  settings?: Record<string, unknown>
 }
 export interface CreativeInput {
   name: string
@@ -147,6 +190,7 @@ export interface CreativeInput {
   creative_type?: string
   click_url?: string
   accent?: string
+  settings?: Record<string, unknown>
 }
 
 const StoreCtx = createContext<StoreApi | null>(null)
@@ -163,14 +207,58 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const [ios, setIOs] = useState<IORecord[]>([])
   const [lineItems, setLineItems] = useState<LIRecord[]>([])
   const [creatives, setCreatives] = useState<Creative[]>([])
+  const [raw, setRaw] = useState<StoreState['raw']>({ campaigns: [], ios: [], lineItems: [], creatives: [], templates: [], audiences: [] })
+  const [students, setStudents] = useState<Student[]>([])
+  const [viewingStudentId, setViewingStudentId] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 
-  const reloadAdvertisers = useCallback(async () => {
+  const reloadAdvertisers = useCallback(async (studentId?: string | null) => {
     try {
-      const { advertisers } = await api.listAdvertisers()
-      setAdvertisers(advertisers.map((a: AdvertiserRow) => ({ id: a.id, name: a.name, batch: a.batch })))
+      const { advertisers } = await api.listAdvertisers(studentId ?? undefined)
+      setAdvertisers(advertisers.map((a: AdvertiserRow) => ({
+        id: a.id, name: a.name, batch: a.batch, owner_email: a.owner_email, owner_name: a.owner_name,
+      })))
     } catch {
       setAdvertisers([])
+    }
+  }, [])
+
+  const loadStudents = useCallback(async () => {
+    try {
+      const { students } = await api.listStudents()
+      setStudents(students)
+    } catch {
+      setStudents([])
+    }
+  }, [])
+
+  const setViewingStudent = useCallback((id: string | null) => {
+    setViewingStudentId(id)
+    reloadAdvertisers(id)
+  }, [reloadAdvertisers])
+
+  const deleteEntity = useCallback(async (type: EntityType, id: string) => {
+    try {
+      await api.deleteEntity(type, id)
+      const key = ({ campaign: 'campaigns', io: 'ios', line_item: 'lineItems', creative: 'creatives', targeting_template: 'templates', audience: 'audiences' } as const)[type]
+      setRaw((prev) => ({ ...prev, [key]: prev[key].filter((r: any) => r.id !== id) }))
+      if (type === 'campaign') setCampaigns((p) => p.filter((x) => x.id !== id))
+      if (type === 'io') setIOs((p) => p.filter((x) => x.id !== id))
+      if (type === 'line_item') setLineItems((p) => p.filter((x) => x.id !== id))
+      if (type === 'creative') setCreatives((p) => p.filter((x) => x.id !== id))
+      return true
+    } catch {
+      return false
+    }
+  }, [])
+
+  const deleteAdvertiser = useCallback(async (id: string) => {
+    try {
+      await api.deleteAdvertiser(id)
+      setAdvertisers((prev) => prev.filter((a) => a.id !== id))
+      return true
+    } catch {
+      return false
     }
   }, [])
 
@@ -192,8 +280,10 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       setIOs(d.ios.map(mapIO))
       setLineItems(d.lineItems.map(mapLI))
       setCreatives(d.creatives.map(mapCreative))
+      setRaw({ campaigns: d.campaigns, ios: d.ios, lineItems: d.lineItems, creatives: d.creatives, templates: d.templates ?? [], audiences: d.audiences ?? [] })
     } catch {
       setCampaigns([]); setIOs([]); setLineItems([]); setCreatives([])
+      setRaw({ campaigns: [], ios: [], lineItems: [], creatives: [], templates: [], audiences: [] })
     } finally {
       setLoading(false)
     }
@@ -221,11 +311,12 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     }
   }, [])
 
-  const create = useCallback(async (type: string, fields: Record<string, any>, map: (r: any) => any, set: React.Dispatch<any>) => {
+  const create = useCallback(async (type: string, fields: Record<string, any>, map: (r: any) => any, set: React.Dispatch<any>, rawKey: keyof StoreState['raw']) => {
     if (!currentId) return null
     try {
       const { row } = await api.createEntity({ type, advertiser_id: currentId, ...fields })
       set((prev: any[]) => [...prev, map(row)])
+      setRaw((prev) => ({ ...prev, [rawKey]: [...prev[rawKey], row] }))
       return row.id as string
     } catch {
       return null
@@ -233,25 +324,123 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   }, [currentId])
 
   const addCampaign = useCallback((input: CampaignInput) =>
-    create('campaign', input, mapCampaign, setCampaigns), [create])
+    create('campaign', input, mapCampaign, setCampaigns, 'campaigns'), [create])
+
+  const updateCampaign = useCallback(async (id: string, input: CampaignInput) => {
+    try {
+      const { row } = await api.updateEntity({ type: 'campaign', id, ...input })
+      setCampaigns((prev) => prev.map((c) => (c.id === id ? mapCampaign(row) : c)))
+      setRaw((prev) => ({ ...prev, campaigns: prev.campaigns.map((r) => (r.id === id ? row : r)) }))
+      return true
+    } catch {
+      return false
+    }
+  }, [])
   const addIO = useCallback((input: IOInput) =>
-    create('io', input, mapIO, setIOs), [create])
+    create('io', input, mapIO, setIOs, 'ios'), [create])
+
+  const updateIO = useCallback(async (id: string, input: IOInput) => {
+    try {
+      const { row } = await api.updateEntity({ type: 'io', id, ...input })
+      setIOs((prev) => prev.map((x) => (x.id === id ? mapIO(row) : x)))
+      setRaw((prev) => ({ ...prev, ios: prev.ios.map((r) => (r.id === id ? row : r)) }))
+      return true
+    } catch {
+      return false
+    }
+  }, [])
   const addLineItem = useCallback((input: LIInput) =>
-    create('line_item', input, mapLI, setLineItems), [create])
+    create('line_item', input, mapLI, setLineItems, 'lineItems'), [create])
+
+  const updateLineItem = useCallback(async (id: string, input: LIInput) => {
+    try {
+      const { row } = await api.updateEntity({ type: 'line_item', id, ...input })
+      setLineItems((prev) => prev.map((x) => (x.id === id ? mapLI(row) : x)))
+      setRaw((prev) => ({ ...prev, lineItems: prev.lineItems.map((r) => (r.id === id ? row : r)) }))
+      return true
+    } catch {
+      return false
+    }
+  }, [])
   const addCreative = useCallback((input: CreativeInput) =>
-    create('creative', input, mapCreative, setCreatives), [create])
+    create('creative', input, mapCreative, setCreatives, 'creatives'), [create])
+
+  const updateCreative = useCallback(async (id: string, input: CreativeInput) => {
+    try {
+      const { row } = await api.updateEntity({ type: 'creative', id, ...input })
+      setCreatives((prev) => prev.map((x) => (x.id === id ? mapCreative(row) : x)))
+      setRaw((prev) => ({ ...prev, creatives: prev.creatives.map((r) => (r.id === id ? row : r)) }))
+      return true
+    } catch {
+      return false
+    }
+  }, [])
+
+  const addTemplate = useCallback(async (input: TemplateInput) => {
+    if (!currentId) return null
+    try {
+      const { row } = await api.createEntity({ type: 'targeting_template', advertiser_id: currentId, ...input })
+      setRaw((prev) => ({ ...prev, templates: [...prev.templates, row] }))
+      return row.id as string
+    } catch {
+      return null
+    }
+  }, [currentId])
+
+  const updateTemplate = useCallback(async (id: string, input: TemplateInput) => {
+    try {
+      const { row } = await api.updateEntity({ type: 'targeting_template', id, ...input })
+      setRaw((prev) => ({ ...prev, templates: prev.templates.map((r) => (r.id === id ? row : r)) }))
+      return true
+    } catch {
+      return false
+    }
+  }, [])
+
+  const addAudience = useCallback(async (input: AudienceInput) => {
+    if (!currentId) return null
+    try {
+      const { row } = await api.createEntity({ type: 'audience', advertiser_id: currentId, ...input })
+      setRaw((prev) => ({ ...prev, audiences: [...prev.audiences, row] }))
+      return row.id as string
+    } catch {
+      return null
+    }
+  }, [currentId])
+
+  const updateAudience = useCallback(async (id: string, input: AudienceInput) => {
+    try {
+      const { row } = await api.updateEntity({ type: 'audience', id, ...input })
+      setRaw((prev) => ({ ...prev, audiences: prev.audiences.map((r) => (r.id === id ? row : r)) }))
+      return true
+    } catch {
+      return false
+    }
+  }, [])
 
   const currentAdvertiser = advertisers.find((a) => a.id === currentId) ?? null
 
   const value: StoreApi = {
-    state: { advertisers, currentAdvertiser, campaigns, ios, lineItems, creatives, loading },
+    state: { advertisers, currentAdvertiser, campaigns, ios, lineItems, creatives, raw, students, viewingStudentId, loading },
     selectAdvertiser,
     reloadAdvertisers,
     createAdvertiser,
     addCampaign,
+    updateCampaign,
     addIO,
+    updateIO,
     addLineItem,
+    updateLineItem,
     addCreative,
+    updateCreative,
+    addTemplate,
+    updateTemplate,
+    addAudience,
+    updateAudience,
+    loadStudents,
+    setViewingStudent,
+    deleteEntity,
+    deleteAdvertiser,
   }
   return <StoreCtx.Provider value={value}>{children}</StoreCtx.Provider>
 }

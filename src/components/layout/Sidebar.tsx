@@ -7,7 +7,17 @@ export interface NavNode {
   label: string
   to?: string
   end?: boolean
-  children?: { label: string; to: string; end?: boolean }[]
+  upcoming?: boolean
+  children?: { label: string; to: string; end?: boolean; upcoming?: boolean }[]
+}
+
+/** Small "Upcoming" pill shown next to not-yet-functional nav items. */
+function UpcomingTag({ light }: { light?: boolean }) {
+  return (
+    <span className={`ml-2 shrink-0 rounded-full px-1.5 py-0.5 text-[10px] font-medium ${light ? 'bg-white/20 text-white' : 'bg-gbg-page text-gtext-secondary'}`}>
+      Upcoming
+    </span>
+  )
 }
 
 interface Props {
@@ -43,7 +53,7 @@ export function Sidebar({ nav, collapsed }: Props) {
             <div key={n.label}>
               {n.to && !hasChildren ? (
                 <NavLink to={n.to} end={n.end} className="block">
-                  {({ isActive }) => <Row icon={n.icon} label={n.label} active={isActive} collapsed={collapsed} />}
+                  {({ isActive }) => <Row icon={n.icon} label={n.label} active={isActive} collapsed={collapsed} upcoming={n.upcoming} />}
                 </NavLink>
               ) : n.to && hasChildren ? (
                 // Group whose parent is itself a destination (e.g. Reports)
@@ -54,6 +64,7 @@ export function Sidebar({ nav, collapsed }: Props) {
                       label={n.label}
                       active={isActive}
                       collapsed={collapsed}
+                      upcoming={n.upcoming}
                       caret={hasChildren ? (isOpen ? 'expand_less' : 'expand_more') : undefined}
                       onCaret={(e) => {
                         e.preventDefault()
@@ -70,6 +81,7 @@ export function Sidebar({ nav, collapsed }: Props) {
                     label={n.label}
                     active={false}
                     collapsed={collapsed}
+                    upcoming={n.upcoming}
                     caret={isOpen ? 'expand_less' : 'expand_more'}
                   />
                 </button>
@@ -87,7 +99,8 @@ export function Sidebar({ nav, collapsed }: Props) {
                               : 'text-gtext-primary hover:bg-gbg-page'
                           }`}
                         >
-                          {c.label}
+                          <span className="flex-1 truncate">{c.label}</span>
+                          {c.upcoming && <UpcomingTag light={isActive} />}
                         </div>
                       )}
                     </NavLink>
@@ -109,6 +122,7 @@ function Row({
   collapsed,
   caret,
   onCaret,
+  upcoming,
 }: {
   icon: string
   label: string
@@ -116,6 +130,7 @@ function Row({
   collapsed: boolean
   caret?: string
   onCaret?: (e: React.MouseEvent) => void
+  upcoming?: boolean
 }) {
   return (
     <div
@@ -126,6 +141,7 @@ function Row({
     >
       <Icon name={icon} size={20} className={active ? 'text-white' : 'text-gtext-secondary'} filled={active} />
       {!collapsed && <span className="ml-5 flex-1 truncate text-13">{label}</span>}
+      {!collapsed && upcoming && <UpcomingTag light={active} />}
       {!collapsed && caret && (
         <span onClick={onCaret} className="flex h-6 w-6 items-center justify-center rounded-full hover:bg-black/5">
           <Icon name={caret} size={18} className={active ? 'text-white' : 'text-gtext-secondary'} />

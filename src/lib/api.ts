@@ -37,23 +37,44 @@ export const api = {
   me: () => req<Me>('/api/me'),
   logout: () => fetch('/api/logout', { method: 'POST', credentials: 'same-origin' }),
 
-  listAdvertisers: () => req<{ advertisers: AdvertiserRow[] }>('/api/advertisers'),
+  listAdvertisers: (userId?: string) =>
+    req<{ advertisers: AdvertiserRow[] }>(`/api/advertisers${userId ? `?user_id=${encodeURIComponent(userId)}` : ''}`),
   createAdvertiser: (name: string, batch?: string) =>
     req<{ advertiser: AdvertiserRow }>('/api/advertisers', {
       method: 'POST',
       body: JSON.stringify({ name, batch }),
     }),
+  deleteAdvertiser: (id: string) =>
+    req<{ ok: true }>(`/api/advertisers?id=${encodeURIComponent(id)}`, { method: 'DELETE' }),
+
+  listStudents: () => req<{ students: Student[] }>('/api/students'),
 
   loadEntities: (advertiserId: string) =>
     req<EntitiesResponse>(`/api/entities?advertiser_id=${encodeURIComponent(advertiserId)}`),
   createEntity: (payload: Record<string, unknown> & { type: string; advertiser_id: string }) =>
     req<{ row: any }>('/api/entities', { method: 'POST', body: JSON.stringify(payload) }),
+  updateEntity: (payload: Record<string, unknown> & { type: string; id: string }) =>
+    req<{ row: any }>('/api/entities', { method: 'PATCH', body: JSON.stringify(payload) }),
+  deleteEntity: (type: string, id: string) =>
+    req<{ ok: true }>(`/api/entities?type=${encodeURIComponent(type)}&id=${encodeURIComponent(id)}`, { method: 'DELETE' }),
+
+  uploadImage: (filename: string, contentType: string, dataBase64: string) =>
+    req<{ url: string }>('/api/upload', { method: 'POST', body: JSON.stringify({ filename, contentType, dataBase64 }) }),
+
+  history: (type: string, id: string) =>
+    req<{ events: HistoryEvent[] }>(`/api/history?type=${encodeURIComponent(type)}&id=${encodeURIComponent(id)}`),
 }
 
-export interface AdvertiserRow { id: string; name: string; batch: string | null; user_id: string }
+export interface HistoryEvent { action: string; actor: string; note: string | null; at: string }
+
+export interface Student { id: string; email: string; name: string | null; batch: string | null; advertisers: number }
+
+export interface AdvertiserRow { id: string; name: string; batch: string | null; user_id: string; owner_email?: string | null; owner_name?: string | null }
 export interface EntitiesResponse {
   campaigns: any[]
   ios: any[]
   lineItems: any[]
   creatives: any[]
+  templates: any[]
+  audiences: any[]
 }

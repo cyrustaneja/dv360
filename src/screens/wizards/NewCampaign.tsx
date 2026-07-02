@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useBreadcrumb } from '../../components/layout/breadcrumb'
 import { WizardShell, SectionTitle } from './WizardShell'
 import { TextField, FormRow, RadioRow } from '../../components/ui/parts'
@@ -23,25 +23,35 @@ const kpiOptions = [
 
 export default function NewCampaign() {
   const navigate = useNavigate()
-  const { state, addCampaign } = useStore()
+  const { id } = useParams()
+  const { state, addCampaign, updateCampaign, deleteEntity } = useStore()
   useBreadcrumb([{ label: 'Advertiser', name: state.currentAdvertiser?.name ?? '', to: '/advertiser/campaigns' }])
 
-  const [goal, setGoal] = useState(0)
-  const [name, setName] = useState('')
-  const [kpi, setKpi] = useState(0)
-  const [amount, setAmount] = useState('')
-  const [from, setFrom] = useState('Jun 1, 2026')
-  const [to, setTo] = useState('Jun 30, 2026')
+  // Edit mode: prefill from the saved row.
+  const existing = id ? state.raw.campaigns.find((c) => c.id === id) : null
+  const isEdit = Boolean(existing)
+  const s = existing?.settings ?? {}
+
+  const [goal, setGoal] = useState(() => Math.max(0, goals.findIndex((g) => g.title === existing?.goal)))
+  const [name, setName] = useState(existing?.name ?? '')
+  const [kpi, setKpi] = useState(() => Math.max(0, kpiOptions.findIndex((k) => k === existing?.kpi_goal)))
+  const [amount, setAmount] = useState(existing?.planned_spend ?? '')
+  const [from, setFrom] = useState(existing?.start_date ?? 'Jun 1, 2026')
+  const [to, setTo] = useState(existing?.end_date ?? 'Jun 30, 2026')
+  const [freqMode, setFreqMode] = useState<'no_cap' | 'limited'>(s.freq_mode === 'limited' ? 'limited' : 'no_cap')
+  const [freqCount, setFreqCount] = useState(s.freq_count ?? '3')
+  const [freqPeriod, setFreqPeriod] = useState(s.freq_period ?? 'day')
+  const [status, setStatus] = useState(existing?.status ?? 'active')
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
 
-  const handleCreate = async () => {
+  const handleSave = async () => {
     if (!name.trim()) {
       setError('Campaign name is required.')
       return
     }
     setBusy(true)
-    const id = await addCampaign({
+    const payload = {
       name: name.trim(),
       goal: goals[goal].title,
       kpi_goal: kpiOptions[kpi],
@@ -49,17 +59,33 @@ export default function NewCampaign() {
       planned_spend: amount,
       start_date: from,
       end_date: to,
-    })
-    setBusy(false)
-    if (!id) {
-      setError('Could not save. Check your connection and try again.')
-      return
+      status,
+      settings: { freq_mode: freqMode, freq_count: freqCount, freq_period: freqPeriod },
     }
-    navigate(`/advertiser/campaigns/${id}`)
+    if (isEdit && id) {
+      const ok = await updateCampaign(id, payload)
+      setBusy(false)
+      if (!ok) { setError('Could not save changes. Try again.'); return }
+      navigate(`/advertiser/campaigns/${id}`)
+    } else {
+      const newId = await addCampaign(payload)
+      setBusy(false)
+      if (!newId) { setError('Could not save. Check your connection and try again.'); return }
+      navigate(`/advertiser/campaigns/${newId}`)
+    }
+  }
+
+  const handleDelete = async () => {
+    if (!id || !confirm('Delete this campaign? This also deletes its insertion orders and line items.')) return
+    setBusy(true)
+    const ok = await deleteEntity('campaign', id)
+    setBusy(false)
+    if (ok) navigate('/advertiser/campaigns')
+    else setError('Could not delete. Try again.')
   }
 
   return (
-    <WizardShell title="New campaign" onPrimary={handleCreate} busy={busy}>
+    <WizardShell title={isEdit ? 'Edit campaign' : 'New campaign'} primary={isEdit ? 'Save' : 'Create'} onPrimary={handleSave} busy={busy} onDelete={isEdit ? handleDelete : undefined}>
       <SectionTitle>Campaign goal</SectionTitle>
       <p className="text-12 text-gtext-secondary">Choose the goal that best fits what you want this campaign to achieve.</p>
       <div className="mt-3 grid grid-cols-2 gap-3">
@@ -80,12 +106,7 @@ export default function NewCampaign() {
       <SectionTitle>Campaign details</SectionTitle>
       <div className="border-t border-gborder-light pt-3">
         <FormRow label="Campaign name">
-          <TextField
-            placeholder="Enter a campaign name"
-            value={name}
-            onChange={setName}
-            width="w-full"
-          />
+          <TextField placeholder="Enter a campaign name" value={name} onChange={setName} width="w-full" />
           {error && <p className="mt-1 text-12 text-gstatus-red">{error}</p>}
         </FormRow>
 
@@ -104,9 +125,34 @@ export default function NewCampaign() {
         </FormRow>
 
         <FormRow label="Frequency cap" hint="Limit how often a user sees your ads.">
-          <RadioRow label="No cap (Recommended)" checked={true} />
-          <RadioRow label="Set a frequency cap" />
+          <RadioRow label="No cap (Recommended)" checked={freqMode === 'no_cap'} onChange={() => setFreqMode('no_cap')} />
+          <RadioRow label="Set a frequency cap" checked={freqMode === 'limited'} onChange={() => setFreqMode('limited')} />
+          {freqMode === 'limited' && (
+            <div className="mt-2 flex items-end gap-3 pl-6">
+              <TextField label="Exposures" value={freqCount} onChange={setFreqCount} width="w-28" />
+              <div>
+                <label className="mb-1 block text-12 text-gtext-secondary">Per</label>
+                <select
+                  value={freqPeriod}
+                  onChange={(e) => setFreqPeriod(e.target.value)}
+                  className="h-9 rounded border border-gborder px-2 text-13"
+                >
+                  <option value="hour">Hour</option>
+                  <option value="day">Day</option>
+                  <option value="week">Week</option>
+                  <option value="month">Month</option>
+                </select>
+              </div>
+            </div>
+          )}
         </FormRow>
+
+        {isEdit && (
+          <FormRow label="Status">
+            <RadioRow label="Active" checked={status === 'active'} onChange={() => setStatus('active')} />
+            <RadioRow label="Paused" checked={status === 'paused'} onChange={() => setStatus('paused')} />
+          </FormRow>
+        )}
       </div>
     </WizardShell>
   )

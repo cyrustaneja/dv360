@@ -1,4 +1,5 @@
 import { useBreadcrumb } from '../../components/layout/breadcrumb'
+import { UpcomingBanner } from '../Placeholders'
 import { PageHeader, FilterBar } from '../../components/ui/primitives'
 import { Icon } from '../../lib/icons'
 import { ADVERTISER } from '../../data/mock'
@@ -15,6 +16,7 @@ export default function History() {
   return (
     <div className="pb-8">
       <PageHeader title="History" />
+      <UpcomingBanner />
       <FilterBar count={0} chip="" placeholder="Search change history" />
       <div className="px-6 pt-3">
         {entries.map((e, i) => (

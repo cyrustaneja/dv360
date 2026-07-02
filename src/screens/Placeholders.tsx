@@ -5,6 +5,17 @@ import { ADVERTISER, PARTNER } from '../data/mock'
 
 type Scope = 'partner' | 'advertiser'
 
+/** A small banner marking a screen as not-yet-functional. Reused across placeholders. */
+export function UpcomingBanner() {
+  return (
+    <div className="mx-6 mt-3 flex items-center gap-2 rounded border border-gborder bg-gbg-page px-3 py-2 text-12 text-gtext-secondary">
+      <Icon name="schedule" size={16} className="text-gtext-secondary" />
+      <span className="rounded-full bg-white px-2 py-0.5 text-[10px] font-medium text-gtext-primary">Upcoming</span>
+      This section is view-only for now — it's coming in a future update. Campaigns, insertion orders, line items, creatives, audiences and targeting templates are fully functional.
+    </div>
+  )
+}
+
 function useScopeCrumb(scope: Scope) {
   useBreadcrumb(
     scope === 'partner'
@@ -31,6 +42,7 @@ function EmptyScreen({
   return (
     <div className="pb-8">
       <PageHeader title={title} />
+      <UpcomingBanner />
       {cta && (
         <div className="px-6 pt-3">
           <Button variant="filled" size="sm">

@@ -1,4 +1,5 @@
 import { useBreadcrumb } from '../../../components/layout/breadcrumb'
+import { UpcomingBanner } from '../../Placeholders'
 import { PageHeader, FilterBar, Pagination, Button } from '../../../components/ui/primitives'
 import { DataTable, type Column } from '../../../components/ui/DataTable'
 import { Icon } from '../../../lib/icons'
@@ -22,6 +23,7 @@ export default function Plans() {
   return (
     <div className="pb-8">
       <PageHeader title="Plans" />
+      <UpcomingBanner />
       <div className="px-6 pt-3">
         <Button variant="filled" size="sm"><Icon name="add" size={18} /> New plan</Button>
       </div>

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useBreadcrumb } from '../../../components/layout/breadcrumb'
+import { UpcomingBanner } from '../../Placeholders'
 import { PageHeader, Tabs, FilterBar, Dropdown } from '../../../components/ui/primitives'
 import { Icon } from '../../../lib/icons'
 import { ADVERTISER } from '../../../data/mock'
@@ -12,6 +13,7 @@ export default function MyInventory() {
   return (
     <div className="pb-8">
       <PageHeader title="My inventory" />
+      <UpcomingBanner />
       <Tabs tabs={['Orders and deals', 'Packages', 'Deal groups']} active={tab} onChange={setTab} />
       <div className="flex items-center gap-3 px-6 pt-3">
         <Dropdown label={<span className="flex items-center gap-1 text-13"><Icon name="calendar_today" size={16} className="text-gtext-secondary" />Jun 1, 2026</span>} items={['Today', 'Last 7 days']} />

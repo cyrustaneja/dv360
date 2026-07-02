@@ -56,6 +56,7 @@ export interface Creative {
   type: string
   accent: string
   label: string
+  image_url?: string | null
 }
 
 export interface AudienceRow {

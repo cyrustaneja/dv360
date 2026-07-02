@@ -6,6 +6,7 @@ import { MetricCard, FormRow, RadioRow, TextField, FormActionBar } from '../../c
 import { DataTable, type Column } from '../../components/ui/DataTable'
 import { Icon } from '../../lib/icons'
 import { useStore, type LIRecord, type IORecord } from '../../store'
+import { EntityHistory } from '../../components/EntityHistory'
 
 const liCols: Column<LIRecord>[] = [
   { key: 'name', header: 'Display line items', render: (r) => (
@@ -26,8 +27,9 @@ const liCols: Column<LIRecord>[] = [
 export default function InsertionOrderDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const { state } = useStore()
+  const { state, updateIO } = useStore()
   const io = state.ios.find((i) => i.id === id) ?? state.ios[0]
+  const rawIo = state.raw.ios.find((i) => i.id === id)
   const ioLineItems = state.lineItems.filter((li) => li.ioId === id)
   const ioName = io?.name ?? 'Insertion order'
   useBreadcrumb([
@@ -52,8 +54,8 @@ export default function InsertionOrderDetail() {
       <Tabs tabs={['Line items', 'Insertion order details', 'History']} active={tab} onChange={setTab} />
 
       {tab === 'Line items' && <LineItemsTab navigate={navigate} ioId={id ?? ''} lineItems={ioLineItems} />}
-      {tab === 'Insertion order details' && <DetailsTab io={io} />}
-      {tab === 'History' && <HistoryTab name={ioName} />}
+      {tab === 'Insertion order details' && <DetailsTab raw={rawIo} ioId={id ?? ''} updateIO={updateIO} />}
+      {tab === 'History' && <EntityHistory type="io" id={id ?? ''} />}
     </div>
   )
 }
@@ -118,37 +120,91 @@ function LineItemsTab({
   )
 }
 
-function DetailsTab({ io }: { io: IORecord | undefined }) {
-  const [pacing, setPacing] = useState<'Flight' | 'Even'>('Flight')
+const kpiTypes = ['CPM', 'CPC', 'CPA', 'CTR', 'CPV', '% Viewable', 'CPIAVC', 'None']
+
+/** In-place editor for IO settings — persists to the database via updateIO. */
+function DetailsTab({ raw, ioId, updateIO }: {
+  raw: any
+  ioId: string
+  updateIO: (id: string, input: any) => Promise<boolean>
+}) {
+  const s = raw?.settings ?? {}
+  const [name, setName] = useState(raw?.name ?? '')
+  const [budget, setBudget] = useState((raw?.budget ?? '').replace(/[^0-9.]/g, ''))
+  const [desc, setDesc] = useState(s.budget_description ?? '')
+  const [startDate, setStartDate] = useState(raw?.start_date ?? 'Jun 1, 2026')
+  const [endDate, setEndDate] = useState(raw?.end_date ?? 'Jun 30, 2026')
+  const [pacing, setPacing] = useState<'Flight' | 'Even'>(raw?.pacing === 'Even' ? 'Even' : 'Flight')
+  const [kpiType, setKpiType] = useState(raw?.kpi_type ?? 'CPM')
+  const [kpiValue, setKpiValue] = useState(raw?.kpi_value ?? '')
+  const [status, setStatus] = useState(raw?.status ?? 'active')
+  const [busy, setBusy] = useState(false)
   const [saved, setSaved] = useState(false)
-  const budget = io?.budget?.replace('₹', '') ?? '0.00'
+
+  if (!raw) return <div className="px-6 py-8 text-13 text-gtext-secondary">Insertion order not found.</div>
+
+  const save = async () => {
+    setBusy(true)
+    const ok = await updateIO(ioId, {
+      campaign_id: raw.campaign_id,
+      name: name.trim() || raw.name,
+      budget: budget ? `₹${budget}` : '₹0.00',
+      pacing,
+      kpi_type: kpiType,
+      kpi_value: kpiValue,
+      start_date: startDate,
+      end_date: endDate,
+      status,
+      settings: { ...s, budget_description: desc },
+    })
+    setBusy(false)
+    setSaved(ok)
+  }
+
   return (
     <div className="px-6">
       <div className="flex items-center gap-2 py-4 text-13 text-gtext-primary">
         <Icon name="check_circle" size={18} className="text-gstatus-green" />
         Budget and pacing depend on both insertion order and line item settings.
       </div>
+      <FormRow label="Insertion order name">
+        <TextField value={name} onChange={setName} width="w-96" />
+      </FormRow>
       <FormRow label="Budget" hint="Budget type: INR">
         <div className="grid grid-cols-4 gap-3">
-          <TextField label="Budget" defaultValue={budget} />
-          <TextField label="Description" placeholder="" />
+          <TextField label="Budget (₹)" value={budget} onChange={setBudget} />
+          <TextField label="Description" value={desc} onChange={setDesc} />
           <TextField label="Spent" defaultValue="₹0.00" readOnly />
-          <TextField label="Remaining" defaultValue={io?.budget ?? '₹0.00'} readOnly />
+          <TextField label="Remaining" defaultValue={raw.budget ?? '₹0.00'} readOnly />
         </div>
         <div className="mt-3 grid grid-cols-2 gap-3">
-          <TextField label="Start date" defaultValue="Jun 1, 2026" />
-          <TextField label="End date" defaultValue="Jun 30, 2026" />
+          <TextField label="Start date" value={startDate} onChange={setStartDate} />
+          <TextField label="End date" value={endDate} onChange={setEndDate} />
         </div>
-        <button className="mt-3 text-13 font-medium text-gblue-700">+ Add segments</button>
       </FormRow>
       <FormRow label="Pacing" hint="How do you want to spend the flight budget?">
         <RadioRow label="Flight (Recommended)" checked={pacing === 'Flight'} hint="Spend your entire budget over the entire flight, without underpacing." onChange={() => setPacing('Flight')} />
         <RadioRow label="Even" checked={pacing === 'Even'} hint="Spend evenly each day." onChange={() => setPacing('Even')} />
       </FormRow>
       <FormRow label="KPI" hint="What KPI do you want to use for your insertion order?">
-        <TextField label="KPI type" defaultValue={io?.goal?.split(' ').pop() ?? 'CPM'} width="w-64" />
+        <div className="flex items-end gap-3">
+          <div>
+            <label className="mb-1 block text-12 text-gtext-secondary">KPI type</label>
+            <select value={kpiType} onChange={(e) => setKpiType(e.target.value)} className="h-9 w-44 rounded border border-gborder px-2 text-13">
+              {kpiTypes.map((k) => <option key={k}>{k}</option>)}
+            </select>
+          </div>
+          <TextField label="Target value" value={kpiValue} onChange={setKpiValue} width="w-36" />
+        </div>
       </FormRow>
-      <FormActionBar onSave={() => setSaved(true)} saved={saved} />
+      <FormRow label="Status">
+        <div className="flex gap-4">
+          <RadioRow label="Active" checked={status === 'active'} onChange={() => setStatus('active')} />
+          <RadioRow label="Paused" checked={status === 'paused'} onChange={() => setStatus('paused')} />
+          <RadioRow label="Draft" checked={status === 'draft'} onChange={() => setStatus('draft')} />
+        </div>
+      </FormRow>
+      <FormActionBar onSave={save} saved={saved && !busy} />
     </div>
   )
 }

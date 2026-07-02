@@ -10,12 +10,15 @@ export function WizardShell({
   primary = 'Create',
   onPrimary,
   busy,
+  onDelete,
 }: {
   title: string
   children: React.ReactNode
   primary?: string
   onPrimary?: () => void
   busy?: boolean
+  /** When provided (edit mode), shows a Delete button. */
+  onDelete?: () => void
 }) {
   const navigate = useNavigate()
   const close = () => navigate(-1)
@@ -39,6 +42,15 @@ export function WizardShell({
         <button onClick={close} className="text-13 font-medium text-gblue-700 hover:underline">
           Cancel
         </button>
+        {onDelete && (
+          <button
+            onClick={onDelete}
+            disabled={busy}
+            className="ml-auto flex items-center gap-1 text-13 font-medium text-gstatus-red hover:underline"
+          >
+            <Icon name="delete" size={18} /> Delete
+          </button>
+        )}
       </div>
     </div>
   )

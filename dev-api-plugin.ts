@@ -34,7 +34,7 @@ export function devApi(): Plugin {
 
         // Build a Vercel-ish req.
         req.query = Object.fromEntries(url.searchParams.entries())
-        if (req.method === 'POST' || req.method === 'PUT') {
+        if (['POST', 'PUT', 'PATCH', 'DELETE'].includes(req.method)) {
           req.body = await readBody(req)
         }
 

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useBreadcrumb } from '../../../components/layout/breadcrumb'
+import { UpcomingBanner } from '../../Placeholders'
 import { PageHeader, Tabs } from '../../../components/ui/primitives'
 import { Icon } from '../../../lib/icons'
 import { ADVERTISER } from '../../../data/mock'
@@ -19,6 +20,7 @@ export default function Marketplace() {
   return (
     <div className="pb-10">
       <PageHeader title="Marketplace" />
+      <UpcomingBanner />
       <Tabs tabs={['Featured', 'Discover']} active={tab} onChange={setTab} />
 
       <div className="px-6 py-5">
