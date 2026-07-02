@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../auth/AuthContext'
 import { useStore } from '../store'
@@ -21,8 +21,20 @@ export function GuidedTour() {
   const [welcomeSeen, setWelcomeSeen] = useState(() => localStorage.getItem(welcomeKey) === '1')
   const [done, setDone] = useState(() => localStorage.getItem(doneKey) === '1')
   const [open, setOpen] = useState(true)
+  const [forced, setForced] = useState(false)
 
-  if (role !== 'student' || done) return null
+  // Re-run the tour when the header/help "Take the tour" button fires the event.
+  useEffect(() => {
+    const handler = () => {
+      localStorage.removeItem(doneKey); localStorage.removeItem(welcomeKey)
+      setDone(false); setWelcomeSeen(false); setForced(true); setOpen(true)
+    }
+    window.addEventListener('dv360:start-tour', handler)
+    return () => window.removeEventListener('dv360:start-tour', handler)
+  }, [doneKey, welcomeKey])
+
+  // Auto-show for students; anyone can trigger it manually.
+  if ((role !== 'student' && !forced) || (done && !forced)) return null
 
   const adv = state.currentAdvertiser
   const firstCampaign = state.campaigns[0]
@@ -42,8 +54,8 @@ export function GuidedTour() {
   const current = steps.find((s) => !s.done)
   const allDone = !current
 
-  const skip = () => { localStorage.setItem(doneKey, '1'); setDone(true) }
-  const finish = () => { localStorage.setItem(doneKey, '1'); setDone(true) }
+  const skip = () => { localStorage.setItem(doneKey, '1'); setDone(true); setForced(false) }
+  const finish = () => { localStorage.setItem(doneKey, '1'); setDone(true); setForced(false) }
   const startTour = () => { localStorage.setItem(welcomeKey, '1'); setWelcomeSeen(true) }
 
   // Collapsed pill
