@@ -10,24 +10,17 @@ import { EntityHistory } from '../../components/EntityHistory'
 
 const ioCols: Column<IORecord>[] = [
   { key: 'name', header: 'Insertion orders', render: (r) => <span className="text-gblue-700">{r.name}</span> },
-  { key: 'id', header: 'ID', render: (r) => <span className="text-gtext-secondary">{r.id}</span> },
+  { key: 'status', header: 'Status', render: (r) => <span className="capitalize text-gtext-secondary">{r.status}</span> },
   { key: 'type', header: 'Type' },
-  { key: 'budget', header: 'Budget', align: 'right', group: 'Settings' },
-  { key: 'goal', header: 'Goal', align: 'right', group: 'Goal' },
-  { key: 'delivery', header: 'Delivery', align: 'right', group: 'Delivery' },
-  { key: 'impressions', header: 'Impr.', align: 'right', group: 'Delivery' },
-  { key: 'revenue', header: 'Revenue', align: 'right', group: 'Delivery' },
-  { key: 'conversions', header: 'Conv.', align: 'right', group: 'Conversions' },
+  { key: 'budget', header: 'Budget', align: 'right' },
+  { key: 'goal', header: 'Goal', align: 'right' },
 ]
 
 const liCols: Column<LIRecord>[] = [
   { key: 'name', header: 'Line items', render: (r) => <span className="text-gblue-700">{r.name}</span> },
-  { key: 'id', header: 'ID', render: (r) => <span className="text-gtext-secondary">{r.id}</span> },
+  { key: 'status', header: 'Status', render: (r) => <span className="capitalize text-gtext-secondary">{r.status}</span> },
   { key: 'type', header: 'Type' },
-  { key: 'budget', header: 'Budget', align: 'right', group: 'Settings' },
-  { key: 'goal', header: 'Goal', align: 'right', group: 'Goal' },
-  { key: 'impressions', header: 'Impr.', align: 'right', group: 'Delivery' },
-  { key: 'revenue', header: 'Revenue', align: 'right', group: 'Delivery' },
+  { key: 'budget', header: 'Budget', align: 'right' },
 ]
 
 export default function CampaignDetail() {
@@ -73,42 +66,14 @@ export default function CampaignDetail() {
         <SettingsPanel row={row} onEdit={() => navigate(`/advertiser/campaigns/${id}/edit`)} />
       ) : (
       <>
-      <div className="grid grid-cols-2 gap-4 px-6 py-4 lg:grid-cols-5">
-        <MetricCard title="Total cost" value="₹0.00" sub="0% of ₹0.00 allocated" />
-        <MetricCard title="Avg. CPM" value="₹0.00" sub="vs ₹260.00 goal" />
-        <MetricCard title="Impressions lost">
-          <div className="mt-2 text-12 text-gtext-secondary">To see impressions lost, check the box next to an insertion order.</div>
-        </MetricCard>
-        <MetricCard title="Added reach">
-          <div className="mt-2 text-12 text-gtext-secondary">Activate the frequency cap to see this metric.</div>
-        </MetricCard>
-        <MetricCard title="Explore budget options">
-          <div className="mt-2 text-12 text-gtext-secondary">No data available</div>
-        </MetricCard>
-      </div>
-
-      <div className="px-6 text-12 text-gtext-secondary">
-        Displaying data for {tab === 'Line items' ? lineItems.length : ios.length} entities
-      </div>
-
-      <div className="flex items-center gap-3 px-6 pt-3">
+      <div className="flex items-center gap-3 px-6 pt-4">
         <Button variant="filled" size="sm" onClick={handleNew}>
           {tab === 'Line items' ? 'New line item' : 'New insertion order'}
         </Button>
-        <Dropdown label={<span className="text-13">Performance</span>} items={['Performance', 'Pacing', 'Reach']} />
-        <Dropdown
-          label={<span className="flex items-center gap-1 text-13"><Icon name="calendar_today" size={16} className="text-gtext-secondary" />Jun 1, 2026</span>}
-          items={['Today', 'Last 7 days', 'Last 30 days', 'Custom']}
-        />
-        <Dropdown label={<span className="text-13">Segment by</span>} items={['None', 'Day', 'Week', 'Month']} />
-        <div className="ml-auto flex items-center gap-1">
-          <IconButton name="download" label="Download" />
-          <IconButton name="fullscreen" label="Fullscreen" />
-          <IconButton name="more_vert" label="More" />
-        </div>
+        <span className="text-12 text-gtext-secondary">
+          {tab === 'Line items' ? lineItems.length : ios.length} {tab === 'Line items' ? 'line item(s)' : 'insertion order(s)'}
+        </span>
       </div>
-
-      <FilterBar count={0} chip="" placeholder="Enter a search term or select filters" />
 
       <div className="mt-3">
         {tab === 'Line items' ? (

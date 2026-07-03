@@ -9,19 +9,11 @@ import { useStore, type LIRecord, type IORecord } from '../../store'
 import { EntityHistory } from '../../components/EntityHistory'
 
 const liCols: Column<LIRecord>[] = [
-  { key: 'name', header: 'Display line items', render: (r) => (
-    <span className="flex items-center gap-2 text-gblue-700">
-      {r.name}
-    </span>
-  ) },
-  { key: 'id', header: 'ID', render: (r) => <span className="text-gtext-secondary">{r.id}</span> },
+  { key: 'name', header: 'Line items', render: (r) => <span className="text-gblue-700">{r.name}</span> },
+  { key: 'status', header: 'Status', render: (r) => <span className="capitalize text-gtext-secondary">{r.status}</span> },
   { key: 'type', header: 'Type' },
-  { key: 'budget', header: 'Budget', align: 'right', group: 'Settings' },
-  { key: 'goal', header: 'Goal', align: 'right', group: 'Goal' },
-  { key: 'impressions', header: 'Impr.', align: 'right', group: 'Delivery' },
-  { key: 'clicks', header: 'Clicks', align: 'right', group: 'Delivery' },
-  { key: 'conversions', header: 'Convs.', align: 'right', group: 'Conversions' },
-  { key: 'cpm', header: 'CPM', align: 'right', group: 'Custom Bidding' },
+  { key: 'budget', header: 'Budget', align: 'right' },
+  { key: 'goal', header: 'Goal', align: 'right' },
 ]
 
 export default function InsertionOrderDetail() {
@@ -69,52 +61,22 @@ function LineItemsTab({
   ioId: string
   lineItems: LIRecord[]
 }) {
-  const [showBanner, setShowBanner] = useState(true)
   return (
     <>
-      <div className="grid grid-cols-2 gap-4 px-6 py-4 lg:grid-cols-5">
-        <MetricCard title="Total cost" value="₹0.00" sub="0% of budget allocated" />
-        <MetricCard title="Avg. CPM" value="₹0.00" sub="vs ₹260.00 goal" />
-        <MetricCard title="Impressions lost" value="0">
-          <Donut />
-        </MetricCard>
-        <MetricCard title="Added reach">
-          <div className="mt-2 text-12 text-gtext-secondary">Activate the frequency cap to see this metric.</div>
-        </MetricCard>
-        <MetricCard title="Explore budget options">
-          <div className="mt-2 text-12 text-gtext-secondary">No data available</div>
-        </MetricCard>
-      </div>
-
-      <div className="px-6 text-12 text-gtext-secondary">Displaying data for {lineItems.length} entities</div>
-
-      {showBanner && (
-        <div className="mx-6 mt-3 flex items-center gap-2 rounded bg-gblue-50 px-3 py-2 text-12 text-gtext-primary">
-          <Icon name="info" size={16} className="text-gblue-700" />
-          Quick access to edit Budget, Pacing, Bid Strategy and Frequency Cap can now be found in expanded Settings columns.
-          <button className="ml-auto font-medium text-gblue-700" onClick={() => setShowBanner(false)}>Dismiss</button>
-        </div>
-      )}
-
-      <div className="flex items-center gap-3 px-6 pt-3">
+      <div className="flex items-center gap-3 px-6 pt-4">
         <Button variant="filled" size="sm" onClick={() => navigate(`/advertiser/line-items/new?ioId=${ioId}`)}>
           New line item
         </Button>
-        <Dropdown label={<span className="text-13">Performance</span>} items={['Performance', 'Pacing']} />
-        <Dropdown label={<span className="flex items-center gap-1 text-13"><Icon name="calendar_today" size={16} className="text-gtext-secondary" />Jun 1, 2026</span>} items={['Today', 'Last 7 days']} />
-        <Dropdown label={<span className="text-13">Segment by</span>} items={['None', 'Day']} />
-        <div className="ml-auto flex items-center gap-1">
-          <IconButton name="download" label="Download" />
-          <IconButton name="fullscreen" label="Fullscreen" />
-          <IconButton name="more_vert" label="More" />
-        </div>
+        <span className="text-12 text-gtext-secondary">{lineItems.length} line item(s)</span>
       </div>
 
-      <FilterBar count={0} chip="" />
       <div className="mt-3">
-        <DataTable columns={liCols} rows={lineItems} leading={(r) => <StatusDot status={r.status} />} onRowClick={(r) => navigate(`/advertiser/line-items/${r.id}`)} />
+        {lineItems.length === 0 ? (
+          <div className="px-6 py-8 text-13 text-gtext-secondary">No line items yet. Click “New line item” to add one.</div>
+        ) : (
+          <DataTable columns={liCols} rows={lineItems} leading={(r) => <StatusDot status={r.status} />} onRowClick={(r) => navigate(`/advertiser/line-items/${r.id}`)} />
+        )}
       </div>
-      <div className="px-6 py-2 text-13 font-medium text-gtext-primary">Total: Display</div>
       <Pagination total={lineItems.length} />
     </>
   )

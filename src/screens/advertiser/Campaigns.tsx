@@ -10,21 +10,16 @@ import { useStore, type IORecord } from '../../store'
 
 const campaignCols: Column<Campaign>[] = [
   { key: 'name', header: 'Name', render: (r) => <span className="text-gblue-700">{r.name}</span> },
-  { key: 'id', header: 'ID', render: (r) => <span className="text-gtext-secondary">{r.id}</span> },
-  { key: 'budget', header: 'Budget', align: 'right', group: 'Delivery' },
-  { key: 'spent', header: 'Spent', align: 'right', group: 'Delivery' },
-  { key: 'kpiGoal', header: 'KPI Goal', align: 'right', group: 'Delivery' },
-  { key: 'kpiActual', header: 'KPI Actual', align: 'right', group: 'Delivery' },
+  { key: 'status', header: 'Status', render: (r) => <span className="capitalize text-gtext-secondary">{r.status}</span> },
+  { key: 'budget', header: 'Budget', align: 'right' },
+  { key: 'kpiGoal', header: 'KPI goal', align: 'right' },
 ]
 
 const ioCols: Column<IORecord>[] = [
   { key: 'name', header: 'Name', render: (r) => <span className="text-gblue-700">{r.name}</span> },
-  { key: 'id', header: 'ID', render: (r) => <span className="text-gtext-secondary">{r.id}</span> },
+  { key: 'status', header: 'Status', render: (r) => <span className="capitalize text-gtext-secondary">{r.status}</span> },
   { key: 'type', header: 'Type' },
-  { key: 'budget', header: 'Budget', align: 'right', group: 'Delivery' },
-  { key: 'goal', header: 'Goal', align: 'right', group: 'Delivery' },
-  { key: 'impressions', header: 'Impr.', align: 'right', group: 'Delivery' },
-  { key: 'revenue', header: 'Revenue', align: 'right', group: 'Delivery' },
+  { key: 'budget', header: 'Budget', align: 'right' },
 ]
 
 export default function Campaigns() {
