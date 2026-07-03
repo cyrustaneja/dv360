@@ -48,7 +48,8 @@ export async function verifyHubToken(token: string): Promise<HubClaims> {
   const { payload } = await jwtVerify(token, getJwks(), {
     issuer: env('HUB_URL'),
     audience: AUDIENCE,
-    algorithms: ['RS256'],
+    // The hub signs with EdDSA (Ed25519); accept RS256 too for flexibility.
+    algorithms: ['EdDSA', 'RS256'],
   })
   return {
     sub: String(payload.sub),
