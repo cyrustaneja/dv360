@@ -70,6 +70,12 @@ export default function LineItemDetail() {
         view_freq: { mode: form.viewMode, count: form.viewCount, period: form.viewPeriod },
         eu_political: form.euPolitical,
         creative_ids: form.creativeIds,
+        public_inventory: form.publicInventory,
+        optimized_targeting: form.optimizedTargeting,
+        open_measurement: form.openMeasurement,
+        conv_counting: form.convCounting,
+        attribution: form.attribution,
+        integration_code: form.integrationCode,
         last_note: note,
       },
     })
@@ -99,20 +105,22 @@ export default function LineItemDetail() {
 
       {tab === 'Line item details' && (
         <div className="px-6 py-4">
-          {isVideo && (
-            <div className="mb-3 flex items-center justify-between text-13">
-              <span className="text-gtext-secondary">No targeting template applied</span>
-              <span className="cursor-not-allowed text-gtext-disabled" title="Launching soon">Select a YouTube &amp; partners video targeting template</span>
-            </div>
-          )}
+          {/* Targeting template selector (top of the page in real DV360) */}
+          <div className="mb-4 flex items-center justify-between rounded-g border border-gborder bg-gbg-hover px-4 py-2.5 text-14">
+            <span className="text-gtext-secondary">No targeting template applied</span>
+            <span className="cursor-not-allowed text-gtext-disabled" title="Launching soon">
+              Select a {isVideo ? 'YouTube & partners video' : raw.li_type} targeting template
+            </span>
+          </div>
 
-          <Section title="Line item details">
-            <Row label="Line item name">
-              <input value={form.name} onChange={(e) => setF({ name: e.target.value })}
-                className="h-9 w-full max-w-xl rounded border border-gborder px-3 text-13 focus:border-gblue-600 focus:outline-none" />
+          <Section title="Line item name">
+            <Row label="Name">
+              <input value={form.name} onChange={(e) => setF({ name: e.target.value.slice(0, 240) })}
+                className="h-12 w-full max-w-xl rounded border border-gborder px-3 text-14 focus:border-gblue-600 focus:outline-none" />
+              <div className="mt-1 text-12 text-gtext-secondary">Text is {form.name.length} characters out of 240</div>
             </Row>
             <Row label="Status">
-              <select value={form.status} onChange={(e) => setF({ status: e.target.value })} className="h-9 w-40 rounded border border-gborder px-2 text-13">
+              <select value={form.status} onChange={(e) => setF({ status: e.target.value })} className="h-9 w-40 rounded border border-gborder px-2 text-14">
                 <option value="draft">Draft</option><option value="active">Active</option><option value="paused">Paused</option>
               </select>
             </Row>
@@ -120,7 +128,7 @@ export default function LineItemDetail() {
               <>
                 <ReadRow label="Media type" value="Video" sub="Run video ads across YouTube & partners" />
                 <Row label="Objective">
-                  <select value={form.objective} onChange={(e) => setF({ objective: e.target.value })} className="h-9 w-80 rounded border border-gborder px-2 text-13">
+                  <select value={form.objective} onChange={(e) => setF({ objective: e.target.value })} className="h-9 w-80 rounded border border-gborder px-2 text-14">
                     <option>Brand awareness and reach</option><option>Product and brand consideration</option><option>Online sales</option><option>Leads</option>
                   </select>
                 </Row>
@@ -136,38 +144,84 @@ export default function LineItemDetail() {
             )}
           </Section>
 
-          <Section title="Budget & pacing">
+          {/* Inventory source (Display) */}
+          {!isVideo && (
+            <Section title="Inventory source">
+              <div className="space-y-3 px-5 py-4">
+                <InvRow icon="check_circle" iconClass="text-gstatus-green" title="Public Inventory"
+                  desc={form.publicInventory ? '47 Exchanges and 0 Subexchanges are selected' : 'No exchanges selected'}
+                  action={<label className="flex items-center gap-1 text-13 text-gtext-secondary"><input type="checkbox" checked={form.publicInventory} onChange={(e) => setF({ publicInventory: e.target.checked })} className="accent-gblue-600" /> Targeting new exchanges</label>} />
+                <InvRow icon="sell" title="Deals and Packages" desc="0 deals and packages selected" />
+                <InvRow icon="folder" title="Deal groups and preferred deal groups" desc="No inventory groups selected" />
+              </div>
+            </Section>
+          )}
+
+          {/* Targeting */}
+          <Section title="Targeting">
+            <div className="px-5 py-4">
+              <div className="mb-3 max-w-2xl">
+                <div className="flex items-center gap-1 text-14 font-medium text-gtext-primary">Viewability</div>
+                <label className="mt-1 flex items-start gap-3 py-1">
+                  <input type="checkbox" checked={form.openMeasurement} onChange={(e) => setF({ openMeasurement: e.target.checked })} className="mt-1 accent-gblue-600" />
+                  <span><span className="text-14 text-gtext-primary">Open Measurement</span>
+                    <span className="block text-13 text-gtext-secondary">Target only Open Measurement enabled mobile display inventory.</span></span>
+                </label>
+              </div>
+              <TargetingBuilder value={form.targeting} onChange={(t: Targeting) => setF({ targeting: t })} audienceOptions={audienceOptions} />
+              <label className="mt-3 flex items-start gap-3 py-1">
+                <input type="checkbox" checked={form.optimizedTargeting} onChange={(e) => setF({ optimizedTargeting: e.target.checked })} className="mt-1 accent-gblue-600" />
+                <span className="flex items-center gap-1 text-14 text-gtext-primary"><Icon name="school" size={16} className="text-gtext-secondary" /> Use optimized targeting</span>
+              </label>
+              <button className="mt-3 text-14 font-medium text-glink hover:underline">Save as template</button>
+            </div>
+          </Section>
+
+          {/* Flight dates */}
+          <Section title="Flight dates">
             <Row label="Flight dates">
               <div className="flex items-center gap-3">
-                <input value={form.flightStart} onChange={(e) => setF({ flightStart: e.target.value })} className="h-9 w-40 rounded border border-gborder px-3 text-13" />
-                <span className="text-gtext-secondary">→</span>
-                <input value={form.flightEnd} onChange={(e) => setF({ flightEnd: e.target.value })} className="h-9 w-40 rounded border border-gborder px-3 text-13" />
+                <input value={form.flightStart} onChange={(e) => setF({ flightStart: e.target.value })} className="h-9 w-40 rounded border border-gborder px-3 text-14" />
+                <span className="text-gtext-secondary">to</span>
+                <input value={form.flightEnd} onChange={(e) => setF({ flightEnd: e.target.value })} className="h-9 w-40 rounded border border-gborder px-3 text-14" />
               </div>
             </Row>
+          </Section>
+
+          {/* Budget and pacing */}
+          <Section title="Budget and pacing">
+            <div className="px-5 py-3 text-13 text-gtext-secondary">Budget and pacing depend on both insertion order and line item settings.</div>
             <Row label="Budget and pacing">
               <div className="flex flex-wrap items-center gap-2">
-                <select value={form.pacingPeriod} onChange={(e) => setF({ pacingPeriod: e.target.value })} className="h-9 w-28 rounded border border-gborder px-2 text-13">
+                <input value={form.budget} onChange={(e) => setF({ budget: e.target.value, budgetType: 'limited' })} placeholder="₹0.00" className="h-9 w-28 rounded border border-gborder px-3 text-14" />
+                <span className="text-13 text-gtext-secondary">INR</span>
+                <select value={form.pacingPeriod} onChange={(e) => setF({ pacingPeriod: e.target.value })} className="h-9 w-28 rounded border border-gborder px-2 text-14">
                   <option>Daily</option><option>Flight</option>
                 </select>
-                <select value={form.pacingRate} onChange={(e) => setF({ pacingRate: e.target.value })} className="h-9 w-28 rounded border border-gborder px-2 text-13">
+                <select value={form.pacingRate} onChange={(e) => setF({ pacingRate: e.target.value })} className="h-9 w-28 rounded border border-gborder px-2 text-14">
                   <option value="even">Even</option><option value="ahead">Ahead</option><option value="asap">ASAP</option>
                 </select>
-                <input value={form.budget} onChange={(e) => setF({ budget: e.target.value, budgetType: 'limited' })} placeholder="₹1" className="h-9 w-28 rounded border border-gborder px-3 text-13" />
-                <span className="text-12 text-gtext-secondary">INR · actual spend on a given day may vary.</span>
               </div>
             </Row>
             <Row label="Bid strategy">
               {isVideo ? (
-                <div className="flex items-center gap-2 text-13 text-gtext-primary">
+                <div className="flex items-center gap-2 text-14 text-gtext-primary">
                   <Icon name="lock" size={16} className="text-gtext-secondary" /> Target CPM
-                  <span className="text-12 text-gtext-secondary">— can't be changed after creation.</span>
+                  <span className="text-13 text-gtext-secondary">— can't be changed after creation.</span>
                 </div>
               ) : (
-                <div className="flex items-center gap-3">
-                  <select value={form.bidStrategy} onChange={(e) => setF({ bidStrategy: e.target.value })} className="h-9 w-64 rounded border border-gborder px-2 text-13">
-                    {['Fixed bid', 'Maximize conversions', 'Maximize viewable impressions', 'Target CPA', 'Target ROAS', 'Target CPM'].map((b) => <option key={b}>{b}</option>)}
+                <div className="space-y-2">
+                  <select value={form.bidStrategy} onChange={(e) => setF({ bidStrategy: e.target.value })} className="h-9 w-72 rounded border border-gborder px-2 text-14">
+                    {['Automated bidding', 'Fixed bid', 'Maximize conversions', 'Maximize viewable impressions', 'Target CPA', 'Target ROAS', 'Target CPM'].map((b) => <option key={b}>{b}</option>)}
                   </select>
-                  <input value={form.bidAmount} onChange={(e) => setF({ bidAmount: e.target.value })} placeholder="Bid ₹" className="h-9 w-28 rounded border border-gborder px-3 text-13" />
+                  <div className="rounded-g border border-gborder-light bg-gbg-hover px-3 py-2 text-13 text-gtext-strong">
+                    Optimized towards <b>Maximize viewable impressions</b> while prioritizing spending my full budget (recommended)
+                  </div>
+                  <div className="flex items-center gap-2 text-13 text-gtext-secondary">
+                    <input type="checkbox" className="accent-gblue-600" /> Do not exceed average CPM of
+                    <input value={form.bidAmount} onChange={(e) => setF({ bidAmount: e.target.value })} placeholder="₹" className="h-8 w-24 rounded border border-gborder px-2 text-14" /> INR
+                  </div>
+                  <label className="flex items-center gap-2 text-13 text-gtext-secondary"><input type="checkbox" className="accent-gblue-600" /> Prioritize deals over open auction inventory</label>
                 </div>
               )}
             </Row>
@@ -185,26 +239,20 @@ export default function LineItemDetail() {
             </Row>
           </Section>
 
-          {/* Targeting — same builder & options as a targeting template */}
-          <div className="mt-5">
-            <h3 className="mb-2 text-15 text-gtext-primary">Targeting</h3>
-            <TargetingBuilder value={form.targeting} onChange={(t: Targeting) => setF({ targeting: t })} audienceOptions={audienceOptions} />
-          </div>
-
           {/* Creatives / Ads */}
           <Section title={isVideo ? 'Ads' : 'Creatives'}>
             <div className="px-5 py-4">
               {state.creatives.length === 0 ? (
-                <div className="text-13 text-gtext-secondary">No creatives yet for this advertiser. Add some under <span className="font-medium">Creative → Creatives</span>.</div>
+                <div className="text-14 text-gtext-secondary">No creatives yet for this advertiser. Add some under <span className="font-medium">Creative → Creatives</span>.</div>
               ) : (
                 <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                   {state.creatives.map((c) => {
                     const on = form.creativeIds.includes(c.id)
                     return (
-                      <label key={c.id} className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 ${on ? 'border-gblue-600 bg-gblue-50' : 'border-gborder hover:bg-gbg-page'}`}>
+                      <label key={c.id} className={`flex cursor-pointer items-center gap-3 rounded-g border p-3 ${on ? 'border-gblue-600 bg-gblue-50' : 'border-gborder hover:bg-gbg-page'}`}>
                         <input type="checkbox" checked={on} onChange={() => setF({ creativeIds: on ? form.creativeIds.filter((x) => x !== c.id) : [...form.creativeIds, c.id] })} />
                         {c.image_url ? <img src={c.image_url} alt="" className="h-8 w-12 shrink-0 rounded object-cover" /> : <span className="flex h-8 w-12 shrink-0 items-center justify-center rounded text-[9px] font-medium text-white" style={{ background: c.accent }}>{c.dimensions}</span>}
-                        <span className="min-w-0"><span className="block truncate text-13 text-gtext-primary">{c.name}</span><span className="text-11 text-gtext-secondary">{c.dimensions} · {c.type}</span></span>
+                        <span className="min-w-0"><span className="block truncate text-14 text-gtext-primary">{c.name}</span><span className="text-12 text-gtext-secondary">{c.dimensions} · {c.type}</span></span>
                       </label>
                     )
                   })}
@@ -214,24 +262,44 @@ export default function LineItemDetail() {
             </div>
           </Section>
 
-          {/* Disclosures */}
-          <Section title="Disclosures">
-            <Row label="EU political ads" hint="Does this line item run EU political ads?">
-              <label className="flex items-center gap-2 text-13"><input type="radio" checked={form.euPolitical} onChange={() => setF({ euPolitical: true })} /> Yes</label>
-              <label className="flex items-center gap-2 text-13"><input type="radio" checked={!form.euPolitical} onChange={() => setF({ euPolitical: false })} /> No, this line item doesn't have EU political ads</label>
+          {/* Conversions */}
+          <Section title="Conversions">
+            <Row label="Conversion counting" hint="Select the activity that represents a successful conversion.">
+              <select value={form.convCounting} onChange={(e) => setF({ convCounting: e.target.value })} className="h-9 w-64 rounded border border-gborder px-2 text-14">
+                <option>Count all conversions</option><option>Count post-click conversions</option>
+              </select>
+            </Row>
+            <Row label="Attribution model" hint="Model used for conversion measurement.">
+              <select value={form.attribution} onChange={(e) => setF({ attribution: e.target.value })} className="h-9 w-64 rounded border border-gborder px-2 text-14">
+                <option>Primary model</option><option>Last click</option><option>Data-driven</option>
+              </select>
             </Row>
           </Section>
 
-          {/* Advanced — launching soon */}
-          <Section title="Advanced">
-            <SoonRow label="Conversions" text="Conversion tracking, counting & attribution" />
-            <SoonRow label="Product feed" text="Google Merchant Center product feed" />
-            {isVideo && <SoonRow label="Related videos" text="Add related videos to boost engagement" />}
-            {isVideo && <SoonRow label="Ad groups" text="Manage ad groups & individual ads" />}
+          {/* Disclosures */}
+          <Section title="Disclosures">
+            <Row label="EU political ads" hint="Does this line item have European Union political ads?">
+              <label className="flex items-center gap-2 text-14"><input type="radio" checked={form.euPolitical} onChange={() => setF({ euPolitical: true })} /> Yes, this line item has EU political ads</label>
+              <label className="flex items-center gap-2 text-14"><input type="radio" checked={!form.euPolitical} onChange={() => setF({ euPolitical: false })} /> No, this line item doesn't have EU political ads</label>
+            </Row>
+          </Section>
+
+          {/* Additional settings */}
+          <Section title="Additional settings">
+            <div className="space-y-4 px-5 py-4">
+              <FeeTable title="Partner costs · CPM Fees" cols={['Name', 'Amount', 'Type', 'Invoiced']}
+                rows={[['CPM fee 1', '—', 'Default', 'Invoiced'], ['CPM fee 2', '—', 'Default', 'Invoiced']]} />
+              <FeeTable title="Media Fees" cols={['Name', 'Percentage', 'Type', '']}
+                rows={[['Media fee 1', '—', 'Automated cost', ''], ['Display & Video 360 Fee 🔒', '—', 'Automated cost', '']]} />
+              <div>
+                <label className="mb-1 block text-12 text-gtext-secondary">Integration Code</label>
+                <input value={form.integrationCode} onChange={(e) => setF({ integrationCode: e.target.value })} placeholder="Integration Code:" className="h-9 w-[360px] rounded border border-gborder px-3 text-14 focus:border-gblue-600 focus:outline-none" />
+              </div>
+            </div>
           </Section>
 
           <div className="mt-4">
-            <button onClick={remove} className="flex items-center gap-1 text-13 font-medium text-gstatus-red hover:underline">
+            <button onClick={remove} className="flex items-center gap-1 text-14 font-medium text-gstatus-red hover:underline">
               <Icon name="delete" size={18} /> Delete line item
             </button>
           </div>
@@ -287,6 +355,13 @@ function buildForm(raw: any) {
     euPolitical: Boolean(s.eu_political),
     creativeIds: (s.creative_ids ?? []) as string[],
     targeting: (raw?.targeting && Object.keys(raw.targeting).length ? raw.targeting : {}) as Targeting,
+    // Display line item extras (match real DV360)
+    publicInventory: s.public_inventory ?? true,
+    optimizedTargeting: s.optimized_targeting ?? false,
+    openMeasurement: s.open_measurement ?? false,
+    convCounting: s.conv_counting ?? 'Count all conversions',
+    attribution: s.attribution ?? 'Primary model',
+    integrationCode: s.integration_code ?? '',
   }
 }
 
@@ -321,6 +396,28 @@ function SoonRow({ label, text }: { label: string; text: string }) {
       <div className="w-56 shrink-0 text-13 text-gtext-primary">{label}</div>
       <div className="flex flex-1 items-center gap-2 text-13 text-gtext-secondary">{text}</div>
       <span className="rounded-full bg-gbg-page px-2 py-0.5 text-[10px] font-medium text-gtext-secondary">Launching soon</span>
+    </div>
+  )
+}
+function InvRow({ icon, iconClass = 'text-gtext-secondary', title, desc, action }: {
+  icon: string; iconClass?: string; title: string; desc: string; action?: React.ReactNode
+}) {
+  return (
+    <div className="flex items-center gap-3 rounded-g border border-gborder px-4 py-3">
+      <Icon name={icon} size={20} className={iconClass} />
+      <div className="flex-1"><div className="text-14 text-gtext-primary">{title}</div><div className="text-13 text-gtext-secondary">{desc}</div></div>
+      {action}
+    </div>
+  )
+}
+function FeeTable({ title, cols, rows }: { title: string; cols: string[]; rows: string[][] }) {
+  return (
+    <div className="max-w-2xl rounded-g border border-gborder">
+      <div className="border-b border-gborder bg-gbg-hover px-3 py-2 text-13 font-medium text-gtext-strong">{title}</div>
+      <table className="w-full text-13">
+        <thead><tr className="text-gtext-secondary">{cols.map((c, i) => <th key={i} className="px-3 py-2 text-left font-medium">{c}</th>)}</tr></thead>
+        <tbody>{rows.map((r, i) => <tr key={i} className="border-t border-gborder-light text-gtext-primary">{r.map((cell, j) => <td key={j} className="px-3 py-2">{cell}</td>)}</tr>)}</tbody>
+      </table>
     </div>
   )
 }

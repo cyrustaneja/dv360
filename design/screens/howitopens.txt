@@ -1,0 +1,206 @@
+Display & Video 360
+New targeting template
+explore
+Campaigns
+fullscreen
+people
+Audiences
+All audiences
+Analysis
+insert_photo
+Creative
+Creatives
+Format gallery
+Appeal history
+inventory
+Inventory
+Plans
+My inventory
+Marketplace
+Negotiations
+insert_chart
+Reports
+science
+Experiments
+library_books
+Targeting templates
+assignment
+Resources
+settings
+Advertiser settings
+history
+History
+Limited Access
+Template details
+Type
+Display
+Name
+Text is 0 characters out of 240
+Description
+Optional
+Text is 0 characters out of 600
+Inventory source
+Quality
+Authorized and Non-Participating Publishers
+help_outline
+Select who you want to buy web and app inventory from.
+Learn more
+open_in_new
+Public Inventory
+47 Exchanges and 0 Subexchanges are selected
+Targeting new exchanges
+edit
+Deals and Packages
+0 deals and packages selected
+Deal groups and preferred deal groups
+No inventory groups selected
+Targeting
+Viewability
+Open Measurement
+Target only Open Measurement enabled mobile display inventory.
+Audience lists
+No audience list targeting
+Optimized targeting
+Use optimized targeting
+school
+Add targeting
+Create
+Cancel
+search_spark
+Intelligence
+Kraftshala
+notifications_none
+Advertiser health
+No alerts
+lightbulb_outline
+Optimization suggestions
+There are no recommendations at this time
+arrow_back
+Quick help
+Beta
+Need help?
+Ask Advisor
+Ask anything about your account
+Need more help?
+support
+Contact us
+Tell us more and we'll help you get there
+announcement
+Leave feedback
+Send product feedback to us
+keyboard
+Keyboard shortcuts (?)
+Unsaved Changes
+You have made changes that have not been saved and will be lost
+Discard changes
+Continue editing
+Download Structured Data Files
+Downloading
+all
+Include CSV files for each
+Media Products
+Insertion orders
+Line items
+Using Excel to edit Structured Data Files may cause formatting errors.
+Next
+Download Metadata Files
+Select all
+Regions and Regional Location Lists
+Language
+Device Type
+Device Make/Model
+Device Operating System
+Browser
+Channels
+Negative Keyword List
+Categories
+Lookalike Audience List
+App Collections
+Audience List
+Custom List
+Carrier & ISP
+Upload structured data files
+and
+file_upload
+Drag your SDF files here to upload
+or, if you prefer
+Browse
+Upload
+Pause ad group
+Are you sure you want to pause this ad group?
+Pause
+Campaign download
+Hide
+Download
+clear
+Edit chart
+Save anyway
+Don't save
+Your line item has targeting conflicts with assigned creatives
+One or more of the assigned creatives are not compatible with the selected targeting.
+Apply
+Add Floodlight activities or Google Analytics conversions
+Conversion type
+Floodlight activities
+0 selected
+Clear all
+filter_alt
+Filters Applied:
+Status: Active
+view_list
+done
+Include
+First-party and partner audiences
+Add first-party and partner audiences to 'AND & OR' together.
+Add
+OR
+Google audiences
+Add affinity, in-market, and other audiences to 'OR' together.
+Add Google audiences to expand the size of your included audience.
+Combined audiences
+Add previously created audiences to 'OR' together.
+Add combined audiences to expand the size of your included audience.
+Custom lists
+Add (or create new) custom lists to 'OR' together.
+Select
+Create or select custom lists to 'OR' together.
+block
+Exclude
+Add first-party and partner audiences to 'OR' together.
+Exclude first-party and partner audiences you don't want to target.
+Exclude Google audiences you don't want to target.
+Impressions summary
+Based only on flight dates and targeting (without expansion).
+Overall impressions:
+Included impressions:
+Excluded impressions:
+Other targeting:
+(Diagram not to scale)
+Gender
+Male
+Female
+Data available for 100% of impressions
+Age
+No Data
+Desktop vs. Mobile
+Desktop
+Mobile
+Tablet
+CTV
+delete
+Content
+Brand suitability
+Apps & URLs
+Keywords
+Environment
+Position
+Added
+Audience
+Geography
+Day & time
+Demographics
+Technology
+Device
+Connection speed
+Loaded
+Press space for more information.

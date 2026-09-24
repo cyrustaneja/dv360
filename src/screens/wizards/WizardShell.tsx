@@ -28,7 +28,7 @@ export function WizardShell({
         <button onClick={close} className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-gbg-page">
           <Icon name="close" size={20} className="text-gtext-secondary" />
         </button>
-        <h1 className="text-15 text-gtext-primary">{title}</h1>
+        <h1 className="text-16 text-gtext-primary">{title}</h1>
       </div>
 
       <div className="flex-1 overflow-auto">
@@ -39,7 +39,7 @@ export function WizardShell({
         <Button variant="filled" size="sm" onClick={onPrimary ?? close} disabled={busy}>
           {busy ? 'Saving…' : primary}
         </Button>
-        <button onClick={close} className="text-13 font-medium text-gblue-700 hover:underline">
+        <button onClick={close} className="text-14 font-medium text-glink hover:underline">
           Cancel
         </button>
         {onDelete && (
@@ -57,5 +57,5 @@ export function WizardShell({
 }
 
 export function SectionTitle({ children }: { children: React.ReactNode }) {
-  return <h2 className="mb-1 mt-6 font-gsans text-[17px] text-gtext-primary">{children}</h2>
+  return <h2 className="mb-1 mt-6 font-gsans text-16 font-medium text-gtext-primary">{children}</h2>
 }

@@ -1,0 +1,13 @@
+### ACX SYSTEM COLOR TOKENS (base palette) ###
+--acx-sys-color--link-focus:#0b57d0
+--acx-sys-color--link-hover:#0842a0
+--acx-sys-color--link-visited-focus:#7438d2
+--acx-sys-color--link-visited-hover:#5629a4
+--acx-sys-color--link-visited:#7438d2
+--acx-sys-color--link:#0b57d0
+
+### ACX SYS TYPOGRAPHY / TYPESCALE TOKENS ###
+
+### ACX SYS SHAPE / RADIUS TOKENS ###
+
+### ACX SYS SPACING / SIZE TOKENS ###

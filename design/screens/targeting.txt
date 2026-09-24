@@ -1,0 +1,126 @@
+Display & Video 360
+New targeting template
+Campaigns
+Audiences
+Creative
+Inventory
+Reports
+Experiments
+Targeting templates
+Resources
+Advertiser settings
+History
+Limited Access
+Template details
+Type
+Display
+Name
+Text is 0 characters out of 240
+Description
+Optional
+Text is 0 characters out of 600
+Inventory source
+Quality
+Authorized and Non-Participating Publishers
+Select who you want to buy web and app inventory from.
+Learn more
+Public Inventory
+check
+47 Exchanges and 0 Subexchanges are selected
+Targeting new exchanges
+Deals and Packages
+0 deals and packages selected
+Deal groups and preferred deal groups
+No inventory groups selected
+Targeting
+Viewability
+Open Measurement
+lock
+Target only Open Measurement enabled mobile display inventory.
+Optimized targeting
+Use optimized targeting
+school
+Add targeting
+Create
+Cancel
+Intelligence
+Kraftshala
+Advertiser health
+No alerts
+Optimization suggestions
+There are no recommendations at this time
+Quick help
+Beta
+Need help?
+Ask Advisor
+Ask anything about your account
+Need more help?
+Contact us
+Tell us more and we'll help you get there
+Leave feedback
+Send product feedback to us
+Keyboard shortcuts (?)
+Unsaved Changes
+You have made changes that have not been saved and will be lost
+Discard changes
+Continue editing
+Download Structured Data Files
+Downloading
+all
+Include CSV files for each
+Media Products
+Insertion orders
+Line items
+Using Excel to edit Structured Data Files may cause formatting errors.
+Next
+Download Metadata Files
+Select all
+Regions and Regional Location Lists
+Language
+Device Type
+Device Make/Model
+Device Operating System
+Browser
+Channels
+Negative Keyword List
+Categories
+Lookalike Audience List
+App Collections
+Audience List
+Custom List
+Carrier & ISP
+Upload structured data files
+and
+Drag your SDF files here to upload
+or, if you prefer
+Browse
+Upload
+Pause ad group
+Are you sure you want to pause this ad group?
+Pause
+Campaign download
+Hide
+Download
+Discard changes?
+Keep editing
+Save anyway
+Don't save
+Your line item has targeting conflicts with assigned creatives
+clear
+Apply
+Add Floodlight activities or Google Analytics conversions
+Conversion type
+Floodlight activities
+0 selected
+Clear all
+Filters Applied:
+Status: Active
+view_list
+delete
+Loaded
+Press space for more information.
+Aug 1, 2026
+Aug 11, 2026
+Budget:
+Spent:
+Remaining:

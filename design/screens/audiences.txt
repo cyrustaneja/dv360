@@ -1,0 +1,98 @@
+Display & Video 360
+Advertiser
+Kraftshala
+You have 0 notifications
+Campaigns
+Audiences
+All audiences
+Analysis
+Creative
+Inventory
+Reports
+Experiments
+Targeting templates
+Resources
+Advertiser settings
+History
+First-party
+Custom lists
+Combined
+Partner
+Intelligence
+Advertiser health
+No alerts
+Optimization suggestions
+There are no recommendations at this time
+Quick help
+Beta
+Need help?
+Ask Advisor
+Ask anything about your account
+Need more help?
+Contact us
+Tell us more and we'll help you get there
+Leave feedback
+Send product feedback to us
+Keyboard shortcuts (?)
+Unsaved Changes
+You have made changes that have not been saved and will be lost
+Discard changes
+Continue editing
+Download Structured Data Files
+Downloading
+all
+Include CSV files for each
+Media Products
+Insertion orders
+Line items
+Using Excel to edit Structured Data Files may cause formatting errors.
+Learn more
+Next
+Cancel
+Download Metadata Files
+Select all
+Regions and Regional Location Lists
+Language
+Device Type
+Device Make/Model
+Device Operating System
+Browser
+Channels
+Negative Keyword List
+Categories
+Lookalike Audience List
+App Collections
+Audience List
+Custom List
+Carrier & ISP
+Upload structured data files
+Inventory source
+and
+Targeting
+Drag your SDF files here to upload
+or, if you prefer
+Browse
+Upload
+Pause ad group
+Are you sure you want to pause this ad group?
+Pause
+Campaign download
+Hide
+Download
+clear
+Edit chart
+Save anyway
+Don't save
+Your line item has targeting conflicts with assigned creatives
+One or more of the assigned creatives are not compatible with the selected targeting.
+Apply
+Add Floodlight activities or Google Analytics conversions
+Conversion type
+Floodlight activities
+0 selected
+Clear all
+Filters Applied:
+Status: Active
+view_list
+Loaded
+Press space for more information.

@@ -8,18 +8,22 @@ import { Icon } from '../../lib/icons'
 import { type Campaign } from '../../data/mock'
 import { useStore, type IORecord } from '../../store'
 
+// Columns mirror the real DV360 campaigns table.
 const campaignCols: Column<Campaign>[] = [
+  { key: 'status', header: 'Delivery', render: (r) => <span className="capitalize text-gtext-secondary">{r.status === 'active' ? 'Eligible' : r.status}</span> },
   { key: 'name', header: 'Name', render: (r) => <span className="text-gblue-700">{r.name}</span> },
-  { key: 'status', header: 'Status', render: (r) => <span className="capitalize text-gtext-secondary">{r.status}</span> },
   { key: 'budget', header: 'Budget', align: 'right' },
-  { key: 'kpiGoal', header: 'KPI goal', align: 'right' },
+  { key: 'spent', header: 'Spent', align: 'right', render: (r) => <span className="text-gtext-secondary">{r.spent || '₹0.00'}</span> },
+  { key: 'kpiGoal', header: 'KPI Goal', align: 'right' },
+  { key: 'kpiActual', header: 'KPI Actual', align: 'right', render: (r) => <span className="text-gtext-secondary">{r.kpiActual || '—'}</span> },
 ]
 
 const ioCols: Column<IORecord>[] = [
+  { key: 'status', header: 'Delivery', render: (r) => <span className="capitalize text-gtext-secondary">{r.status === 'active' ? 'Eligible' : r.status}</span> },
   { key: 'name', header: 'Name', render: (r) => <span className="text-gblue-700">{r.name}</span> },
-  { key: 'status', header: 'Status', render: (r) => <span className="capitalize text-gtext-secondary">{r.status}</span> },
   { key: 'type', header: 'Type' },
   { key: 'budget', header: 'Budget', align: 'right' },
+  { key: 'spent', header: 'Spent', align: 'right', render: () => <span className="text-gtext-secondary">₹0.00</span> },
 ]
 
 export default function Campaigns() {

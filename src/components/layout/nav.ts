@@ -51,20 +51,18 @@ export const advertiserNav: NavNode[] = [
   {
     icon: 'inventory_2',
     label: 'Inventory',
-    upcoming: true,
     children: [
-      { label: 'Plans', to: '/advertiser/inventory/plans', upcoming: true },
+      { label: 'Plans', to: '/advertiser/inventory/plans' },
       { label: 'My inventory', to: '/advertiser/inventory/my-inventory', upcoming: true },
-      { label: 'Marketplace', to: '/advertiser/inventory/marketplace', upcoming: true },
+      { label: 'Marketplace', to: '/advertiser/inventory/marketplace' },
       { label: 'Negotiations', to: '/advertiser/inventory/negotiations', upcoming: true },
     ],
   },
   {
     icon: 'bar_chart',
     label: 'Reports',
-    upcoming: true,
     children: [
-      { label: 'Offline reporting', to: '/advertiser/reports', upcoming: true },
+      { label: 'Overview', to: '/advertiser/reports', end: true },
       { label: 'Report builder', to: '/advertiser/reports/builder', upcoming: true },
     ],
   },

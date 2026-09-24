@@ -17,6 +17,7 @@ import FormatGallery from './screens/advertiser/FormatGallery'
 import MyInventory from './screens/advertiser/inventory/MyInventory'
 import Plans from './screens/advertiser/inventory/Plans'
 import Marketplace from './screens/advertiser/inventory/Marketplace'
+import Reports from './screens/advertiser/Reports'
 import TargetingTemplates from './screens/advertiser/TargetingTemplates'
 import AdvertiserSettings from './screens/advertiser/AdvertiserSettings'
 import History from './screens/advertiser/History'
@@ -74,7 +75,7 @@ export const router = createHashRouter([
       { path: '/advertiser/inventory/my-inventory', element: <MyInventory /> },
       { path: '/advertiser/inventory/marketplace', element: <Marketplace /> },
       { path: '/advertiser/inventory/negotiations', element: <Negotiations /> },
-      { path: '/advertiser/reports', element: <AdvReports /> },
+      { path: '/advertiser/reports', element: <Reports /> },
       { path: '/advertiser/reports/builder', element: <ReportBuilder /> },
       { path: '/advertiser/experiments', element: <Experiments /> },
       { path: '/advertiser/targeting-templates', element: <TargetingTemplates /> },

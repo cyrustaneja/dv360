@@ -15,7 +15,7 @@ body,
 body {
   margin: 0;
   font-family: 'Roboto', Arial, sans-serif;
-  font-size: 13px;
+  font-size: 14px; /* DV360 true base (ACX .875rem) */
   color: #202124;
   background: #fff;
   -webkit-font-smoothing: antialiased;

@@ -11,7 +11,16 @@ const objectives = [
   'Drive consideration',
   'Drive action / performance',
 ]
-const kpiTypes = ['CPM', 'CPC', 'CPA', 'CTR', 'CPV', '% Viewable', 'CPIAVC', 'None']
+const kpiTypes = [
+  'Cost per thousand impressions (CPM)',
+  'Cost per click (CPC)',
+  'Cost per action (CPA)',
+  'Click-through rate (CTR)',
+  'Cost per completed view (CPCV)',
+  'Viewable %',
+  'CPIAVC',
+  'Other / None',
+]
 
 export default function NewInsertionOrder() {
   const navigate = useNavigate()
@@ -33,7 +42,7 @@ export default function NewInsertionOrder() {
   const [endDate, setEndDate] = useState(existing?.end_date ?? 'Jun 30, 2026')
   const [pacingPeriod, setPacingPeriod] = useState(existing?.pacing ?? 'Flight')
   const [pacingRate, setPacingRate] = useState(s.pacing_rate ?? 'Even')
-  const [kpiType, setKpiType] = useState(existing?.kpi_type ?? 'CPM')
+  const [kpiType, setKpiType] = useState(existing?.kpi_type ?? kpiTypes[0])
   const [kpiValue, setKpiValue] = useState(existing?.kpi_value ?? '')
   const [freqMode, setFreqMode] = useState<'no_cap' | 'limited'>(existing?.freq_cap === 'limited' ? 'limited' : 'no_cap')
   const [freqCount, setFreqCount] = useState(s.freq_count ?? '3')
@@ -101,7 +110,7 @@ export default function NewInsertionOrder() {
         </FormRow>
 
         <FormRow label="Objective" hint="Choose a KPI and bid strategy for this objective.">
-          <select value={objective} onChange={(e) => setObjective(e.target.value)} className="h-9 w-80 rounded border border-gborder px-2 text-13">
+          <select value={objective} onChange={(e) => setObjective(e.target.value)} className="h-9 w-80 rounded border border-gborder px-2 text-14">
             {objectives.map((o) => <option key={o}>{o}</option>)}
           </select>
         </FormRow>
@@ -122,14 +131,14 @@ export default function NewInsertionOrder() {
           <div className="flex items-end gap-3">
             <div>
               <label className="mb-1 block text-12 text-gtext-secondary">Period</label>
-              <select value={pacingPeriod} onChange={(e) => setPacingPeriod(e.target.value)} className="h-9 w-44 rounded border border-gborder px-2 text-13">
+              <select value={pacingPeriod} onChange={(e) => setPacingPeriod(e.target.value)} className="h-9 w-44 rounded border border-gborder px-2 text-14">
                 <option>Flight</option>
                 <option>Daily</option>
               </select>
             </div>
             <div>
               <label className="mb-1 block text-12 text-gtext-secondary">Rate</label>
-              <select value={pacingRate} onChange={(e) => setPacingRate(e.target.value)} className="h-9 w-36 rounded border border-gborder px-2 text-13">
+              <select value={pacingRate} onChange={(e) => setPacingRate(e.target.value)} className="h-9 w-36 rounded border border-gborder px-2 text-14">
                 <option>Even</option>
                 <option>Ahead</option>
                 <option>ASAP</option>
@@ -145,7 +154,7 @@ export default function NewInsertionOrder() {
           <div className="flex items-end gap-3">
             <div>
               <label className="mb-1 block text-12 text-gtext-secondary">KPI type</label>
-              <select value={kpiType} onChange={(e) => setKpiType(e.target.value)} className="h-9 w-44 rounded border border-gborder px-2 text-13">
+              <select value={kpiType} onChange={(e) => setKpiType(e.target.value)} className="h-9 w-44 rounded border border-gborder px-2 text-14">
                 {kpiTypes.map((k) => <option key={k}>{k}</option>)}
               </select>
             </div>
@@ -161,7 +170,7 @@ export default function NewInsertionOrder() {
               <TextField label="Exposures" value={freqCount} onChange={setFreqCount} width="w-28" />
               <div>
                 <label className="mb-1 block text-12 text-gtext-secondary">Per</label>
-                <select value={freqPeriod} onChange={(e) => setFreqPeriod(e.target.value)} className="h-9 rounded border border-gborder px-2 text-13">
+                <select value={freqPeriod} onChange={(e) => setFreqPeriod(e.target.value)} className="h-9 rounded border border-gborder px-2 text-14">
                   <option value="hour">Hour</option>
                   <option value="day">Day</option>
                   <option value="week">Week</option>

@@ -17,11 +17,16 @@ export default async function handler(req: any, res: any) {
   const buffer = Buffer.from(String(dataBase64), 'base64')
   if (buffer.length > 5 * 1024 * 1024) { res.status(400).json({ error: 'Image too large (max 5 MB).' }); return }
 
+  // Only allow image uploads (bucket is public — don't host arbitrary blobs).
+  const allowed = ['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/svg+xml']
+  const ct = String(contentType || 'image/png').toLowerCase()
+  if (!allowed.includes(ct)) { res.status(400).json({ error: 'Only PNG, JPEG, GIF, WebP or SVG images are allowed.' }); return }
+
   const safe = String(filename || 'image').replace(/[^a-zA-Z0-9._-]/g, '_')
   const path = `${claims.sub}/${Date.now()}-${safe}`
   const db = admin()
   const { error } = await db.storage.from('dv360-creatives').upload(path, buffer, {
-    contentType: contentType || 'image/png',
+    contentType: ct,
     upsert: true,
   })
   if (error) { res.status(500).json({ error: error.message }); return }

@@ -1,0 +1,225 @@
+Display & Video 360
+Advertiser
+Kraftshala
+Campaign
+Kraftshala - Dummy Campaign
+You have 0 notifications
+Overview
+Mock_Display_April
+Mock_Display_Affinity+Inmarket
+Limited Access
+Line item details
+Troubleshooter
+History
+No targeting template applied
+Select a Display targeting template
+Line item name
+Name
+Text is 30 characters out of 240
+Draft
+Inventory source
+Public Inventory
+47 Exchanges and 0 Subexchanges are selected
+Targeting new exchanges
+Deals and Packages
+0 deals and packages selected
+Deal groups and preferred deal groups
+No inventory groups selected
+Targeting
+pen_spark
+Help me select audience lists and demographics
+Categories
+do_not_disturb
+Exclude the following categories
+/Games
+Viewability
+Open Measurement
+Target only Open Measurement enabled mobile display inventory.
+Audience lists
+Target people on any of the following lists:
+Display & Video 360 Audiences » Affinity Categories » Technology » Technophiles
+show 3 more
+Geography
+Region inclusions
+India (Country)
+Optimized targeting
+Use optimized targeting
+Save as template
+Flight dates
+From Apr 9, 2026 to May 9, 2026.
+Budget and pacing depend on both insertion order and line item settings.
+Budget and pacing
+₹0.00 INR
+Daily
+Even
+Bid strategy
+Automated bidding
+Optimized towards
+Maximize viewable impressions
+while prioritizing spending my full budget (recommended)
+Additional options
+Do not exceed average CPM of
+INR
+Prioritize deals over open auction inventory
+Fixed bid
+Frequency cap
+No limit
+Limit frequency to
+exposures per
+Month
+Creatives
+Advanced ad serving rate: ₹0.00 CPM
+Creative optimization
+Optimize towards line item's bid strategy
+ID
+CM360 ID
+Status
+Type
+Format
+AI label
+DV360 status
+Exchange status
+Dimensions
+Source
+Tag wrapping
+Display_April_#17929_version 04-01
+remove_red_eye
+Active
+Standard
+Image
+Servable
+Servable (1 of 2)
+No
+Display_April_Kraftshala #17597_black t-06
+Display_April_#22763_2-09
+Display_April_Kraftshala #17597_black t-05
+Display_April_#22763_2-07
+Display_April_Kraftshala #17597_black t-07
+Display_April_#22763_2-08
+Display_April_#22763_2-06
+Display_April_#22763_2-10
+Items per page:
+1 – 9 of 9
+Conversions
+Conversion tracking
+Select the activity or conversion that represents a successful conversion
+Select conversions
+Conversion counting
+Count all conversions
+Attribution model
+Select the attribution model to use for conversion measurement
+Primary model
+Disclosures
+EU political ads
+Does this line item have European Union political ads?
+Yes, this line item has EU political ads
+No, this line item doesn't have EU political ads
+Additional settings
+Revenue model
+Total media cost markup
+Partner costs
+CPM Fees
+Amount
+CPM fee 1
+Default
+Invoiced
+CPM fee 2
+Media Fees
+Percentage
+Media fee 1
+Automated cost
+Display & Video 360 Fee
+Media fee 2
+Integration Code
+Integration Code:
+Detail:
+Save
+Reset
+Optional: Enter a note about this change
+Intelligence
+There are no recommendations at this time
+Quick help
+Beta
+Need help?
+Ask Advisor
+Ask anything about your account
+Need more help?
+Contact us
+Tell us more and we'll help you get there
+Leave feedback
+Send product feedback to us
+Keyboard shortcuts (?)
+Unsaved Changes
+You have made changes that have not been saved and will be lost
+Discard changes
+Continue editing
+Download Structured Data Files
+Downloading
+all
+Include CSV files for each
+Campaigns
+Media Products
+Insertion orders
+Line items
+Using Excel to edit Structured Data Files may cause formatting errors.
+Learn more
+Next
+Cancel
+Download Metadata Files
+Select all
+Regions and Regional Location Lists
+Language
+Device Type
+Device Make/Model
+Device Operating System
+Browser
+Channels
+Negative Keyword List
+Lookalike Audience List
+App Collections
+Audience List
+Custom List
+Carrier & ISP
+Creative
+Upload structured data files
+and
+Drag your SDF files here to upload
+or, if you prefer
+Browse
+Upload
+Pause ad group
+Are you sure you want to pause this ad group?
+Pause
+Campaign download
+Hide
+Download
+clear
+Edit chart
+Save anyway
+Don't save
+Your line item has targeting conflicts with assigned creatives
+One or more of the assigned creatives are not compatible with the selected targeting.
+Discard changes?
+You have made changes to this line item that have not been saved and will be lost.
+Keep editing
+Display targeting templates
+Apply
+Select creatives
+Add Floodlight activities or Google Analytics conversions
+Conversion type
+Floodlight activities
+0 selected
+Clear all
+Filters Applied:
+Status: Active
+view_list
+View suggestions
+Dismiss
+delete
+No targeting suggestions
+Add to targeting
+Close
+Campaign settings
+Loaded
+Press space for more information.
+Sort
