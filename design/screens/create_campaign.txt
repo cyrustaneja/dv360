@@ -1,0 +1,16 @@
+# DV360 "Create a campaign" — official Help Center (answer 7205081)
+# Section order & fields (exact):
+1. Name — campaign name
+2. Goal + KPI — a goal and key performance indicator, optional specific KPI amount
+   (drives optimization recommendations, automatic budget allocation, performance viz)
+3. Creative type — the creative type you expect to use
+4. Planned spend (Optional) — total for all IOs; doesn't limit serving, for tracking
+5. Planned dates — flight dates campaign will run (don't affect serving)
+6. Campaign-level frequency cap — for all IOs and line items
+7. Inventory source(s) — public inventory / deals and auction packages / grouped deals
+   + inventory source quality based on Authorized Sellers
+8. Default targeting (inherited by new IOs + line items):
+   Demographics, Geography, Language, Brand safety, Inventory source, Environment, Viewability, Position
+9. Create (button)
+
+# Campaign statuses: Active, Paused, Archived, Completed

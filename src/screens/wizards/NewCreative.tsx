@@ -112,13 +112,13 @@ export default function NewCreative() {
           <button
             key={t.title}
             onClick={() => setCreativeType(i)}
-            className={`flex items-start gap-3 rounded-lg border p-4 text-left ${
+            className={`flex items-start gap-3 rounded-g border p-4 text-left ${
               creativeType === i ? 'border-gblue-600 bg-gblue-50' : 'border-gborder hover:bg-gbg-hover'
             }`}
           >
-            <Icon name={t.icon} size={24} className={creativeType === i ? 'text-gblue-700' : 'text-gtext-secondary'} />
+            <Icon name={t.icon} size={24} className={creativeType === i ? 'text-glink' : 'text-gtext-secondary'} />
             <span>
-              <span className="flex items-center gap-2 text-13 font-medium text-gtext-primary">
+              <span className="flex items-center gap-2 text-14 font-medium text-gtext-primary">
                 {t.title}
                 {t.soon && <span className="rounded-full bg-gbg-page px-1.5 py-0.5 text-[10px] font-medium text-gtext-secondary">Launching soon</span>}
               </span>
@@ -129,10 +129,10 @@ export default function NewCreative() {
       </div>
 
       {creativeTypes[creativeType].soon ? (
-        <div className="mt-6 rounded-lg border border-gborder bg-gbg-page p-6 text-center">
+        <div className="mt-6 rounded-g border border-gborder bg-gbg-page p-6 text-center">
           <Icon name="schedule" size={32} className="text-gtext-secondary" />
           <div className="mt-2 text-15 font-medium text-gtext-primary">{creativeTypes[creativeType].title} creatives are launching soon</div>
-          <div className="mt-1 text-13 text-gtext-secondary">This creative type isn’t available yet. For now, use <span className="font-medium">Standard display</span> with an uploaded image.</div>
+          <div className="mt-1 text-14 text-gtext-secondary">This creative type isn’t available yet. For now, use <span className="font-medium">Standard display</span> with an uploaded image.</div>
         </div>
       ) : (
       <>
@@ -155,19 +155,19 @@ export default function NewCreative() {
         <FormRow label="Creative image" hint="Upload the actual image for this ad (JPG, PNG, GIF, WebP).">
           <div
             onClick={() => fileRef.current?.click()}
-            className="flex cursor-pointer flex-col items-center gap-3 rounded-lg border-2 border-dashed border-gborder p-6 hover:border-gblue-600 hover:bg-gblue-50"
+            className="flex cursor-pointer flex-col items-center gap-3 rounded-g border-2 border-dashed border-gborder p-6 hover:border-gblue-600 hover:bg-gblue-50"
           >
             {uploading ? (
-              <div className="flex items-center gap-2 text-13 text-gtext-secondary"><span className="material-icons animate-spin text-gblue-600">progress_activity</span> Uploading…</div>
+              <div className="flex items-center gap-2 text-14 text-gtext-secondary"><span className="material-icons animate-spin text-gblue-600">progress_activity</span> Uploading…</div>
             ) : imageUrl ? (
               <>
                 <img src={imageUrl} alt="creative" className="max-h-48 rounded border border-gborder object-contain" />
-                <div className="text-12 text-gblue-700">Click to replace image</div>
+                <div className="text-12 text-glink">Click to replace image</div>
               </>
             ) : (
               <>
                 <Icon name="upload_file" size={40} className="text-gtext-secondary" />
-                <div className="text-13 text-gtext-primary">Click to upload an image</div>
+                <div className="text-14 text-gtext-primary">Click to upload an image</div>
                 <div className="text-12 text-gtext-secondary">JPG, PNG, GIF, WebP (max 5 MB)</div>
               </>
             )}
@@ -192,20 +192,20 @@ export default function NewCreative() {
               onChange={(e) => setAccentColor(e.target.value)}
               className="h-10 w-10 cursor-pointer rounded border border-gborder"
             />
-            <span className="text-13 text-gtext-secondary">{accentColor}</span>
+            <span className="text-14 text-gtext-secondary">{accentColor}</span>
           </div>
         </FormRow>
 
         <FormRow label="Advertiser" hint="Which advertiser does this creative belong to?">
           <div className="flex items-center gap-2 rounded border border-gborder px-3 py-2">
             <Icon name="business" size={16} className="text-gtext-secondary" />
-            <span className="text-13 text-gtext-primary">{state.currentAdvertiser?.name ?? ''}</span>
+            <span className="text-14 text-gtext-primary">{state.currentAdvertiser?.name ?? ''}</span>
           </div>
         </FormRow>
       </div>
 
       <SectionTitle>Preview</SectionTitle>
-      <div className="mt-3 flex items-center gap-4 rounded-lg border border-gborder p-4">
+      <div className="mt-3 flex items-center gap-4 rounded-g border border-gborder p-4">
         {imageUrl ? (
           <img src={imageUrl} alt="preview" className="h-20 w-[120px] shrink-0 rounded border border-gborder object-cover" />
         ) : (
@@ -214,9 +214,9 @@ export default function NewCreative() {
           </div>
         )}
         <div>
-          <div className="text-13 font-medium text-gtext-primary">{name || 'Creative name'}</div>
+          <div className="text-14 font-medium text-gtext-primary">{name || 'Creative name'}</div>
           <div className="text-12 text-gtext-secondary">{dimensions} · {creativeTypes[creativeType].title}</div>
-          {clickUrl && <div className="mt-1 truncate text-12 text-gblue-700">{clickUrl}</div>}
+          {clickUrl && <div className="mt-1 truncate text-12 text-glink">{clickUrl}</div>}
         </div>
       </div>
       </>

@@ -64,12 +64,12 @@ export default function NewAudience() {
           <button
             key={t.title}
             onClick={() => setTypeIdx(i)}
-            className={`flex flex-col items-start gap-2 rounded-lg border p-4 text-left ${
+            className={`flex flex-col items-start gap-2 rounded-g border p-4 text-left ${
               typeIdx === i ? 'border-gblue-600 bg-gblue-50' : 'border-gborder hover:bg-gbg-hover'
             }`}
           >
-            <Icon name={t.icon} size={22} className={typeIdx === i ? 'text-gblue-700' : 'text-gtext-secondary'} />
-            <span className="text-13 font-medium text-gtext-primary">{t.title}</span>
+            <Icon name={t.icon} size={22} className={typeIdx === i ? 'text-glink' : 'text-gtext-secondary'} />
+            <span className="text-14 font-medium text-gtext-primary">{t.title}</span>
             <span className="text-11 text-gtext-secondary">{t.desc}</span>
           </button>
         ))}
@@ -86,7 +86,7 @@ export default function NewAudience() {
             value={definition}
             onChange={(e) => setDefinition(e.target.value)}
             placeholder="e.g. People interested in ethnic wear AND visited the festive collection page in the last 30 days"
-            className="h-24 w-full rounded border border-gborder p-2 text-13 focus:border-gblue-600 focus:outline-none"
+            className="h-24 w-full rounded border border-gborder p-2 text-14 focus:border-gblue-600 focus:outline-none"
           />
         </FormRow>
         <FormRow label="Membership duration (days)" hint="How long a user stays in the audience after qualifying.">
