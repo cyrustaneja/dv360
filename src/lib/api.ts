@@ -1,4 +1,5 @@
 /** Thin client for our serverless /api. Auth is via the httpOnly session cookie. */
+import { toast } from '../components/ui/Toast'
 
 export type Role = 'admin' | 'expert' | 'student'
 
@@ -53,8 +54,11 @@ export const api = {
     req<EntitiesResponse>(`/api/entities?advertiser_id=${encodeURIComponent(advertiserId)}`),
   createEntity: (payload: Record<string, unknown> & { type: string; advertiser_id: string }) =>
     req<{ row: any }>('/api/entities', { method: 'POST', body: JSON.stringify(payload) }),
-  updateEntity: (payload: Record<string, unknown> & { type: string; id: string }) =>
-    req<{ row: any }>('/api/entities', { method: 'PATCH', body: JSON.stringify(payload) }),
+  updateEntity: async (payload: Record<string, unknown> & { type: string; id: string }) => {
+    const r = await req<{ row: any }>('/api/entities', { method: 'PATCH', body: JSON.stringify(payload) })
+    toast('Changes saved')
+    return r
+  },
   deleteEntity: (type: string, id: string) =>
     req<{ ok: true }>(`/api/entities?type=${encodeURIComponent(type)}&id=${encodeURIComponent(id)}`, { method: 'DELETE' }),
 

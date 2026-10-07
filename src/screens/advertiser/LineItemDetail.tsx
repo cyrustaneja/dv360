@@ -7,6 +7,7 @@ import { useStore } from '../../store'
 import { TargetingBuilder, type Targeting } from '../../components/TargetingBuilder'
 import { isYouTubeType } from '../../components/TypePicker'
 import { EntityHistory } from '../../components/EntityHistory'
+import { UnsavedChangesGuard } from '../../components/UnsavedChangesGuard'
 
 /**
  * DV360-style line item detail — inline editable (Save / Reset / note bar), with
@@ -94,6 +95,7 @@ export default function LineItemDetail() {
 
   return (
     <div className="pb-28">
+      <UnsavedChangesGuard when={dirty && !busy} />
       <div className="px-6 pt-4">
         <button onClick={() => navigate(-1)} className="text-12 text-gblue-700 hover:underline">‹ Overview</button>
         <div className="mt-1 flex items-center">
