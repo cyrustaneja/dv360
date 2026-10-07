@@ -7,6 +7,7 @@ import { DataTable, type Column } from '../../components/ui/DataTable'
 import { Icon } from '../../lib/icons'
 import { useStore, type LIRecord, type IORecord } from '../../store'
 import { EntityHistory } from '../../components/EntityHistory'
+import { UnsavedChangesGuard } from '../../components/UnsavedChangesGuard'
 
 const liCols: Column<LIRecord>[] = [
   { key: 'name', header: 'Line items', render: (r) => <span className="text-gblue-700">{r.name}</span> },
@@ -125,6 +126,17 @@ function DetailsTab({ raw, ioId, updateIO }: {
 
   if (!raw) return <div className="px-6 py-8 text-14 text-gtext-secondary">Insertion order not found.</div>
 
+  // Dirty = any field differs from the values loaded from the saved row.
+  const current = JSON.stringify([name, budget, desc, startDate, endDate, pacing, kpiType, kpiValue, optimize, freqMode, freqCount, freqPeriod, integration])
+  const baseline = JSON.stringify([
+    raw?.name ?? '', (raw?.budget ?? '').replace(/[^0-9.]/g, ''), s.budget_description ?? '',
+    raw?.start_date ?? 'Apr 10, 2026', raw?.end_date ?? 'May 10, 2026',
+    raw?.pacing === 'Even' ? 'Even' : 'Flight', raw?.kpi_type ?? kpiTypes[0], raw?.kpi_value ?? '',
+    s.optimize === 'line_item' ? 'line_item' : 'auto', s.freq_mode === 'limited' ? 'limited' : 'none',
+    s.freq_count ?? '1', s.freq_period ?? 'Month', s.integration_code ?? '',
+  ])
+  const dirty = current !== baseline
+
   const save = async () => {
     setBusy(true); setSaved(false)
     const ok = await updateIO(ioId, {
@@ -152,6 +164,7 @@ function DetailsTab({ raw, ioId, updateIO }: {
 
   return (
     <div className="px-6 pb-24">
+      <UnsavedChangesGuard when={dirty && !busy} />
       {/* Info banner: targeting moved to line item level */}
       <div className="mt-4 flex items-start gap-2 rounded-g border border-gblue-50 bg-gblue-50 px-4 py-3 text-13 text-gtext-strong">
         <Icon name="info" size={18} className="mt-0.5 text-gblue-600" />

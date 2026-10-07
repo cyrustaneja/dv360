@@ -4,7 +4,7 @@ export const partnerNav: NavNode[] = [
   { icon: 'dashboard', label: 'Overview', to: '/', end: true },
   { icon: 'store', label: 'Advertisers', to: '/advertisers' },
   {
-    icon: 'bar_chart',
+    icon: 'insert_chart',
     label: 'Reports',
     children: [
       { label: 'Offline reporting', to: '/reports/offline' },
@@ -12,7 +12,7 @@ export const partnerNav: NavNode[] = [
     ],
   },
   {
-    icon: 'folder',
+    icon: 'assignment',
     label: 'Resources',
     children: [
       { label: 'Creatives', to: '/resources/creatives' },
@@ -30,9 +30,9 @@ export const partnerNav: NavNode[] = [
 ]
 
 export const advertiserNav: NavNode[] = [
-  { icon: 'campaign', label: 'Campaigns', to: '/advertiser/campaigns' },
+  { icon: 'explore', label: 'Campaigns', to: '/advertiser/campaigns' },
   {
-    icon: 'group',
+    icon: 'people',
     label: 'Audiences',
     children: [
       { label: 'All audiences', to: '/advertiser/audiences', end: true },
@@ -40,7 +40,7 @@ export const advertiserNav: NavNode[] = [
     ],
   },
   {
-    icon: 'image',
+    icon: 'insert_photo',
     label: 'Creative',
     children: [
       { label: 'Creatives', to: '/advertiser/creatives' },
@@ -49,7 +49,7 @@ export const advertiserNav: NavNode[] = [
     ],
   },
   {
-    icon: 'inventory_2',
+    icon: 'inventory',
     label: 'Inventory',
     children: [
       { label: 'Plans', to: '/advertiser/inventory/plans' },
@@ -59,7 +59,7 @@ export const advertiserNav: NavNode[] = [
     ],
   },
   {
-    icon: 'bar_chart',
+    icon: 'insert_chart',
     label: 'Reports',
     children: [
       { label: 'Overview', to: '/advertiser/reports', end: true },
@@ -67,9 +67,9 @@ export const advertiserNav: NavNode[] = [
     ],
   },
   { icon: 'science', label: 'Experiments', to: '/advertiser/experiments', upcoming: true },
-  { icon: 'ads_click', label: 'Targeting templates', to: '/advertiser/targeting-templates' },
+  { icon: 'library_books', label: 'Targeting templates', to: '/advertiser/targeting-templates' },
   {
-    icon: 'folder',
+    icon: 'assignment',
     label: 'Resources',
     upcoming: true,
     children: [
