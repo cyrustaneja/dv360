@@ -14,7 +14,7 @@ type BtnProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 export function Button({ variant = 'filled', size = 'md', className = '', children, disabled, ...rest }: BtnProps) {
   const base =
     'inline-flex items-center justify-center gap-2 rounded font-medium transition-colors whitespace-nowrap g-focus'
-  const sizing = size === 'sm' ? 'h-8 px-3 text-13' : 'h-9 px-4 text-14'
+  const sizing = size === 'sm' ? 'h-8 px-3 text-14' : 'h-9 px-4 text-14'
   const variants: Record<string, string> = {
     filled: disabled
       ? 'bg-gbg-page text-gtext-disabled cursor-default'
@@ -142,7 +142,7 @@ export function Dropdown({
     <div ref={ref} className={`relative ${className}`}>
       <button
         onClick={() => setOpen((o) => !o)}
-        className="flex h-8 items-center gap-1 rounded border border-gborder px-3 text-13 text-gtext-primary hover:bg-gbg-hover"
+        className="flex h-8 items-center gap-1 rounded border border-gborder px-3 text-14 text-gtext-primary hover:bg-gbg-hover"
       >
         {label}
         <Icon name="arrow_drop_down" size={20} className="text-gtext-secondary" />
@@ -156,7 +156,7 @@ export function Dropdown({
                 onSelect?.(it)
                 setOpen(false)
               }}
-              className="block w-full px-4 py-2 text-left text-13 text-gtext-primary hover:bg-gbg-page"
+              className="block w-full px-4 py-2 text-left text-14 text-gtext-primary hover:bg-gbg-page"
             >
               {it}
             </button>
@@ -202,7 +202,7 @@ export function FilterBar({
         )}
       </div>
       {showChip && chip && (
-        <span className="flex items-center gap-1 rounded-full border border-gborder bg-white py-1 pl-3 pr-1 text-13 text-gtext-primary">
+        <span className="flex items-center gap-1 rounded-full border border-gborder bg-white py-1 pl-3 pr-1 text-14 text-gtext-primary">
           {chip}
           <button onClick={() => setShowChip(false)} className="flex h-5 w-5 items-center justify-center rounded-full hover:bg-gbg-page">
             <Icon name="close" size={16} className="text-gtext-secondary" />
@@ -211,7 +211,7 @@ export function FilterBar({
       )}
       <input
         placeholder={placeholder}
-        className="h-8 flex-1 bg-transparent px-1 text-13 text-gtext-primary placeholder:text-gtext-secondary focus:outline-none"
+        className="h-8 flex-1 bg-transparent px-1 text-14 text-gtext-primary placeholder:text-gtext-secondary focus:outline-none"
       />
     </div>
   )
@@ -226,7 +226,7 @@ export function Pagination({ total, rowsLabel = '1 – ' }: { total: number; row
     <div className="flex items-center justify-end gap-6 px-6 py-3 text-12 text-gtext-secondary">
       <div className="flex items-center gap-2">
         <span>Rows per page:</span>
-        <Dropdown label={<span className="text-13">20</span>} items={['10', '20', '50', '100']} />
+        <Dropdown label={<span className="text-14">20</span>} items={['10', '20', '50', '100']} />
       </div>
       <span>
         {rowsLabel}
@@ -259,7 +259,7 @@ export function EmptyState({
     <div className="flex flex-col items-center justify-center py-20 text-center">
       <EmptyIllustration />
       <div className="mt-6 text-15 font-medium text-gtext-primary">{title}</div>
-      {subtitle && <div className="mt-1 max-w-md text-13 text-gtext-secondary">{subtitle}</div>}
+      {subtitle && <div className="mt-1 max-w-md text-14 text-gtext-secondary">{subtitle}</div>}
       {actions && <div className="mt-5 flex items-center gap-3">{actions}</div>}
     </div>
   )

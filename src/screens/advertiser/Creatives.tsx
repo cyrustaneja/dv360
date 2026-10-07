@@ -22,7 +22,7 @@ export default function Creatives() {
           <Icon name="add" size={18} /> New creative
         </Button>
         <div className="ml-auto flex items-center gap-2">
-          <Dropdown label={<span className="text-13">Sort: Created</span>} items={['Created', 'Name', 'Last modified']} />
+          <Dropdown label={<span className="text-14">Sort: Created</span>} items={['Created', 'Name', 'Last modified']} />
           <button onClick={() => setView('grid')} className={`flex h-9 w-9 items-center justify-center rounded-full hover:bg-gbg-page ${view === 'grid' ? 'text-gblue-600' : 'text-gtext-secondary'}`} title="Grid view"><Icon name="grid_view" size={20} /></button>
           <button onClick={() => setView('list')} className={`flex h-9 w-9 items-center justify-center rounded-full hover:bg-gbg-page ${view === 'list' ? 'text-gblue-600' : 'text-gtext-secondary'}`} title="List view"><Icon name="view_list" size={20} /></button>
         </div>

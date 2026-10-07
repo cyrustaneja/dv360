@@ -58,7 +58,7 @@ export default function Home() {
           <span className="text-12 text-gtext-secondary">
             {me?.name || me?.email} · <span className="capitalize">{role}</span>{me?.batch ? ` · ${me.batch}` : ''}
           </span>
-          <button onClick={() => signOut()} className="text-13 font-medium text-gblue-700 hover:underline">Sign out</button>
+          <button onClick={() => signOut()} className="text-14 font-medium text-gblue-700 hover:underline">Sign out</button>
         </div>
       </header>
 
@@ -66,7 +66,7 @@ export default function Home() {
         {/* Expert / Admin: view any student */}
         {isStaff && (
           <div className="mb-6 rounded-lg border border-gborder bg-white p-4">
-            <div className="flex items-center gap-2 text-13 font-medium text-gtext-primary">
+            <div className="flex items-center gap-2 text-14 font-medium text-gtext-primary">
               <Icon name="supervisor_account" size={18} className="text-gblue-700" />
               View student work
             </div>
@@ -79,7 +79,7 @@ export default function Home() {
                   value={studentQuery}
                   onChange={(e) => setStudentQuery(e.target.value)}
                   placeholder="Search by email, name or batch…"
-                  className="h-9 w-72 rounded border border-gborder px-3 text-13 focus:border-gblue-600 focus:outline-none"
+                  className="h-9 w-72 rounded border border-gborder px-3 text-14 focus:border-gblue-600 focus:outline-none"
                 />
               </div>
               <button
@@ -102,7 +102,7 @@ export default function Home() {
                   <button
                     key={s.id}
                     onClick={() => { setViewingStudent(s.id); setStudentQuery('') }}
-                    className="flex w-full items-center justify-between px-3 py-2 text-left text-13 hover:bg-gbg-page"
+                    className="flex w-full items-center justify-between px-3 py-2 text-left text-14 hover:bg-gbg-page"
                   >
                     <span><span className="text-gtext-primary">{s.email}</span>{s.name ? <span className="text-gtext-secondary"> · {s.name}</span> : null}</span>
                     <span className="text-11 text-gtext-secondary">{s.advertisers} advertiser{s.advertisers === 1 ? '' : 's'}</span>
@@ -116,14 +116,14 @@ export default function Home() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="font-gsans text-22 text-gtext-primary">Choose an advertiser</h1>
-            <p className="mt-1 text-13 text-gtext-secondary">
+            <p className="mt-1 text-14 text-gtext-secondary">
               {isStaff
                 ? (viewing ? `Showing ${viewing.email}’s advertisers.` : 'Showing all advertisers across students.')
                 : 'Open one of your advertisers, or create a new one to start building campaigns.'}
             </p>
           </div>
           {!creating && (
-            <button onClick={() => setCreating(true)} className="flex items-center gap-1 rounded bg-gblue-600 px-4 py-2 text-13 font-medium text-white hover:bg-gblue-700">
+            <button onClick={() => setCreating(true)} className="flex items-center gap-1 rounded bg-gblue-600 px-4 py-2 text-14 font-medium text-white hover:bg-gblue-700">
               <Icon name="add" size={18} /> New advertiser
             </button>
           )}
@@ -134,12 +134,12 @@ export default function Home() {
             <label className="flex-1">
               <span className="mb-1 block text-12 text-gtext-secondary">Advertiser name</span>
               <input autoFocus value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. My Practice Brand"
-                className="h-10 w-full rounded border border-gborder px-3 text-13 focus:border-gblue-600 focus:outline-none" />
+                className="h-10 w-full rounded border border-gborder px-3 text-14 focus:border-gblue-600 focus:outline-none" />
             </label>
-            <button disabled={busy} className="h-10 rounded bg-gblue-600 px-4 text-13 font-medium text-white hover:bg-gblue-700 disabled:opacity-60">
+            <button disabled={busy} className="h-10 rounded bg-gblue-600 px-4 text-14 font-medium text-white hover:bg-gblue-700 disabled:opacity-60">
               {busy ? 'Creating…' : 'Create'}
             </button>
-            <button type="button" onClick={() => { setCreating(false); setName('') }} className="h-10 rounded px-3 text-13 text-gtext-secondary hover:bg-gbg-page">Cancel</button>
+            <button type="button" onClick={() => { setCreating(false); setName('') }} className="h-10 rounded px-3 text-14 text-gtext-secondary hover:bg-gbg-page">Cancel</button>
           </form>
         )}
 
@@ -147,7 +147,7 @@ export default function Home() {
           <div className="mt-8 rounded-lg border border-dashed border-gborder bg-white p-10 text-center">
             <Icon name="business" size={40} className="text-gtext-disabled" />
             <div className="mt-3 text-15 font-medium text-gtext-primary">No advertisers {viewing ? 'for this student' : 'yet'}</div>
-            <div className="mt-1 text-13 text-gtext-secondary">Create your first advertiser to get started.</div>
+            <div className="mt-1 text-14 text-gtext-secondary">Create your first advertiser to get started.</div>
           </div>
         ) : (
           <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">

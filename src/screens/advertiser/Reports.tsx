@@ -30,7 +30,7 @@ export default function Reports() {
               <div key={c.title} className="rounded-g border border-gborder bg-white p-5">
                 <Icon name={c.icon} size={28} className="text-gblue-600" />
                 <div className="mt-3 text-16 font-medium text-gtext-primary">{c.title}</div>
-                <div className="mt-1 text-13 text-gtext-secondary">{c.desc}</div>
+                <div className="mt-1 text-14 text-gtext-secondary">{c.desc}</div>
                 <button onClick={() => navigate('/advertiser/reports/builder')} className="mt-4 text-14 font-medium text-glink hover:underline">Create report</button>
               </div>
             ))}

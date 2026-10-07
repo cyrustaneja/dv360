@@ -46,7 +46,7 @@ export default function LineItemDetail() {
   const dirty = JSON.stringify(form) !== JSON.stringify(initial)
   const setF = (patch: Partial<typeof form>) => { setForm((f) => ({ ...f, ...patch })); setSaved(false) }
 
-  if (!raw) return <div className="px-6 py-10 text-13 text-gtext-secondary">Line item not found.</div>
+  if (!raw) return <div className="px-6 py-10 text-14 text-gtext-secondary">Line item not found.</div>
 
   const save = async () => {
     setBusy(true)
@@ -152,7 +152,7 @@ export default function LineItemDetail() {
               <div className="space-y-3 px-5 py-4">
                 <InvRow icon="check_circle" iconClass="text-gstatus-green" title="Public Inventory"
                   desc={form.publicInventory ? '47 Exchanges and 0 Subexchanges are selected' : 'No exchanges selected'}
-                  action={<label className="flex items-center gap-1 text-13 text-gtext-secondary"><input type="checkbox" checked={form.publicInventory} onChange={(e) => setF({ publicInventory: e.target.checked })} className="accent-gblue-600" /> Targeting new exchanges</label>} />
+                  action={<label className="flex items-center gap-1 text-14 text-gtext-secondary"><input type="checkbox" checked={form.publicInventory} onChange={(e) => setF({ publicInventory: e.target.checked })} className="accent-gblue-600" /> Targeting new exchanges</label>} />
                 <InvRow icon="sell" title="Deals and Packages" desc="0 deals and packages selected" />
                 <InvRow icon="folder" title="Deal groups and preferred deal groups" desc="No inventory groups selected" />
               </div>
@@ -167,7 +167,7 @@ export default function LineItemDetail() {
                 <label className="mt-1 flex items-start gap-3 py-1">
                   <input type="checkbox" checked={form.openMeasurement} onChange={(e) => setF({ openMeasurement: e.target.checked })} className="mt-1 accent-gblue-600" />
                   <span><span className="text-14 text-gtext-primary">Open Measurement</span>
-                    <span className="block text-13 text-gtext-secondary">Target only Open Measurement enabled mobile display inventory.</span></span>
+                    <span className="block text-14 text-gtext-secondary">Target only Open Measurement enabled mobile display inventory.</span></span>
                 </label>
               </div>
               <TargetingBuilder value={form.targeting} onChange={(t: Targeting) => setF({ targeting: t })} audienceOptions={audienceOptions} />
@@ -192,11 +192,11 @@ export default function LineItemDetail() {
 
           {/* Budget and pacing */}
           <Section title="Budget and pacing">
-            <div className="px-5 py-3 text-13 text-gtext-secondary">Budget and pacing depend on both insertion order and line item settings.</div>
+            <div className="px-5 py-3 text-14 text-gtext-secondary">Budget and pacing depend on both insertion order and line item settings.</div>
             <Row label="Budget and pacing">
               <div className="flex flex-wrap items-center gap-2">
                 <input value={form.budget} onChange={(e) => setF({ budget: e.target.value, budgetType: 'limited' })} placeholder="₹0.00" className="h-9 w-28 rounded border border-gborder px-3 text-14" />
-                <span className="text-13 text-gtext-secondary">INR</span>
+                <span className="text-14 text-gtext-secondary">INR</span>
                 <select value={form.pacingPeriod} onChange={(e) => setF({ pacingPeriod: e.target.value })} className="h-9 w-28 rounded border border-gborder px-2 text-14">
                   <option>Daily</option><option>Flight</option>
                 </select>
@@ -209,21 +209,21 @@ export default function LineItemDetail() {
               {isVideo ? (
                 <div className="flex items-center gap-2 text-14 text-gtext-primary">
                   <Icon name="lock" size={16} className="text-gtext-secondary" /> Target CPM
-                  <span className="text-13 text-gtext-secondary">— can't be changed after creation.</span>
+                  <span className="text-14 text-gtext-secondary">— can't be changed after creation.</span>
                 </div>
               ) : (
                 <div className="space-y-2">
                   <select value={form.bidStrategy} onChange={(e) => setF({ bidStrategy: e.target.value })} className="h-9 w-72 rounded border border-gborder px-2 text-14">
                     {['Automated bidding', 'Fixed bid', 'Maximize conversions', 'Maximize viewable impressions', 'Target CPA', 'Target ROAS', 'Target CPM'].map((b) => <option key={b}>{b}</option>)}
                   </select>
-                  <div className="rounded-g border border-gborder-light bg-gbg-hover px-3 py-2 text-13 text-gtext-strong">
+                  <div className="rounded-g border border-gborder-light bg-gbg-hover px-3 py-2 text-14 text-gtext-strong">
                     Optimized towards <b>Maximize viewable impressions</b> while prioritizing spending my full budget (recommended)
                   </div>
-                  <div className="flex items-center gap-2 text-13 text-gtext-secondary">
+                  <div className="flex items-center gap-2 text-14 text-gtext-secondary">
                     <input type="checkbox" className="accent-gblue-600" /> Do not exceed average CPM of
                     <input value={form.bidAmount} onChange={(e) => setF({ bidAmount: e.target.value })} placeholder="₹" className="h-8 w-24 rounded border border-gborder px-2 text-14" /> INR
                   </div>
-                  <label className="flex items-center gap-2 text-13 text-gtext-secondary"><input type="checkbox" className="accent-gblue-600" /> Prioritize deals over open auction inventory</label>
+                  <label className="flex items-center gap-2 text-14 text-gtext-secondary"><input type="checkbox" className="accent-gblue-600" /> Prioritize deals over open auction inventory</label>
                 </div>
               )}
             </Row>
@@ -309,7 +309,7 @@ export default function LineItemDetail() {
       )}
 
       {tab === 'Troubleshooter' && (
-        <div className="px-6 py-6 text-13 text-gtext-secondary">
+        <div className="px-6 py-6 text-14 text-gtext-secondary">
           <div className="flex items-center gap-2 text-gtext-primary"><Icon name="check_circle" size={18} className="text-gstatus-green" /> This line item is eligible to serve.</div>
         </div>
       )}
@@ -319,10 +319,10 @@ export default function LineItemDetail() {
       {tab === 'Line item details' && (
         <div className="fixed inset-x-0 bottom-0 z-30 flex items-center gap-4 border-t border-gborder bg-white px-6 py-3" style={{ left: 0 }}>
           <button onClick={save} disabled={!dirty || busy}
-            className={`rounded px-4 py-1.5 text-13 font-medium text-white ${!dirty || busy ? 'bg-gtext-disabled' : 'bg-gblue-600 hover:bg-gblue-700'}`}>
+            className={`rounded px-4 py-1.5 text-14 font-medium text-white ${!dirty || busy ? 'bg-gtext-disabled' : 'bg-gblue-600 hover:bg-gblue-700'}`}>
             {busy ? 'Saving…' : 'Save'}
           </button>
-          <button onClick={reset} disabled={!dirty} className="text-13 font-medium text-gblue-700 hover:underline disabled:text-gtext-disabled">Reset</button>
+          <button onClick={reset} disabled={!dirty} className="text-14 font-medium text-gblue-700 hover:underline disabled:text-gtext-disabled">Reset</button>
           <input value={note} onChange={(e) => setNote(e.target.value)} placeholder="Optional: Enter a note about this change"
             className="h-9 w-80 rounded border border-gborder px-3 text-12 focus:border-gblue-600 focus:outline-none" />
           {saved && <span className="text-12 text-gstatus-green">Saved ✓</span>}
@@ -379,7 +379,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 function Row({ label, hint, children }: { label: string; hint?: string; children: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-2 px-5 py-4 sm:flex-row sm:items-start sm:gap-4">
-      <div className="w-56 shrink-0"><div className="text-13 text-gtext-primary">{label}</div>{hint && <div className="text-11 text-gtext-secondary">{hint}</div>}</div>
+      <div className="w-56 shrink-0"><div className="text-14 text-gtext-primary">{label}</div>{hint && <div className="text-11 text-gtext-secondary">{hint}</div>}</div>
       <div className="flex-1 space-y-1">{children}</div>
     </div>
   )
@@ -387,16 +387,16 @@ function Row({ label, hint, children }: { label: string; hint?: string; children
 function ReadRow({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
     <div className="flex flex-col gap-2 px-5 py-4 sm:flex-row sm:items-start sm:gap-4">
-      <div className="w-56 shrink-0 text-13 text-gtext-primary">{label}</div>
-      <div className="flex-1"><div className="text-13 text-gtext-primary">{value}</div>{sub && <div className="text-12 text-gtext-secondary">{sub}</div>}</div>
+      <div className="w-56 shrink-0 text-14 text-gtext-primary">{label}</div>
+      <div className="flex-1"><div className="text-14 text-gtext-primary">{value}</div>{sub && <div className="text-12 text-gtext-secondary">{sub}</div>}</div>
     </div>
   )
 }
 function SoonRow({ label, text }: { label: string; text: string }) {
   return (
     <div className="flex items-center gap-4 px-5 py-4">
-      <div className="w-56 shrink-0 text-13 text-gtext-primary">{label}</div>
-      <div className="flex flex-1 items-center gap-2 text-13 text-gtext-secondary">{text}</div>
+      <div className="w-56 shrink-0 text-14 text-gtext-primary">{label}</div>
+      <div className="flex flex-1 items-center gap-2 text-14 text-gtext-secondary">{text}</div>
       <span className="rounded-full bg-gbg-page px-2 py-0.5 text-[10px] font-medium text-gtext-secondary">Launching soon</span>
     </div>
   )
@@ -407,7 +407,7 @@ function InvRow({ icon, iconClass = 'text-gtext-secondary', title, desc, action 
   return (
     <div className="flex items-center gap-3 rounded-g border border-gborder px-4 py-3">
       <Icon name={icon} size={20} className={iconClass} />
-      <div className="flex-1"><div className="text-14 text-gtext-primary">{title}</div><div className="text-13 text-gtext-secondary">{desc}</div></div>
+      <div className="flex-1"><div className="text-14 text-gtext-primary">{title}</div><div className="text-14 text-gtext-secondary">{desc}</div></div>
       {action}
     </div>
   )
@@ -415,8 +415,8 @@ function InvRow({ icon, iconClass = 'text-gtext-secondary', title, desc, action 
 function FeeTable({ title, cols, rows }: { title: string; cols: string[]; rows: string[][] }) {
   return (
     <div className="max-w-2xl rounded-g border border-gborder">
-      <div className="border-b border-gborder bg-gbg-hover px-3 py-2 text-13 font-medium text-gtext-strong">{title}</div>
-      <table className="w-full text-13">
+      <div className="border-b border-gborder bg-gbg-hover px-3 py-2 text-14 font-medium text-gtext-strong">{title}</div>
+      <table className="w-full text-14">
         <thead><tr className="text-gtext-secondary">{cols.map((c, i) => <th key={i} className="px-3 py-2 text-left font-medium">{c}</th>)}</tr></thead>
         <tbody>{rows.map((r, i) => <tr key={i} className="border-t border-gborder-light text-gtext-primary">{r.map((cell, j) => <td key={j} className="px-3 py-2">{cell}</td>)}</tr>)}</tbody>
       </table>
@@ -424,7 +424,7 @@ function FeeTable({ title, cols, rows }: { title: string; cols: string[]; rows: 
   )
 }
 function Check({ label, checked, onChange }: { label: string; checked: boolean; onChange: (v: boolean) => void }) {
-  return <label className="flex items-center gap-2 text-13 text-gtext-primary"><input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} /> {label}</label>
+  return <label className="flex items-center gap-2 text-14 text-gtext-primary"><input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} /> {label}</label>
 }
 function FreqBlock({ title, unit, mode, count, period, onMode, onCount, onPeriod }: {
   title: string; unit: string; mode: 'no_cap' | 'limited'; count: string; period: string
@@ -433,12 +433,12 @@ function FreqBlock({ title, unit, mode, count, period, onMode, onCount, onPeriod
   return (
     <div>
       <div className="mb-1 text-12 font-medium text-gtext-secondary">{title}</div>
-      <label className="flex items-center gap-2 text-13"><input type="radio" checked={mode === 'no_cap'} onChange={() => onMode('no_cap')} /> No limit</label>
-      <label className="mt-1 flex items-center gap-2 text-13">
+      <label className="flex items-center gap-2 text-14"><input type="radio" checked={mode === 'no_cap'} onChange={() => onMode('no_cap')} /> No limit</label>
+      <label className="mt-1 flex items-center gap-2 text-14">
         <input type="radio" checked={mode === 'limited'} onChange={() => onMode('limited')} /> Limit frequency to
-        <input value={count} onChange={(e) => onCount(e.target.value)} disabled={mode !== 'limited'} className="h-8 w-16 rounded border border-gborder px-2 text-13 disabled:bg-gbg-page" />
+        <input value={count} onChange={(e) => onCount(e.target.value)} disabled={mode !== 'limited'} className="h-8 w-16 rounded border border-gborder px-2 text-14 disabled:bg-gbg-page" />
         {unit} per
-        <select value={period} onChange={(e) => onPeriod(e.target.value)} disabled={mode !== 'limited'} className="h-8 rounded border border-gborder px-1 text-13 disabled:bg-gbg-page">
+        <select value={period} onChange={(e) => onPeriod(e.target.value)} disabled={mode !== 'limited'} className="h-8 rounded border border-gborder px-1 text-14 disabled:bg-gbg-page">
           <option value="day">Day</option><option value="week">Week</option><option value="month">Month</option>
         </select>
       </label>

@@ -5,6 +5,7 @@ import { WizardShell, SectionTitle } from './WizardShell'
 import { TextField, FormRow } from '../../components/ui/parts'
 import { Icon } from '../../lib/icons'
 import { useStore } from '../../store'
+import { UnsavedChangesGuard } from '../../components/UnsavedChangesGuard'
 
 const types = [
   { title: 'Custom list', icon: 'tune', source: 'Custom list', desc: 'Reach people based on interests & keywords you define.' },
@@ -58,6 +59,7 @@ export default function NewAudience() {
 
   return (
     <WizardShell title={isEdit ? 'Edit audience' : 'New audience'} primary={isEdit ? 'Save' : 'Create'} onPrimary={handleSave} busy={busy} onDelete={isEdit ? handleDelete : undefined}>
+      <UnsavedChangesGuard when={!busy && (name !== (existing?.name ?? '') || definition !== (s.definition ?? ''))} />
       <SectionTitle>Audience type</SectionTitle>
       <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-3">
         {types.map((t, i) => (

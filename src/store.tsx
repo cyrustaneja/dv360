@@ -8,7 +8,18 @@
  */
 import React, { createContext, useContext, useEffect, useState, useCallback } from 'react'
 import { api, type AdvertiserRow, type Student } from './lib/api'
+import { toast } from './components/ui/Toast'
 import { useAuth } from './auth/AuthContext'
+
+// Entity → DV360 "created" toast label.
+const CREATED_LABEL: Record<string, string> = {
+  campaign: 'Campaign created',
+  io: 'Insertion order created',
+  line_item: 'Line item created',
+  creative: 'Creative created',
+  targeting_template: 'Targeting template created',
+  audience: 'Audience created',
+}
 import type { Campaign, Creative, InsertionOrder, LineItem } from './data/mock'
 
 export interface Advertiser {
@@ -317,6 +328,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       const { row } = await api.createEntity({ type, advertiser_id: currentId, ...fields })
       set((prev: any[]) => [...prev, map(row)])
       setRaw((prev) => ({ ...prev, [rawKey]: [...prev[rawKey], row] }))
+      if (CREATED_LABEL[type]) toast(CREATED_LABEL[type])
       return row.id as string
     } catch {
       return null
@@ -381,6 +393,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     try {
       const { row } = await api.createEntity({ type: 'targeting_template', advertiser_id: currentId, ...input })
       setRaw((prev) => ({ ...prev, templates: [...prev.templates, row] }))
+      toast(CREATED_LABEL.targeting_template)
       return row.id as string
     } catch {
       return null
@@ -402,6 +415,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     try {
       const { row } = await api.createEntity({ type: 'audience', advertiser_id: currentId, ...input })
       setRaw((prev) => ({ ...prev, audiences: [...prev.audiences, row] }))
+      toast(CREATED_LABEL.audience)
       return row.id as string
     } catch {
       return null

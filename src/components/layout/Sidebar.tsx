@@ -93,7 +93,7 @@ export function Sidebar({ nav, collapsed }: Props) {
                     <NavLink key={c.to} to={c.to} end={c.end} className="block">
                       {({ isActive }) => (
                         <div
-                          className={`flex h-9 items-center rounded-r-full pl-[52px] pr-3 text-13 ${
+                          className={`flex h-9 items-center rounded-r-full pl-[52px] pr-3 text-14 ${
                             isActive
                               ? 'bg-gblue-600 font-medium text-white'
                               : 'text-gtext-primary hover:bg-gbg-page'
@@ -140,7 +140,7 @@ function Row({
       title={collapsed ? label : undefined}
     >
       <Icon name={icon} size={20} className={active ? 'text-white' : 'text-gtext-secondary'} filled={active} />
-      {!collapsed && <span className="ml-5 flex-1 truncate text-13">{label}</span>}
+      {!collapsed && <span className="ml-5 flex-1 truncate text-14">{label}</span>}
       {!collapsed && upcoming && <UpcomingTag light={active} />}
       {!collapsed && caret && (
         <span onClick={onCaret} className="flex h-6 w-6 items-center justify-center rounded-full hover:bg-black/5">

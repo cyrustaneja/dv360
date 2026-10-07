@@ -49,7 +49,7 @@ export default function NewInsertionOrder() {
   return (
     <WizardShell title="New insertion order" primary="Create" onPrimary={handleCreate} busy={busy}>
       <div className="max-w-2xl">
-        <div className="mb-4 flex items-start gap-2 rounded-g border border-gblue-50 bg-gblue-50 px-4 py-3 text-13 text-gtext-strong">
+        <div className="mb-4 flex items-start gap-2 rounded-g border border-gblue-50 bg-gblue-50 px-4 py-3 text-14 text-gtext-strong">
           Name your insertion order to create it. You'll then set budget, pacing, KPI, optimization and frequency on the next screen.
         </div>
         <TextField placeholder="" value={name} onChange={(v) => setName(v.slice(0, 240))} width="w-full" label="Insertion order name" />

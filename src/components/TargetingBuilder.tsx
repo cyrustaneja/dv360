@@ -104,8 +104,8 @@ export function TargetingBuilder({ value, onChange, audienceOptions }: {
         <h3 className="mb-2 text-15 text-gtext-primary">Inventory source</h3>
         <div className="rounded-lg border border-gborder bg-white">
           <div className="flex items-center gap-4 px-5 py-4">
-            <div className="w-52 shrink-0 text-13 text-gtext-primary">Quality</div>
-            <select value={v.quality} onChange={(e) => set({ quality: e.target.value })} className="h-9 w-80 rounded border border-gborder px-2 text-13">
+            <div className="w-52 shrink-0 text-14 text-gtext-primary">Quality</div>
+            <select value={v.quality} onChange={(e) => set({ quality: e.target.value })} className="h-9 w-80 rounded border border-gborder px-2 text-14">
               {SAMPLE.quality.map((o) => <option key={o}>{o}</option>)}
             </select>
             <div className="hidden flex-1 text-12 text-gtext-secondary lg:block">Select who you want to buy web and app inventory from.</div>
@@ -130,12 +130,12 @@ export function TargetingBuilder({ value, onChange, audienceOptions }: {
         <h3 className="mb-2 text-15 text-gtext-primary">Targeting</h3>
         <div className="rounded-lg border border-gborder bg-white">
           {shownDims.length === 0 && (
-            <div className="px-5 py-4 text-13 text-gtext-secondary">No targeting added yet. Use “Add targeting” to narrow who sees this.</div>
+            <div className="px-5 py-4 text-14 text-gtext-secondary">No targeting added yet. Use “Add targeting” to narrow who sees this.</div>
           )}
           {shownDims.map((d, i) => (
             <div key={d.key as string} className={`flex items-center gap-4 px-5 py-4 ${i < shownDims.length - 1 ? 'border-b border-gborder-light' : ''}`}>
-              <div className="w-52 shrink-0 text-13 text-gtext-primary">{d.label}</div>
-              <div className="flex flex-1 items-center gap-2 text-13 text-gtext-secondary">
+              <div className="w-52 shrink-0 text-14 text-gtext-primary">{d.label}</div>
+              <div className="flex flex-1 items-center gap-2 text-14 text-gtext-secondary">
                 {summaryFor(d) !== 'None selected' && summaryFor(d) !== 'Any' && <Icon name="check" size={16} className="text-gstatus-green" />}
                 {summaryFor(d)}
               </div>
@@ -149,7 +149,7 @@ export function TargetingBuilder({ value, onChange, audienceOptions }: {
           ))}
 
           {/* Optimized targeting */}
-          <label className="flex items-start gap-2 border-t border-gborder-light px-5 py-4 text-13 text-gtext-primary">
+          <label className="flex items-start gap-2 border-t border-gborder-light px-5 py-4 text-14 text-gtext-primary">
             <input type="checkbox" checked={!!v.optimized} onChange={(e) => set({ optimized: e.target.checked })} className="mt-0.5" />
             <span>
               Use optimized targeting
@@ -160,7 +160,7 @@ export function TargetingBuilder({ value, onChange, audienceOptions }: {
 
         {/* Add targeting menu */}
         <div className="relative mt-2">
-          <button onClick={() => setAddOpen((o) => !o)} className="flex items-center gap-1 text-13 font-medium text-gblue-700 hover:underline">
+          <button onClick={() => setAddOpen((o) => !o)} className="flex items-center gap-1 text-14 font-medium text-gblue-700 hover:underline">
             <Icon name="add" size={18} /> Add targeting
           </button>
           {addOpen && available.length > 0 && (
@@ -168,7 +168,7 @@ export function TargetingBuilder({ value, onChange, audienceOptions }: {
               {available.map((d) => (
                 <button key={d.key as string}
                   onClick={() => { setAdded((a) => [...a, d.key as string]); setAddOpen(false); openDim(d) }}
-                  className="block w-full px-4 py-2 text-left text-13 text-gtext-primary hover:bg-gbg-page">
+                  className="block w-full px-4 py-2 text-left text-14 text-gtext-primary hover:bg-gbg-page">
                   {d.label}
                 </button>
               ))}
@@ -198,8 +198,8 @@ export function TargetingBuilder({ value, onChange, audienceOptions }: {
 function InvRow({ label, summary, checked, onEdit, last }: { label: string; summary: string; checked: boolean; onEdit: () => void; last?: boolean }) {
   return (
     <div className={`flex items-center gap-4 px-5 py-4 border-t border-gborder-light ${last ? '' : ''}`}>
-      <div className="w-52 shrink-0 text-13 text-gtext-primary">{label}</div>
-      <div className="flex flex-1 items-center gap-2 text-13 text-gtext-secondary">
+      <div className="w-52 shrink-0 text-14 text-gtext-primary">{label}</div>
+      <div className="flex flex-1 items-center gap-2 text-14 text-gtext-secondary">
         {checked && <Icon name="check" size={16} className="text-gstatus-green" />}
         {summary}
       </div>
@@ -228,13 +228,13 @@ function PickerModal({ title, options, selected, single, onApply, onCancel }: {
         </div>
         <div className="border-b border-gborder-light px-5 py-2">
           <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Enter a search term or select from the list"
-            className="h-9 w-full rounded border border-gborder px-3 text-13 focus:border-gblue-600 focus:outline-none" />
+            className="h-9 w-full rounded border border-gborder px-3 text-14 focus:border-gblue-600 focus:outline-none" />
         </div>
         <div className="flex-1 overflow-auto px-2 py-1">
           {filtered.map((o) => {
             const on = sel.includes(o)
             return (
-              <label key={o} className="flex cursor-pointer items-center gap-3 rounded px-3 py-2 text-13 text-gtext-primary hover:bg-gbg-page">
+              <label key={o} className="flex cursor-pointer items-center gap-3 rounded px-3 py-2 text-14 text-gtext-primary hover:bg-gbg-page">
                 <input type={single ? 'radio' : 'checkbox'} checked={on} onChange={() => toggle(o)} />
                 {o}
               </label>
@@ -243,8 +243,8 @@ function PickerModal({ title, options, selected, single, onApply, onCancel }: {
           {filtered.length === 0 && <div className="px-3 py-4 text-12 text-gtext-secondary">No matches.</div>}
         </div>
         <div className="flex items-center gap-4 border-t border-gborder px-5 py-3">
-          <button onClick={() => onApply(sel)} className="rounded bg-gblue-600 px-4 py-1.5 text-13 font-medium text-white hover:bg-gblue-700">Apply</button>
-          <button onClick={onCancel} className="text-13 font-medium text-gblue-700 hover:underline">Cancel</button>
+          <button onClick={() => onApply(sel)} className="rounded bg-gblue-600 px-4 py-1.5 text-14 font-medium text-white hover:bg-gblue-700">Apply</button>
+          <button onClick={onCancel} className="text-14 font-medium text-gblue-700 hover:underline">Cancel</button>
         </div>
       </div>
     </div>
@@ -273,7 +273,7 @@ export function TargetingSummary({ t }: { t: Targeting }) {
 
 function Row({ k, v }: { k: string; v: string }) {
   return (
-    <div className="flex px-1 py-2 text-13">
+    <div className="flex px-1 py-2 text-14">
       <dt className="w-40 shrink-0 text-gtext-secondary">{k}</dt>
       <dd className="text-gtext-primary">{v}</dd>
     </div>

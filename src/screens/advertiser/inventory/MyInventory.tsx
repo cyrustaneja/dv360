@@ -16,11 +16,11 @@ export default function MyInventory() {
       <UpcomingBanner />
       <Tabs tabs={['Orders and deals', 'Packages', 'Deal groups']} active={tab} onChange={setTab} />
       <div className="flex items-center gap-3 px-6 pt-3">
-        <Dropdown label={<span className="flex items-center gap-1 text-13"><Icon name="calendar_today" size={16} className="text-gtext-secondary" />Jun 1, 2026</span>} items={['Today', 'Last 7 days']} />
+        <Dropdown label={<span className="flex items-center gap-1 text-14"><Icon name="calendar_today" size={16} className="text-gtext-secondary" />Jun 1, 2026</span>} items={['Today', 'Last 7 days']} />
       </div>
       <FilterBar chip="Status: 5 selected" placeholder="Enter a search term or select filters" />
       <div className="px-6 pt-3">
-        <table className="w-full border-collapse text-13">
+        <table className="w-full border-collapse text-14">
           <thead>
             <tr className="text-11 uppercase tracking-wide text-gtext-secondary">
               <th className="w-10 border-b border-gborder px-3 py-2" />
@@ -31,7 +31,7 @@ export default function MyInventory() {
           </thead>
           <tbody>
             <tr>
-              <td colSpan={cols.length + 1} className="py-10 text-center text-13 text-gtext-secondary">
+              <td colSpan={cols.length + 1} className="py-10 text-center text-14 text-gtext-secondary">
                 No inventory available
               </td>
             </tr>

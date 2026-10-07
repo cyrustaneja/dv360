@@ -110,14 +110,14 @@ function SearchMenu() {
         <div>
           <div className="px-3 pb-2">
             <input autoFocus value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search campaigns, line items, creatives…"
-              className="h-9 w-full rounded border border-gborder px-3 text-13 focus:border-gblue-600 focus:outline-none" />
+              className="h-9 w-full rounded border border-gborder px-3 text-14 focus:border-gblue-600 focus:outline-none" />
           </div>
           <div className="max-h-72 overflow-auto">
             {q && results.length === 0 && <div className="px-4 py-3 text-12 text-gtext-secondary">No matches in this advertiser.</div>}
             {!q && <div className="px-4 py-3 text-12 text-gtext-secondary">Type to search within this advertiser.</div>}
             {results.map((r, i) => (
               <button key={i} onClick={() => { navigate(r.to); close() }} className="flex w-full items-center justify-between px-4 py-2 text-left hover:bg-gbg-page">
-                <span className="truncate text-13 text-gtext-primary">{r.name}</span>
+                <span className="truncate text-14 text-gtext-primary">{r.name}</span>
                 <span className="ml-2 shrink-0 text-11 text-gtext-secondary">{r.label}</span>
               </button>
             ))}
@@ -137,10 +137,10 @@ function NotificationsMenu() {
     <Popover icon="notifications" label="Notifications">
       {() => (
         <div>
-          <div className="border-b border-gborder-light px-4 pb-2 text-13 font-medium text-gtext-primary">Notifications</div>
+          <div className="border-b border-gborder-light px-4 pb-2 text-14 font-medium text-gtext-primary">Notifications</div>
           {items.map((n, i) => (
             <div key={i} className="px-4 py-2">
-              <div className="text-13 text-gtext-primary">{n.t}</div>
+              <div className="text-14 text-gtext-primary">{n.t}</div>
               <div className="text-12 text-gtext-secondary">{n.s}</div>
             </div>
           ))}
@@ -155,7 +155,7 @@ function SavedMenu() {
     <Popover icon="bookmark_border" label="Saved">
       {() => (
         <div className="px-4 py-3 text-12 text-gtext-secondary">
-          <div className="mb-1 text-13 font-medium text-gtext-primary">Saved items</div>
+          <div className="mb-1 text-14 font-medium text-gtext-primary">Saved items</div>
           You haven’t saved anything yet.
         </div>
       )}
@@ -190,7 +190,7 @@ function HelpMenu() {
   return (
     <Popover icon="help_outline" label="Help">
       {(close) => (
-        <div className="text-13">
+        <div className="text-14">
           <div className="border-b border-gborder-light px-4 pb-2 font-medium text-gtext-primary">Help</div>
           <button onClick={() => { startTour(); close() }} className="flex w-full items-center gap-2 px-4 py-2 text-left text-gtext-primary hover:bg-gbg-page">
             <Icon name="school" size={18} className="text-gtext-secondary" /> Take the product tour
@@ -221,16 +221,16 @@ function UserMenu() {
       {open && (
         <div className="absolute right-0 z-40 mt-2 w-64 rounded-lg bg-white py-2 shadow-gmenu">
           <div className="border-b border-gborder-light px-4 pb-2">
-            <div className="truncate text-13 font-medium text-gtext-primary">{me?.name || label}</div>
+            <div className="truncate text-14 font-medium text-gtext-primary">{me?.name || label}</div>
             <div className="mt-0.5 text-11 capitalize text-gtext-secondary">{role ?? 'student'}</div>
           </div>
-          <button onClick={() => { setOpen(false); startTour() }} className="flex w-full items-center gap-2 px-4 py-2 text-left text-13 text-gtext-primary hover:bg-gbg-page">
+          <button onClick={() => { setOpen(false); startTour() }} className="flex w-full items-center gap-2 px-4 py-2 text-left text-14 text-gtext-primary hover:bg-gbg-page">
             <Icon name="school" size={18} className="text-gtext-secondary" /> Take the tour
           </button>
-          <button onClick={() => { setOpen(false); navigate('/') }} className="flex w-full items-center gap-2 px-4 py-2 text-left text-13 text-gtext-primary hover:bg-gbg-page">
+          <button onClick={() => { setOpen(false); navigate('/') }} className="flex w-full items-center gap-2 px-4 py-2 text-left text-14 text-gtext-primary hover:bg-gbg-page">
             <Icon name="swap_horiz" size={18} className="text-gtext-secondary" /> Switch advertiser
           </button>
-          <button onClick={async () => { setOpen(false); await signOut() }} className="flex w-full items-center gap-2 px-4 py-2 text-left text-13 text-gtext-primary hover:bg-gbg-page">
+          <button onClick={async () => { setOpen(false); await signOut() }} className="flex w-full items-center gap-2 px-4 py-2 text-left text-14 text-gtext-primary hover:bg-gbg-page">
             <Icon name="logout" size={18} className="text-gtext-secondary" /> Sign out
           </button>
         </div>

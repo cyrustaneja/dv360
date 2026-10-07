@@ -27,7 +27,7 @@ export function TableToolbar({
         </Button>
       )}
       {extra}
-      <Dropdown label={<span className="flex items-center gap-1 text-13"><Icon name="calendar_today" size={16} className="text-gtext-secondary" />{dateLabel}</span>} items={['Today', 'Yesterday', 'Last 7 days', 'Last 30 days', 'This month', 'Custom']} />
+      <Dropdown label={<span className="flex items-center gap-1 text-14"><Icon name="calendar_today" size={16} className="text-gtext-secondary" />{dateLabel}</span>} items={['Today', 'Yesterday', 'Last 7 days', 'Last 30 days', 'This month', 'Custom']} />
       <div className="ml-auto flex items-center gap-1">
         <IconButton name="filter_list" label="Filter" />
         <IconButton name="view_column" label="Columns" />
@@ -84,7 +84,7 @@ export function FormRow({
   return (
     <div className="grid grid-cols-[180px_1fr] gap-6 border-b border-gborder-light py-5">
       <div>
-        <div className="text-13 font-medium text-gtext-primary">{label}</div>
+        <div className="text-14 font-medium text-gtext-primary">{label}</div>
         {hint && <div className="mt-1 text-12 text-gtext-secondary">{hint}</div>}
       </div>
       <div className="max-w-2xl">{children}</div>
@@ -120,7 +120,7 @@ export function TextField({
         placeholder={placeholder}
         readOnly={readOnly}
         onChange={onChange ? (e) => onChange(e.target.value) : undefined}
-        className={`peer h-12 w-full rounded border border-gborder bg-white px-3 pt-3 text-13 text-gtext-primary focus:border-gblue-600 focus:outline-none ${readOnly ? 'cursor-default bg-gbg-page' : ''}`}
+        className={`peer h-12 w-full rounded border border-gborder bg-white px-3 pt-3 text-14 text-gtext-primary focus:border-gblue-600 focus:outline-none ${readOnly ? 'cursor-default bg-gbg-page' : ''}`}
       />
       {label && (
         <span className="pointer-events-none absolute left-3 top-1.5 text-11 text-gtext-secondary">{label}</span>
@@ -150,7 +150,7 @@ export function RadioRow({
         {checked && <span className="h-2.5 w-2.5 rounded-full bg-gblue-600" />}
       </span>
       <span>
-        <span className="text-13 text-gtext-primary">{label}</span>
+        <span className="text-14 text-gtext-primary">{label}</span>
         {hint && <span className="block text-12 text-gtext-secondary">{hint}</span>}
       </span>
     </label>
@@ -178,7 +178,7 @@ export function CheckRow({
         {checked && <Icon name="check" size={14} className="text-white" />}
       </span>
       <span>
-        <span className="text-13 text-gtext-primary">{label}</span>
+        <span className="text-14 text-gtext-primary">{label}</span>
         {hint && <span className="block text-12 text-gtext-secondary">{hint}</span>}
       </span>
     </label>
@@ -204,7 +204,7 @@ export function SelectField({
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="h-12 w-full appearance-none rounded border border-gborder bg-white px-3 pt-3 text-13 text-gtext-primary focus:border-gblue-600 focus:outline-none"
+        className="h-12 w-full appearance-none rounded border border-gborder bg-white px-3 pt-3 text-14 text-gtext-primary focus:border-gblue-600 focus:outline-none"
       >
         {options.map((o) => (
           <option key={o} value={o}>{o}</option>
@@ -236,10 +236,10 @@ export function FormActionBar({
       <Button variant="filled" size="sm" onClick={onSave}>
         {saved ? 'Saved ✓' : 'Save'}
       </Button>
-      <button className="text-13 font-medium text-gblue-700 hover:underline">Reset</button>
+      <button className="text-14 font-medium text-gblue-700 hover:underline">Reset</button>
       <input
         placeholder={note}
-        className="h-9 max-w-md flex-1 rounded border border-gborder px-3 text-13 placeholder:text-gtext-secondary focus:border-gblue-600 focus:outline-none"
+        className="h-9 max-w-md flex-1 rounded border border-gborder px-3 text-14 placeholder:text-gtext-secondary focus:border-gblue-600 focus:outline-none"
       />
     </div>
   )

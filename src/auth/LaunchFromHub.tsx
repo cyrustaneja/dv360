@@ -21,13 +21,13 @@ export default function LaunchFromHub() {
           <span className="text-15 text-gtext-secondary">Display &amp; Video 360</span>
         </div>
         <h1 className="font-gsans text-20 text-gtext-primary">Please launch from the Kraftshala Hub</h1>
-        <p className="mt-2 text-13 text-gtext-secondary">
+        <p className="mt-2 text-14 text-gtext-secondary">
           This simulation can only be opened from the Kraftshala Simulation Hub, which signs you in
           automatically. There's no separate login here.
         </p>
         <a
           href={hub}
-          className="mt-6 inline-block rounded bg-gblue-600 px-5 py-2.5 text-13 font-medium text-white hover:bg-gblue-700"
+          className="mt-6 inline-block rounded bg-gblue-600 px-5 py-2.5 text-14 font-medium text-white hover:bg-gblue-700"
         >
           Go to the Hub
         </a>

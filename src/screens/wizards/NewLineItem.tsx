@@ -44,7 +44,7 @@ export default function NewLineItem() {
         <h1 className="text-15 text-gtext-primary">New line item</h1>
       </div>
       <div className="flex-1 overflow-auto px-6 py-8">
-        {error && <p className="mx-auto mb-3 max-w-4xl text-13 text-gstatus-red">{error}</p>}
+        {error && <p className="mx-auto mb-3 max-w-4xl text-14 text-gstatus-red">{error}</p>}
         <TypePicker
           heading="Select a line item type"
           footer="Some line item types (Digital out-of-home, Mobile app install, YouTube & partners audio) aren’t available in this training simulation."

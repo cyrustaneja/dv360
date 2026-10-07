@@ -6,6 +6,7 @@ import { TextField, FormRow, SelectField } from '../../components/ui/parts'
 import { Icon } from '../../lib/icons'
 import { useStore } from '../../store'
 import { api } from '../../lib/api'
+import { UnsavedChangesGuard } from '../../components/UnsavedChangesGuard'
 
 const creativeTypes = [
   { icon: 'image', title: 'Standard display', desc: 'Upload an image (JPG, PNG, GIF, WebP).', soon: false },
@@ -106,6 +107,7 @@ export default function NewCreative() {
 
   return (
     <WizardShell title={isEdit ? 'Edit creative' : 'New creative'} primary={isEdit ? 'Save' : 'Create'} onPrimary={handleSave} busy={busy} onDelete={isEdit ? handleDelete : undefined}>
+      <UnsavedChangesGuard when={!busy && (name !== (existing?.name ?? '') || clickUrl !== (existing?.click_url ?? '') || Boolean(imageUrl) !== Boolean(existing?.settings?.image_url))} />
       <SectionTitle>Creative type</SectionTitle>
       <div className="mt-3 grid grid-cols-2 gap-3">
         {creativeTypes.map((t, i) => (

@@ -30,7 +30,7 @@ export default function TargetingTemplates() {
           }
         />
       ) : (
-        <table className="mt-2 w-full text-13">
+        <table className="mt-2 w-full text-14">
           <thead>
             <tr className="border-b border-gborder text-left text-12 text-gtext-secondary">
               <th className="px-6 py-2 font-medium">Name</th>

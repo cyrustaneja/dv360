@@ -100,7 +100,7 @@ export default function CampaignDetail() {
 }
 
 function SettingsPanel({ row, onEdit }: { row: any; onEdit: () => void }) {
-  if (!row) return <div className="px-6 py-8 text-13 text-gtext-secondary">No settings found.</div>
+  if (!row) return <div className="px-6 py-8 text-14 text-gtext-secondary">No settings found.</div>
   const s = row.settings ?? {}
   const freq = s.freq_mode === 'limited'
     ? `${s.freq_count ?? '?'} per ${s.freq_period ?? 'day'}`
@@ -123,7 +123,7 @@ function SettingsPanel({ row, onEdit }: { row: any; onEdit: () => void }) {
         </div>
         <dl className="divide-y divide-gborder-light">
           {items.map(([k, v]) => (
-            <div key={k} className="flex px-5 py-3 text-13">
+            <div key={k} className="flex px-5 py-3 text-14">
               <dt className="w-44 shrink-0 text-gtext-secondary">{k}</dt>
               <dd className="text-gtext-primary capitalize">{v}</dd>
             </div>

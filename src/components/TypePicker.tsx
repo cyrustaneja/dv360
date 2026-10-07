@@ -101,7 +101,7 @@ export function TypePicker({ heading, footer, onSelect }: {
 }) {
   return (
     <div className="mx-auto max-w-4xl rounded-lg border border-gborder bg-white p-6">
-      <p className="mb-4 text-13 text-gtext-primary">{heading}</p>
+      <p className="mb-4 text-14 text-gtext-primary">{heading}</p>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {LINE_ITEM_TYPES.map((t) => (
           <button

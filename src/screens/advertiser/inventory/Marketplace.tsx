@@ -37,7 +37,7 @@ export default function Marketplace() {
           {promos.map((p, i) => (
             <div key={i} className="flex flex-col justify-between rounded-g p-5 text-white" style={{ background: p.bg }}>
               <div className="text-15 font-medium leading-snug">{p.title}</div>
-              <button className="mt-4 self-start rounded bg-white/15 px-4 py-1.5 text-13 font-medium hover:bg-white/25">{p.cta}</button>
+              <button className="mt-4 self-start rounded bg-white/15 px-4 py-1.5 text-14 font-medium hover:bg-white/25">{p.cta}</button>
             </div>
           ))}
         </div>
@@ -47,9 +47,9 @@ export default function Marketplace() {
           <div className="mb-1 flex items-center gap-2">
             <Icon name="connected_tv" size={20} className="text-gtext-secondary" />
             <h2 className="text-16 font-medium text-gtext-primary">APAC Premium CTV: Always-On Video ({packages.length})</h2>
-            <button className="ml-auto text-13 font-medium text-glink hover:underline">Bulk assign ({packages.length})</button>
+            <button className="ml-auto text-14 font-medium text-glink hover:underline">Bulk assign ({packages.length})</button>
           </div>
-          <p className="mb-3 text-13 text-gtext-secondary">High-scale video packages across APAC verified for Connected TV and big-screen delivery.</p>
+          <p className="mb-3 text-14 text-gtext-secondary">High-scale video packages across APAC verified for Connected TV and big-screen delivery.</p>
           <div className="overflow-hidden rounded-g border border-gborder">
             <table className="w-full text-14">
               <thead>
@@ -66,7 +66,7 @@ export default function Marketplace() {
                     <td className="px-4 py-3 text-glink">{p.name}</td>
                     <td className="px-4 py-3 text-right text-gtext-primary">{p.imp}</td>
                     <td className="px-4 py-3 text-gtext-secondary">{p.kind}</td>
-                    <td className="px-4 py-3 text-right"><button className="text-13 font-medium text-glink hover:underline">Add</button></td>
+                    <td className="px-4 py-3 text-right"><button className="text-14 font-medium text-glink hover:underline">Add</button></td>
                   </tr>
                 ))}
               </tbody>

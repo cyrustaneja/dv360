@@ -7,6 +7,7 @@ import { Icon } from '../../lib/icons'
 import { useStore } from '../../store'
 import { TargetingBuilder, emptyTargeting, type Targeting } from '../../components/TargetingBuilder'
 import { TypePicker } from '../../components/TypePicker'
+import { UnsavedChangesGuard } from '../../components/UnsavedChangesGuard'
 
 export default function NewTargetingTemplate() {
   const navigate = useNavigate()
@@ -91,13 +92,14 @@ export default function NewTargetingTemplate() {
 
   return (
     <WizardShell title={isEdit ? 'Edit targeting template' : 'New targeting template'} primary={isEdit ? 'Save' : 'Create'} onPrimary={handleSave} busy={busy} onDelete={isEdit ? handleDelete : undefined}>
+      <UnsavedChangesGuard when={!busy && (name !== (existing?.name ?? '') || description !== (es.description ?? ''))} />
       {/* Template details ---------------------------------------------------- */}
       <SectionTitle>Template details</SectionTitle>
       <div className="border-t border-gborder-light pt-4">
         <div className="mb-4 flex items-center gap-2 text-14 text-gtext-primary">
           <span className="text-gtext-secondary">Type</span>
           <span className="font-medium">{liType}</span>
-          {!isEdit && <button onClick={() => setLiType(null)} className="text-13 text-glink hover:underline">Change</button>}
+          {!isEdit && <button onClick={() => setLiType(null)} className="text-14 text-glink hover:underline">Change</button>}
         </div>
         <div className="max-w-2xl space-y-4">
           <div>
@@ -125,7 +127,7 @@ export default function NewTargetingTemplate() {
       <div className="max-w-2xl space-y-4 border-t border-gborder-light pt-4">
         <div>
           <div className="text-14 font-medium text-gtext-primary">Quality</div>
-          <div className="mb-2 text-13 text-gtext-secondary">
+          <div className="mb-2 text-14 text-gtext-secondary">
             Select who you want to buy web and app inventory from. <a className="text-glink hover:underline" href="#">Learn more</a>
           </div>
           <label className="relative block w-[420px]">
@@ -142,7 +144,7 @@ export default function NewTargetingTemplate() {
           iconClass="text-gstatus-green"
           title="Public Inventory"
           desc={publicInv ? '47 Exchanges and 0 Subexchanges are selected' : 'No exchanges selected'}
-          action={<label className="flex items-center gap-1 text-13 text-gtext-secondary"><input type="checkbox" checked={publicInv} onChange={(e) => setPublicInv(e.target.checked)} className="accent-gblue-600" /> Targeting new exchanges</label>}
+          action={<label className="flex items-center gap-1 text-14 text-gtext-secondary"><input type="checkbox" checked={publicInv} onChange={(e) => setPublicInv(e.target.checked)} className="accent-gblue-600" /> Targeting new exchanges</label>}
         />
         <InventoryRow icon="sell" title="Deals and Packages" desc="0 deals and packages selected" />
         <InventoryRow icon="folder" title="Deal groups and preferred deal groups" desc="No inventory groups selected" />
@@ -160,7 +162,7 @@ export default function NewTargetingTemplate() {
             <input type="checkbox" checked={openMeasurement} onChange={(e) => setOpenMeasurement(e.target.checked)} className="mt-1 accent-gblue-600" />
             <span>
               <span className="text-14 text-gtext-primary">Open Measurement</span>
-              <span className="block text-13 text-gtext-secondary">Target only Open Measurement enabled mobile display inventory.</span>
+              <span className="block text-14 text-gtext-secondary">Target only Open Measurement enabled mobile display inventory.</span>
             </span>
           </label>
         </div>
@@ -173,7 +175,7 @@ export default function NewTargetingTemplate() {
               <span className="flex items-center gap-1 text-14 text-gtext-primary">
                 <Icon name="school" size={16} className="text-gtext-secondary" /> Use optimized targeting
               </span>
-              <span className="block text-13 text-gtext-secondary">Find new audiences likely to convert beyond your manual selections.</span>
+              <span className="block text-14 text-gtext-secondary">Find new audiences likely to convert beyond your manual selections.</span>
             </span>
           </label>
         </div>
@@ -193,7 +195,7 @@ function InventoryRow({ icon, iconClass = 'text-gtext-secondary', title, desc, a
       <Icon name={icon} size={20} className={iconClass} />
       <div className="flex-1">
         <div className="text-14 text-gtext-primary">{title}</div>
-        <div className="text-13 text-gtext-secondary">{desc}</div>
+        <div className="text-14 text-gtext-secondary">{desc}</div>
       </div>
       {action}
     </div>

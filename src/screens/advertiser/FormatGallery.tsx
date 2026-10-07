@@ -62,8 +62,8 @@ function FormatCard({ f }: { f: Format }) {
       </div>
       <p className="mt-1 text-12 text-gtext-secondary">{f.desc}</p>
       <div className="mt-3 flex items-center gap-4">
-        <button className="text-13 font-medium text-gblue-700">Create</button>
-        <button className="text-13 font-medium text-gblue-700">Details</button>
+        <button className="text-14 font-medium text-gblue-700">Create</button>
+        <button className="text-14 font-medium text-gblue-700">Details</button>
       </div>
     </div>
   )

@@ -5,7 +5,7 @@ import LaunchFromHub from './LaunchFromHub'
 function FullPageLoader() {
   return (
     <div className="flex h-screen items-center justify-center bg-gbg-page">
-      <div className="flex items-center gap-2 text-13 text-gtext-secondary">
+      <div className="flex items-center gap-2 text-14 text-gtext-secondary">
         <span className="material-icons animate-spin text-gblue-600">progress_activity</span>
         Loading…
       </div>

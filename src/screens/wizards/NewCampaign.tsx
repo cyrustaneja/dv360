@@ -5,6 +5,7 @@ import { WizardShell, SectionTitle } from './WizardShell'
 import { TextField, FormRow, RadioRow } from '../../components/ui/parts'
 import { Icon } from '../../lib/icons'
 import { useStore } from '../../store'
+import { UnsavedChangesGuard } from '../../components/UnsavedChangesGuard'
 
 // Official DV360 campaign goals (Help Center answer 7205081).
 const goals = [
@@ -95,6 +96,7 @@ export default function NewCampaign() {
 
   return (
     <WizardShell title={isEdit ? 'Edit campaign' : 'New campaign'} primary={isEdit ? 'Save' : 'Create'} onPrimary={handleSave} busy={busy} onDelete={isEdit ? handleDelete : undefined}>
+      <UnsavedChangesGuard when={!busy && (name !== (existing?.name ?? '') || amount !== (existing?.planned_spend ?? '') || kpiAmount !== (s.kpi_amount ?? ''))} />
       {/* Name */}
       <SectionTitle>Campaign name</SectionTitle>
       <div className="max-w-2xl border-t border-gborder-light pt-4">
@@ -105,7 +107,7 @@ export default function NewCampaign() {
 
       {/* Goal + KPI */}
       <SectionTitle>Goal</SectionTitle>
-      <p className="text-13 text-gtext-secondary">Your goal and KPI power optimization recommendations and performance tracking.</p>
+      <p className="text-14 text-gtext-secondary">Your goal and KPI power optimization recommendations and performance tracking.</p>
       <div className="mt-3 grid grid-cols-2 gap-3">
         {goals.map((g, i) => (
           <button key={g.title} onClick={() => setGoal(i)}
@@ -162,7 +164,7 @@ export default function NewCampaign() {
       <div className="max-w-2xl space-y-4 border-t border-gborder-light pt-4">
         <div>
           <div className="text-14 font-medium text-gtext-primary">Quality</div>
-          <div className="mb-2 text-13 text-gtext-secondary">Select inventory source quality based on Authorized Sellers.</div>
+          <div className="mb-2 text-14 text-gtext-secondary">Select inventory source quality based on Authorized Sellers.</div>
           <select value={quality} onChange={(e) => setQuality(e.target.value)} className="h-12 w-[420px] rounded border border-gborder px-3 text-14">
             <option>Authorized and Non-Participating Publishers</option>
             <option>Authorized Direct Sellers and Resellers</option>
@@ -172,18 +174,18 @@ export default function NewCampaign() {
         <label className="flex items-center gap-3 rounded-g border border-gborder px-4 py-3">
           <input type="checkbox" checked={publicInv} onChange={(e) => setPublicInv(e.target.checked)} className="accent-gblue-600" />
           <span><span className="text-14 text-gtext-primary">Public Inventory</span>
-            <span className="block text-13 text-gtext-secondary">Public inventory, deals and auction packages, and grouped deals.</span></span>
+            <span className="block text-14 text-gtext-secondary">Public inventory, deals and auction packages, and grouped deals.</span></span>
         </label>
       </div>
 
       {/* Default targeting */}
       <SectionTitle>Default targeting</SectionTitle>
-      <p className="text-13 text-gtext-secondary">New insertion orders and line items in this campaign inherit these settings.</p>
+      <p className="text-14 text-gtext-secondary">New insertion orders and line items in this campaign inherit these settings.</p>
       <div className="mt-3 max-w-2xl divide-y divide-gborder-light rounded-g border border-gborder">
         {defaultTargeting.map((d) => (
           <div key={d} className="flex items-center justify-between px-4 py-2.5">
             <span className="text-14 text-gtext-primary">{d}</span>
-            <button className="text-13 font-medium text-glink hover:underline">Add</button>
+            <button className="text-14 font-medium text-glink hover:underline">Add</button>
           </div>
         ))}
       </div>

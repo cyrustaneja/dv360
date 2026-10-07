@@ -73,7 +73,7 @@ function LineItemsTab({
 
       <div className="mt-3">
         {lineItems.length === 0 ? (
-          <div className="px-6 py-8 text-13 text-gtext-secondary">No line items yet. Click “New line item” to add one.</div>
+          <div className="px-6 py-8 text-14 text-gtext-secondary">No line items yet. Click “New line item” to add one.</div>
         ) : (
           <DataTable columns={liCols} rows={lineItems} leading={(r) => <StatusDot status={r.status} />} onRowClick={(r) => navigate(`/advertiser/line-items/${r.id}`)} />
         )}
@@ -166,7 +166,7 @@ function DetailsTab({ raw, ioId, updateIO }: {
     <div className="px-6 pb-24">
       <UnsavedChangesGuard when={dirty && !busy} />
       {/* Info banner: targeting moved to line item level */}
-      <div className="mt-4 flex items-start gap-2 rounded-g border border-gblue-50 bg-gblue-50 px-4 py-3 text-13 text-gtext-strong">
+      <div className="mt-4 flex items-start gap-2 rounded-g border border-gblue-50 bg-gblue-50 px-4 py-3 text-14 text-gtext-strong">
         <Icon name="info" size={18} className="mt-0.5 text-gblue-600" />
         <span>
           <b>Inventory source</b> and <b>Targeting</b> settings are now managed at the line item level. Use{' '}
@@ -182,7 +182,7 @@ function DetailsTab({ raw, ioId, updateIO }: {
       <Section title="Objective" hint="Choose any KPI and bid strategy for this objective">
         <div className="flex items-center gap-3">
           <span className="text-14 text-gtext-primary">{s.objective ?? 'Insertion order without objective'}</span>
-          <a className="text-13 text-glink hover:underline" href="#">Review options</a>
+          <a className="text-14 text-glink hover:underline" href="#">Review options</a>
         </div>
       </Section>
 
@@ -200,7 +200,7 @@ function DetailsTab({ raw, ioId, updateIO }: {
           <TextField label="Start date" value={startDate} onChange={setStartDate} />
           <TextField label="End date" value={endDate} onChange={setEndDate} />
         </div>
-        <div className="mt-2 flex gap-4 text-13">
+        <div className="mt-2 flex gap-4 text-14">
           <button className="text-glink hover:underline">+ Add segments</button>
           <label className="flex items-center gap-1 text-gtext-secondary"><input type="checkbox" className="accent-gblue-600" /> Show actualized</label>
         </div>
@@ -230,7 +230,7 @@ function DetailsTab({ raw, ioId, updateIO }: {
           onChange={() => setOptimize('auto')}
         />
         {optimize === 'auto' && (
-          <div className="mb-2 ml-8 rounded-g border border-gborder-light bg-gbg-hover px-3 py-2 text-13 text-gtext-strong">
+          <div className="mb-2 ml-8 rounded-g border border-gborder-light bg-gbg-hover px-3 py-2 text-14 text-gtext-strong">
             Optimized towards <b>Maximize viewable impressions</b> while prioritizing spending my full budget (recommended)
           </div>
         )}
@@ -240,7 +240,7 @@ function DetailsTab({ raw, ioId, updateIO }: {
           hint="Automatically optimize your budget allocation"
           onChange={() => setOptimize('line_item')}
         />
-        <div className="mt-1 flex items-center gap-2 text-13 text-gtext-disabled">
+        <div className="mt-1 flex items-center gap-2 text-14 text-gtext-disabled">
           YouTube reach and frequency optimization
           <span className="rounded-gpill bg-gdata-purpleBg px-2 py-0.5 text-[10px] font-medium text-gdata-purple">Alpha</span>
         </div>
@@ -295,7 +295,7 @@ function Section({ title, hint, children }: { title: string; hint?: string; chil
   return (
     <div className="border-b border-gborder-light py-5">
       <div className="text-14 font-medium text-gtext-primary">{title}</div>
-      {hint && <div className="mb-3 mt-0.5 text-13 text-gtext-secondary">{hint}</div>}
+      {hint && <div className="mb-3 mt-0.5 text-14 text-gtext-secondary">{hint}</div>}
       {!hint && <div className="mb-2" />}
       {children}
     </div>
@@ -306,8 +306,8 @@ function Section({ title, hint, children }: { title: string; hint?: string; chil
 function FeeTable({ title, cols, rows }: { title: string; cols: string[]; rows: string[][] }) {
   return (
     <div className="max-w-2xl rounded-g border border-gborder">
-      <div className="border-b border-gborder bg-gbg-hover px-3 py-2 text-13 font-medium text-gtext-strong">{title}</div>
-      <table className="w-full text-13">
+      <div className="border-b border-gborder bg-gbg-hover px-3 py-2 text-14 font-medium text-gtext-strong">{title}</div>
+      <table className="w-full text-14">
         <thead>
           <tr className="text-gtext-secondary">
             {cols.map((c, i) => <th key={i} className="px-3 py-2 text-left font-medium">{c}</th>)}
@@ -336,7 +336,7 @@ function HistoryTab({ name }: { name: string }) {
         <div key={i} className="flex gap-3 border-b border-gborder-light py-3">
           <Icon name="history" size={18} className="text-gtext-secondary" />
           <div>
-            <div className="text-13 text-gtext-primary">{e.what}</div>
+            <div className="text-14 text-gtext-primary">{e.what}</div>
             <div className="text-12 text-gtext-secondary">{e.who} · {e.when}</div>
           </div>
         </div>

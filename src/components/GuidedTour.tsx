@@ -61,7 +61,7 @@ export function GuidedTour() {
   // Collapsed pill
   if (!open) {
     return (
-      <button onClick={() => setOpen(true)} className="fixed bottom-5 right-5 z-40 flex items-center gap-2 rounded-full bg-gblue-600 px-4 py-2.5 text-13 font-medium text-white shadow-lg hover:bg-gblue-700">
+      <button onClick={() => setOpen(true)} className="fixed bottom-5 right-5 z-40 flex items-center gap-2 rounded-full bg-gblue-600 px-4 py-2.5 text-14 font-medium text-white shadow-lg hover:bg-gblue-700">
         <Icon name="school" size={18} /> Resume tour ({completedCount}/{steps.length})
       </button>
     )
@@ -71,7 +71,7 @@ export function GuidedTour() {
     <div className="fixed bottom-5 right-5 z-40 w-[340px] rounded-xl border border-gborder bg-white shadow-2xl">
       <div className="flex items-center gap-2 border-b border-gborder-light px-4 py-2.5">
         <Icon name="school" size={18} className="text-gblue-700" />
-        <span className="text-13 font-medium text-gtext-primary">Getting started with DV360</span>
+        <span className="text-14 font-medium text-gtext-primary">Getting started with DV360</span>
         <button onClick={() => setOpen(false)} className="ml-auto flex h-7 w-7 items-center justify-center rounded-full hover:bg-gbg-page" title="Minimize">
           <Icon name="remove" size={18} className="text-gtext-secondary" />
         </button>
@@ -93,7 +93,7 @@ export function GuidedTour() {
           </ul>
           <p className="mt-2 text-12 text-gtext-secondary">This tour walks you through building one complete campaign. Ready?</p>
           <div className="mt-3 flex items-center gap-3">
-            <button onClick={startTour} className="rounded bg-gblue-600 px-4 py-1.5 text-13 font-medium text-white hover:bg-gblue-700">Start tour</button>
+            <button onClick={startTour} className="rounded bg-gblue-600 px-4 py-1.5 text-14 font-medium text-white hover:bg-gblue-700">Start tour</button>
             <button onClick={skip} className="text-12 text-gtext-secondary hover:underline">Skip</button>
           </div>
         </div>
@@ -104,7 +104,7 @@ export function GuidedTour() {
             You’ve created an advertiser, campaign, insertion order, line item, creative and audience — the full flow.
             Now explore freely: edit anything, add targeting, try reports and templates.
           </p>
-          <button onClick={finish} className="mt-3 rounded bg-gblue-600 px-4 py-1.5 text-13 font-medium text-white hover:bg-gblue-700">Finish</button>
+          <button onClick={finish} className="mt-3 rounded bg-gblue-600 px-4 py-1.5 text-14 font-medium text-white hover:bg-gblue-700">Finish</button>
         </div>
       ) : (
         <div className="p-4">
@@ -119,7 +119,7 @@ export function GuidedTour() {
           <p className="mt-1.5 text-12 leading-relaxed text-gtext-secondary">{current!.body}</p>
           <div className="mt-3 flex items-center gap-3">
             {current!.cta
-              ? <button onClick={current!.cta.go} className="rounded bg-gblue-600 px-4 py-1.5 text-13 font-medium text-white hover:bg-gblue-700">{current!.cta.label}</button>
+              ? <button onClick={current!.cta.go} className="rounded bg-gblue-600 px-4 py-1.5 text-14 font-medium text-white hover:bg-gblue-700">{current!.cta.label}</button>
               : <span className="text-12 text-gtext-secondary">Open an advertiser to continue.</span>}
             <button onClick={skip} className="ml-auto text-12 text-gtext-secondary hover:underline">Skip tour</button>
           </div>

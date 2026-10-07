@@ -15,7 +15,7 @@ export default function AdvertiserSettings() {
           <TextField value={ADVERTISER.name} width="w-96" />
         </FormRow>
         <FormRow label="Advertiser ID">
-          <div className="pt-2 text-13 text-gtext-secondary">{ADVERTISER.id}</div>
+          <div className="pt-2 text-14 text-gtext-secondary">{ADVERTISER.id}</div>
         </FormRow>
         <FormRow label="Time zone">
           <TextField value="(GMT+05:30) India Standard Time" width="w-96" />

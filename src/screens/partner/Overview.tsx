@@ -14,7 +14,7 @@ export default function Overview() {
       {/* Main column */}
       <div className="min-w-0 flex-1 px-6 py-4">
         <div className="mb-4 flex items-center gap-2">
-          <button className="flex items-center gap-1 rounded border border-gborder px-3 py-1.5 text-13 text-gtext-primary hover:bg-gbg-hover">
+          <button className="flex items-center gap-1 rounded border border-gborder px-3 py-1.5 text-14 text-gtext-primary hover:bg-gbg-hover">
             System generated workspace
             <Icon name="arrow_drop_down" size={20} className="text-gtext-secondary" />
           </button>
@@ -57,7 +57,7 @@ export default function Overview() {
             {tutorials.map((t) => (
               <button key={t.title} className="flex w-full items-center gap-3 text-left">
                 <Icon name="play_circle" size={20} className="text-gblue-700" />
-                <span className="flex-1 text-13 text-gblue-700">{t.title}</span>
+                <span className="flex-1 text-14 text-gblue-700">{t.title}</span>
                 <span className="text-12 text-gtext-secondary">{t.minutes} min</span>
               </button>
             ))}
@@ -65,7 +65,7 @@ export default function Overview() {
         </RailSection>
 
         <RailSection title="Pinned items">
-          <div className="text-13 text-gtext-secondary">There are no pinned items.</div>
+          <div className="text-14 text-gtext-secondary">There are no pinned items.</div>
         </RailSection>
 
         <RailSection title="Recently opened">
@@ -81,7 +81,7 @@ export default function Overview() {
                 <tr key={i}>
                   <td className="py-1.5">
                     <div className="text-11 text-gtext-secondary">{r.advertiser} ›</div>
-                    <Link to="/advertiser/campaigns" className="text-13 text-gblue-700 hover:underline">
+                    <Link to="/advertiser/campaigns" className="text-14 text-gblue-700 hover:underline">
                       {r.name}
                     </Link>
                   </td>
@@ -110,7 +110,7 @@ function Panel({ title, empty }: { title: string; empty: string }) {
   return (
     <div className="rounded-lg border border-gborder bg-white">
       <div className="border-b border-gborder-light px-4 py-3 text-14 font-medium text-gtext-primary">{title}</div>
-      <div className="flex items-center gap-2 px-4 py-6 text-13 text-gtext-secondary">
+      <div className="flex items-center gap-2 px-4 py-6 text-14 text-gtext-secondary">
         <Icon name="check_circle" size={18} className="text-gstatus-green" />
         {empty}
       </div>

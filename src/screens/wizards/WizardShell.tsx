@@ -46,7 +46,7 @@ export function WizardShell({
           <button
             onClick={onDelete}
             disabled={busy}
-            className="ml-auto flex items-center gap-1 text-13 font-medium text-gstatus-red hover:underline"
+            className="ml-auto flex items-center gap-1 text-14 font-medium text-gstatus-red hover:underline"
           >
             <Icon name="delete" size={18} /> Delete
           </button>

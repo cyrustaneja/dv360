@@ -23,7 +23,7 @@ export default function History() {
           <div key={i} className="flex gap-3 border-b border-gborder-light py-3">
             <Icon name="history" size={18} className="mt-0.5 text-gtext-secondary" />
             <div>
-              <div className="text-13 text-gtext-primary">{e.what}</div>
+              <div className="text-14 text-gtext-primary">{e.what}</div>
               <div className="text-12 text-gtext-secondary">{e.who} · {e.when}</div>
             </div>
           </div>

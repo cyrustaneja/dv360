@@ -51,7 +51,7 @@ export function DataTable<T extends { id: string }>({ columns, rows, leading, on
 
   return (
     <div className="overflow-x-auto px-6">
-      <table className="w-full min-w-[860px] border-collapse text-13">
+      <table className="w-full min-w-[860px] border-collapse text-14">
         <thead>
           {hasGroups && (
             <tr className="text-11 text-gtext-secondary">
