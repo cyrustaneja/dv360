@@ -1,5 +1,6 @@
 /** Thin client for our serverless /api. Auth is via the httpOnly session cookie. */
 import { toast } from '../components/ui/Toast'
+import { startLoad, endLoad } from '../components/ui/LoadingBar'
 
 export type Role = 'admin' | 'expert' | 'student'
 
@@ -13,17 +14,22 @@ export interface Me {
 }
 
 async function req<T>(path: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(path, {
-    credentials: 'same-origin',
-    headers: { 'Content-Type': 'application/json', ...(init?.headers || {}) },
-    ...init,
-  })
-  if (!res.ok) {
-    let msg = `Request failed (${res.status})`
-    try { msg = (await res.json()).error || msg } catch { /* ignore */ }
-    throw new ApiError(msg, res.status)
+  startLoad()
+  try {
+    const res = await fetch(path, {
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json', ...(init?.headers || {}) },
+      ...init,
+    })
+    if (!res.ok) {
+      let msg = `Request failed (${res.status})`
+      try { msg = (await res.json()).error || msg } catch { /* ignore */ }
+      throw new ApiError(msg, res.status)
+    }
+    return res.json() as Promise<T>
+  } finally {
+    endLoad()
   }
-  return res.json() as Promise<T>
 }
 
 export class ApiError extends Error {
